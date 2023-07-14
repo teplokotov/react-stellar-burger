@@ -1,4 +1,4 @@
-import BurgerIngredientsStyles from './burger-ingredients.module.css';
+import burgerIngredientsStyles from './burger-ingredients.module.css';
 
 function BurgerIngredients() {
   return (

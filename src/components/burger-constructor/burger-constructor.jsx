@@ -1,4 +1,4 @@
-import BurgerConstructorStyles from './burger-constructor.module.css';
+import burgerConstructorStyles from './burger-constructor.module.css';
 
 function BurgerConstructor() {
   return (
