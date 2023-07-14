@@ -209,4 +209,10 @@ export const data = [
      "image_large":"https://code.s3.yandex.net/react/code/bun-01-large.png",
      "__v":0
   }
-]
+];
+
+export const ingredientsTypes = {
+  'bun': 'Булки',
+  'sauce': 'Соусы',
+  'main': 'Начинки',
+};

@@ -1,0 +1,16 @@
+.tabs {
+  display: flex;
+}
+
+.leftSection {
+  max-width: 600px;
+}
+
+.area {
+  max-height: calc(100vh - 284px);
+  overflow-y: scroll;
+}
+
+.area::-webkit-scrollbar-track {
+  margin-bottom: 52px;
+}

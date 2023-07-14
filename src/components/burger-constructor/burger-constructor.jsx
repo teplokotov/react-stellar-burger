@@ -1,8 +1,9 @@
+import React from 'react';
 import burgerConstructorStyles from './burger-constructor.module.css';
 
 function BurgerConstructor() {
   return (
-    <div>BurgerConstructor</div>
+    <>BurgerConstructor</>
   );
 }
 
