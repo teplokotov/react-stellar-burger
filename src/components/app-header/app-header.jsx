@@ -10,8 +10,7 @@ function AppHeader() {
             <Button htmlType="button"
                     type="secondary"
                     size="medium"
-                    style={{color:'#F2F2F3'}}
-                    extraClass={`${appHeaderStyles.button} pr-5 pl-5`}>
+                    extraClass={`${appHeaderStyles.button} text_color_primary pr-5 pl-5`}>
               <BurgerIcon type="primary" />Конструктор
             </Button>
           </li>
@@ -19,8 +18,7 @@ function AppHeader() {
             <Button htmlType="button"
                     type="secondary"
                     size="medium"
-                    style={{color:'#8585AD'}}
-                    extraClass={`${appHeaderStyles.button} pr-5 pl-5`}>
+                    extraClass={`${appHeaderStyles.button} text_color_inactive pr-5 pl-5`}>
               <ListIcon type="secondary" />Лента заказов
             </Button>
           </li>
@@ -31,8 +29,7 @@ function AppHeader() {
         <Button htmlType="button"
                 type="secondary"
                 size="medium"
-                style={{color:'#8585AD'}}
-                extraClass={`${appHeaderStyles.rightside} ${appHeaderStyles.button} pr-5 pl-5`}>
+                extraClass={`${appHeaderStyles.rightside} ${appHeaderStyles.button} text_color_inactive pr-5 pl-5`}>
           <ProfileIcon type="secondary" />Личный кабинет
         </Button>
       </nav>
