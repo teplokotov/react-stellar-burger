@@ -8,6 +8,10 @@ function BurgerIngredients({ ingredients, ingredientsTypes }) {
   // Initial state of tabs (Set first tab as active)
   const [current, setCurrent] = React.useState(Object.values(ingredientsTypes)[0]);
 
+  function scrollToHeading(id) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section className={`${burgerIngredientsStyles.leftSection} ml-5`}>
       <h1 className="text text_type_main-large pt-10">Соберите бургер</h1>
@@ -21,7 +25,7 @@ function BurgerIngredients({ ingredients, ingredientsTypes }) {
               <Tab key = {index}
                    value = {ingredientsType}
                    active = {current === ingredientsType}
-                   onClick = {setCurrent}>{ingredientsType}
+                   onClick = {() => [scrollToHeading(key), setCurrent(ingredientsType)]}>{ingredientsType}
               </Tab>
             );
           })
