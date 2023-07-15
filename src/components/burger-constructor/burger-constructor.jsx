@@ -10,6 +10,15 @@ BurgerConstructor.propTypes = {
 };
 
 function BurgerConstructor({ ingredients }) {
+  const fillings = [
+                    '60666c42cc7b410027a1a9b9',
+                    '60666c42cc7b410027a1a9b4',
+                    '60666c42cc7b410027a1a9bc',
+                    '60666c42cc7b410027a1a9bb',
+                    '60666c42cc7b410027a1a9bb',
+                    '60666c42cc7b410027a1a9bf',
+                    '60666c42cc7b410027a1a9bf'
+                   ];
   return (
     <section className={`${burgerConstructorStyles.rightSection} pt-25 pl-4 pr-4`} aria-label='Оформление заказа'>
       <section aria-label='Cостав заказа'>
@@ -19,13 +28,11 @@ function BurgerConstructor({ ingredients }) {
 
         {/* Fillings */}
         <ul className={`${burgerConstructorStyles.fillings} mt-4 mb-4 custom-scroll`}>
-          <ElementFilling ingredients={ingredients} id="60666c42cc7b410027a1a9b9"/>
-          <ElementFilling ingredients={ingredients} id="60666c42cc7b410027a1a9b4"/>
-          <ElementFilling ingredients={ingredients} id="60666c42cc7b410027a1a9bc"/>
-          <ElementFilling ingredients={ingredients} id="60666c42cc7b410027a1a9bb"/>
-          <ElementFilling ingredients={ingredients} id="60666c42cc7b410027a1a9bb"/>
-          <ElementFilling ingredients={ingredients} id="60666c42cc7b410027a1a9bf"/>
-          <ElementFilling ingredients={ingredients} id="60666c42cc7b410027a1a9bf"/>
+          {
+            fillings.map((filling, index) => (
+              <ElementFilling key={index} ingredients={ingredients} id={filling}/>
+            ))
+          }
         </ul>
 
         {/* Bottom bun */}
