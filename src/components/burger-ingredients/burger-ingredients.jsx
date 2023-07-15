@@ -9,7 +9,7 @@ function BurgerIngredients({ ingredients, ingredientsTypes }) {
   const [current, setCurrent] = React.useState(Object.values(ingredientsTypes)[0]);
 
   return (
-    <section className={burgerIngredientsStyles.leftSection}>
+    <section className={`${burgerIngredientsStyles.leftSection} ml-5`}>
       <h1 className="text text_type_main-large pt-10">Соберите бургер</h1>
 
       {/* Tabs */}
