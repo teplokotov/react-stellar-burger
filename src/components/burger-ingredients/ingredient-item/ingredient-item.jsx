@@ -8,7 +8,7 @@ IngredientItem.propTypes = {
 
 function IngredientItem({ ingredient }) {
   return (
-    <li key={ingredient._id} className={ingredientItemStyles.item}>
+    <li className={ingredientItemStyles.item}>
       <Counter extraClass={ingredientItemStyles.hide} count={1} size="default" />
       <img className="pl-4 pr-4" src={ingredient.image} alt={ingredient.name} />
       <p className={`${ingredientItemStyles.price} text text_type_digits-default`}>
