@@ -11,7 +11,7 @@ function App() {
       <AppHeader />
       <main className={styles.main}>
         <BurgerIngredients ingredients={data} ingredientsTypes={ingredientsTypes} />
-        <BurgerConstructor />
+        <BurgerConstructor ingredients={data} />
       </main>
     </div>
   );
