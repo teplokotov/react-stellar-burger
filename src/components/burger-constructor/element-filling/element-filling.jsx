@@ -4,11 +4,15 @@ import { getProp } from '../../../utils/utils'
 
 function ElementFilling({ ingredients, id }) {
   return (
-    <ConstructorElement extraClass={`${elementFillingStyles.filling} ml-8`}
-      text={getProp(ingredients, id, 'name')}
-      price={getProp(ingredients, id, 'price')}
-      thumbnail={getProp(ingredients, id, 'image')}
-    />
+    <>
+      <li className={`${elementFillingStyles.filling}`}>
+        <ConstructorElement
+          text={getProp(ingredients, id, 'name')}
+          price={getProp(ingredients, id, 'price')}
+          thumbnail={getProp(ingredients, id, 'image')}
+        />
+      </li>
+    </>
   );
 }
 

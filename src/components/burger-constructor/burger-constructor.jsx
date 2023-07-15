@@ -13,27 +13,13 @@ function BurgerConstructor({ ingredients }) {
 
         {/* Fillings */}
         <ul className={`${burgerConstructorStyles.fillings} mt-4 mb-4 custom-scroll`}>
-          <li>
-            <ElementFilling ingredients={ingredients} id="60666c42cc7b410027a1a9b9"/>
-          </li>
-          <li>
-            <ElementFilling ingredients={ingredients} id="60666c42cc7b410027a1a9b4"/>
-          </li>
-          <li>
-            <ElementFilling ingredients={ingredients} id="60666c42cc7b410027a1a9bc"/>
-          </li>
-          <li>
-            <ElementFilling ingredients={ingredients} id="60666c42cc7b410027a1a9bb"/>
-          </li>
-          <li>
-            <ElementFilling ingredients={ingredients} id="60666c42cc7b410027a1a9bb"/>
-          </li>
-          <li>
-            <ElementFilling ingredients={ingredients} id="60666c42cc7b410027a1a9bf"/>
-          </li>
-          <li>
-            <ElementFilling ingredients={ingredients} id="60666c42cc7b410027a1a9bf"/>
-          </li>
+          <ElementFilling ingredients={ingredients} id="60666c42cc7b410027a1a9b9"/>
+          <ElementFilling ingredients={ingredients} id="60666c42cc7b410027a1a9b4"/>
+          <ElementFilling ingredients={ingredients} id="60666c42cc7b410027a1a9bc"/>
+          <ElementFilling ingredients={ingredients} id="60666c42cc7b410027a1a9bb"/>
+          <ElementFilling ingredients={ingredients} id="60666c42cc7b410027a1a9bb"/>
+          <ElementFilling ingredients={ingredients} id="60666c42cc7b410027a1a9bf"/>
+          <ElementFilling ingredients={ingredients} id="60666c42cc7b410027a1a9bf"/>
         </ul>
 
         {/* Bottom bun */}
