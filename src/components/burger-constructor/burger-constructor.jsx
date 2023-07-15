@@ -2,6 +2,12 @@ import burgerConstructorStyles from './burger-constructor.module.css';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import ElementBun from './element-bun/element-bun';
 import ElementFilling from './element-filling/element-filling';
+import { ingredientPropType } from '../../utils/prop-types';
+import PropTypes from "prop-types";
+
+BurgerConstructor.propTypes = {
+  ingredients: PropTypes.arrayOf(ingredientPropType).isRequired,
+};
 
 function BurgerConstructor({ ingredients }) {
   return (

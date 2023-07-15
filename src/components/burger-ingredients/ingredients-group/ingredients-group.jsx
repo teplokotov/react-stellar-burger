@@ -1,5 +1,13 @@
 import ingredientsGroupStyles from './ingredients-group.module.css';
 import IngredientItem from '../ingredient-item/ingredient-item';
+import { ingredientPropType } from '../../../utils/prop-types';
+import PropTypes from "prop-types";
+
+IngredientsGroup.propTypes = {
+  groupId: PropTypes.string.isRequired,
+  groupName: PropTypes.string.isRequired,
+  group: PropTypes.arrayOf(ingredientPropType).isRequired,
+};
 
 function IngredientsGroup({ groupId, groupName, group }) {
   return (

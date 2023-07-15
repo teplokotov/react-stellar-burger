@@ -1,5 +1,13 @@
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getProp } from '../../../utils/utils'
+import { ingredientPropType } from '../../../utils/prop-types';
+import PropTypes from "prop-types";
+
+ElementBun.propTypes = {
+  ingredients: PropTypes.arrayOf(ingredientPropType).isRequired,
+  id: PropTypes.string.isRequired,
+  position: PropTypes.string.isRequired,
+};
 
 function ElementBun({ ingredients, id, position }) {
   return (

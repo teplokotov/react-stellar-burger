@@ -2,6 +2,13 @@ import React from 'react';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsGroup from '../burger-ingredients/ingredients-group/ingredients-group';
+import { ingredientPropType, ingredientsPropType } from '../../utils/prop-types';
+import PropTypes from "prop-types";
+
+BurgerIngredients.propTypes = {
+  ingredients: PropTypes.arrayOf(ingredientPropType).isRequired,
+  ingredientsTypes: ingredientsPropType.isRequired
+};
 
 function BurgerIngredients({ ingredients, ingredientsTypes }) {
 
