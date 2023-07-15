@@ -11,15 +11,13 @@ ElementFilling.propTypes = {
 
 function ElementFilling({ ingredients, id }) {
   return (
-    <>
-      <li className={`${elementFillingStyles.filling}`}>
-        <ConstructorElement
-          text={getProp(ingredients, id, 'name')}
-          price={getProp(ingredients, id, 'price')}
-          thumbnail={getProp(ingredients, id, 'image')}
-        />
-      </li>
-    </>
+    <li className={`${elementFillingStyles.filling}`}>
+      <ConstructorElement
+        text={getProp(ingredients, id, 'name')}
+        price={getProp(ingredients, id, 'price')}
+        thumbnail={getProp(ingredients, id, 'image')}
+      />
+    </li>
   );
 }
 
