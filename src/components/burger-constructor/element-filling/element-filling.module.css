@@ -1,0 +1,11 @@
+.filling {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filling::before {
+  content: url('../../../images/icon-dots.svg');
+  width: 24px;
+  height: 24px;
+}

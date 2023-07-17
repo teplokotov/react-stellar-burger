@@ -1,0 +1,25 @@
+.rightSection {
+  max-width: 600px;
+}
+
+.fillings {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: calc(100vh - 532px);
+  overflow-y: auto;
+}
+
+.result {
+  display: flex;
+  gap: 40px;
+  justify-content: flex-end;
+}
+
+.total {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}

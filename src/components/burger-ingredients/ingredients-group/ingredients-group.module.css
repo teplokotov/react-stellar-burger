@@ -1,0 +1,7 @@
+.group {
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 36px 24px;
+}
