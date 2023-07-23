@@ -11,20 +11,20 @@ BurgerConstructor.propTypes = {
 
 function BurgerConstructor({ ingredients }) {
   const fillings = [
-                    '60666c42cc7b410027a1a9b9',
-                    '60666c42cc7b410027a1a9b4',
-                    '60666c42cc7b410027a1a9bc',
-                    '60666c42cc7b410027a1a9bb',
-                    '60666c42cc7b410027a1a9bb',
-                    '60666c42cc7b410027a1a9bf',
-                    '60666c42cc7b410027a1a9bf'
+                    '643d69a5c3f7b9001cfa0944',
+                    '643d69a5c3f7b9001cfa093f',
+                    '643d69a5c3f7b9001cfa0947',
+                    '643d69a5c3f7b9001cfa0946',
+                    '643d69a5c3f7b9001cfa0946',
+                    '643d69a5c3f7b9001cfa094a',
+                    '643d69a5c3f7b9001cfa094a'
                    ];
   return (
     <section className={`${burgerConstructorStyles.rightSection} pt-25 pl-4 pr-4`} aria-label='Оформление заказа'>
       <section aria-label='Cостав заказа'>
 
         {/* Top bun */}
-        <ElementBun ingredients={ingredients} id="60666c42cc7b410027a1a9b1" position="top"/>
+        <ElementBun ingredients={ingredients} id="643d69a5c3f7b9001cfa093c" position="top"/>
 
         {/* Fillings */}
         <ul className={`${burgerConstructorStyles.fillings} mt-4 mb-4 custom-scroll`}>
@@ -36,7 +36,7 @@ function BurgerConstructor({ ingredients }) {
         </ul>
 
         {/* Bottom bun */}
-        <ElementBun ingredients={ingredients} id="60666c42cc7b410027a1a9b1" position="bottom"/>
+        <ElementBun ingredients={ingredients} id="643d69a5c3f7b9001cfa093c" position="bottom"/>
 
       </section>
 

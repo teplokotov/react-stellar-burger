@@ -12,3 +12,9 @@
   justify-content: center;
   gap: 40px;
 }
+
+.loadingMessage {
+  display: flex;
+  align-items: center;
+  height: calc(100vh - 88px);
+}
