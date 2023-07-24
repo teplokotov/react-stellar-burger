@@ -6,6 +6,8 @@ import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import Modal from '../modal/modal';
+import OrderDetails from '../order-details/order-details';
+import IngredientDetails from '../ingredient-details/ingredient-details';
 
 function App() {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -58,7 +60,8 @@ function App() {
         <Modal onClose={() => setShowModal(false)}
                isHidden={!showModal}
                heading={typeOfModal === 'ingredient' && 'Детали ингредиента'}>
-              Test
+              {typeOfModal === 'ingredient' && <IngredientDetails/>}
+              {typeOfModal === 'order' && <OrderDetails/>}
         </ Modal>
       }
     </div>
