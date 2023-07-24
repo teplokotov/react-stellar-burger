@@ -5,11 +5,14 @@ import { url, ingredientsTypes } from '../../utils/constants';
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
+import Modal from '../modal/modal';
 
 function App() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [hasError, setHasError] = React.useState(false);
   const [data, setData] = React.useState([]);
+  const [showModal, setShowModal] = React.useState(false);
+  const [typeOfModal, setTypeOfModal] = React.useState();
 
   React.useEffect(() => {
     const loadData = () => {
@@ -42,12 +45,22 @@ function App() {
           !isLoading && !hasError && data.length &&
             (
               <>
-                <BurgerIngredients ingredients={data} ingredientsTypes={ingredientsTypes} />
-                <BurgerConstructor ingredients={data} />
+                <BurgerIngredients ingredients={data}
+                                   ingredientsTypes={ingredientsTypes}
+                                   onClick={() => [setShowModal(true), setTypeOfModal('ingredient')]}/>
+                <BurgerConstructor ingredients={data}
+                                   onClick={() => [setShowModal(true), setTypeOfModal('order')]} />
               </>
             )
         }
       </main>
+      {
+        <Modal onClose={() => setShowModal(false)}
+               isHidden={!showModal}
+               heading={typeOfModal === 'ingredient' && 'Детали ингредиента'}>
+              Test
+        </ Modal>
+      }
     </div>
   );
 }

@@ -9,7 +9,7 @@ BurgerConstructor.propTypes = {
   ingredients: PropTypes.arrayOf(ingredientPropType).isRequired,
 };
 
-function BurgerConstructor({ ingredients }) {
+function BurgerConstructor({ ingredients, onClick }) {
   const fillings = [
                     '643d69a5c3f7b9001cfa0944',
                     '643d69a5c3f7b9001cfa093f',
@@ -45,7 +45,7 @@ function BurgerConstructor({ ingredients }) {
         <p className={`${burgerConstructorStyles.total} text text_type_digits-medium`}>
           610<CurrencyIcon type="primary" />
         </p>
-        <Button htmlType="button" type="primary" size="large">
+        <Button htmlType="button" type="primary" size="large" onClick={onClick}>
           Оформить заказ
         </Button>
       </section>
