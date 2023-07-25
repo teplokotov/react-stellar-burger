@@ -7,7 +7,9 @@ import PropTypes from "prop-types";
 
 BurgerIngredients.propTypes = {
   ingredients: PropTypes.arrayOf(ingredientPropType).isRequired,
-  ingredientsTypes: ingredientsPropType.isRequired
+  ingredientsTypes: ingredientsPropType.isRequired,
+  onClick: PropTypes.func.isRequired,
+  setCurrentId: PropTypes.func.isRequired,
 };
 
 function BurgerIngredients({ ingredients, ingredientsTypes, onClick, setCurrentId }) {

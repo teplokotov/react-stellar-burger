@@ -7,6 +7,8 @@ IngredientsGroup.propTypes = {
   groupId: PropTypes.string.isRequired,
   groupName: PropTypes.string.isRequired,
   group: PropTypes.arrayOf(ingredientPropType).isRequired,
+  onClick: PropTypes.func.isRequired,
+  setCurrentId: PropTypes.func.isRequired,
 };
 
 function IngredientsGroup({ groupId, groupName, group, onClick, setCurrentId }) {

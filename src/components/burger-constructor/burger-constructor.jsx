@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 
 BurgerConstructor.propTypes = {
   ingredients: PropTypes.arrayOf(ingredientPropType).isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 function BurgerConstructor({ ingredients, onClick }) {

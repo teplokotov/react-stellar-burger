@@ -1,5 +1,12 @@
 import ingredientDetailsStyles from './ingredient-details.module.css';
-import { getProp } from '../../utils/utils'
+import { getProp } from '../../utils/utils';
+import { ingredientPropType } from '../../utils/prop-types';
+import PropTypes from "prop-types";
+
+IngredientDetails.propTypes = {
+  ingredients: PropTypes.arrayOf(ingredientPropType).isRequired,
+  currentId: PropTypes.string.isRequired,
+};
 
 function IngredientDetails({ ingredients, currentId }) {
   return (

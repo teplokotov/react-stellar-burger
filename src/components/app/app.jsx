@@ -61,7 +61,7 @@ function App() {
       {
         <Modal onClose={() => setShowModal(false)}
                isHidden={!showModal}
-               heading={typeOfModal === 'ingredient' && 'Детали ингредиента'}>
+               heading={typeOfModal === 'ingredient' ? 'Детали ингредиента' : ''}>
               {typeOfModal === 'ingredient' && <IngredientDetails ingredients={data} currentId={currentId}/>}
               {typeOfModal === 'order' && <OrderDetails/>}
         </ Modal>

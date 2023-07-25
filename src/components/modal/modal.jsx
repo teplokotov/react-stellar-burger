@@ -3,8 +3,16 @@ import { createPortal } from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import modalStyles from './modal.module.css';
 import ModalOverlay from '../modal-overlay/modal-overlay'
+import PropTypes from "prop-types";
 
-function Modal({ children, onClose, isHidden, heading='' }) {
+Modal.propTypes = {
+  children: PropTypes.node.isRequired,
+  onClose: PropTypes.func.isRequired,
+  isHidden: PropTypes.bool.isRequired,
+  heading: PropTypes.string.isRequired,
+};
+
+function Modal({ children, onClose, isHidden, heading }) {
 
   // Closing Modal window by pressing ESC
   React.useEffect(() => {
