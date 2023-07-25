@@ -8,7 +8,7 @@ function OrderDetails() {
       <p className={`${orderDetailsStyles.description} text text_type_main-medium pt-8`}>идентификатор заказа</p>
       <img className="pt-15 pb-15" src={imgDone} alt="Готово" />
       <p className={`${orderDetailsStyles.status} text text_type_main-default`}>Ваш заказ начали готовить</p>
-      <p className={`${orderDetailsStyles.waitingArea} text text_type_main-default pt-2`}>Дождитесь готовности на орбитальной станции</p>
+      <p className={`${orderDetailsStyles.waitingArea} text text_type_main-default text_color_inactive pt-2`}>Дождитесь готовности на орбитальной станции</p>
     </section>
   );
 }

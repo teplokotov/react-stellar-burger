@@ -10,7 +10,7 @@ BurgerIngredients.propTypes = {
   ingredientsTypes: ingredientsPropType.isRequired
 };
 
-function BurgerIngredients({ ingredients, ingredientsTypes, onClick }) {
+function BurgerIngredients({ ingredients, ingredientsTypes, onClick, setCurrentId }) {
 
   // Initial state of tabs (Set first tab as active)
   const [current, setCurrent] = React.useState(Object.values(ingredientsTypes)[0]);
@@ -50,7 +50,8 @@ function BurgerIngredients({ ingredients, ingredientsTypes, onClick }) {
                                 groupId = {key}
                                 groupName = {ingredientsType}
                                 group = {group}
-                                onClick = {onClick}/>
+                                onClick = {onClick}
+                                setCurrentId={setCurrentId}/>
             );
           })
         }

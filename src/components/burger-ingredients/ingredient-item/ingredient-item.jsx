@@ -6,9 +6,15 @@ IngredientItem.propTypes = {
   ingredient: ingredientPropType.isRequired,
 };
 
-function IngredientItem({ ingredient, onClick }) {
+function IngredientItem({ ingredient, onClick, setCurrentId }) {
+
+  function handleOnClick() {
+    onClick();
+    setCurrentId(ingredient._id);
+  }
+
   return (
-    <li className={ingredientItemStyles.item} onClick={onClick}>
+    <li className={ingredientItemStyles.item} onClick={handleOnClick}>
       <Counter extraClass={ingredientItemStyles.hide} count={1} size="default" />
       <img className="pl-4 pr-4" src={ingredient.image} alt={ingredient.name} />
       <p className={`${ingredientItemStyles.price} text text_type_digits-default`}>

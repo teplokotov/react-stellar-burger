@@ -15,6 +15,7 @@ function App() {
   const [data, setData] = React.useState([]);
   const [showModal, setShowModal] = React.useState(false);
   const [typeOfModal, setTypeOfModal] = React.useState();
+  const [currentId, setCurrentId] = React.useState();
 
   React.useEffect(() => {
     const loadData = () => {
@@ -49,7 +50,8 @@ function App() {
               <>
                 <BurgerIngredients ingredients={data}
                                    ingredientsTypes={ingredientsTypes}
-                                   onClick={() => [setShowModal(true), setTypeOfModal('ingredient')]}/>
+                                   onClick={() => [setShowModal(true), setTypeOfModal('ingredient')]}
+                                   setCurrentId={setCurrentId}/>
                 <BurgerConstructor ingredients={data}
                                    onClick={() => [setShowModal(true), setTypeOfModal('order')]} />
               </>
@@ -60,7 +62,7 @@ function App() {
         <Modal onClose={() => setShowModal(false)}
                isHidden={!showModal}
                heading={typeOfModal === 'ingredient' && 'Детали ингредиента'}>
-              {typeOfModal === 'ingredient' && <IngredientDetails/>}
+              {typeOfModal === 'ingredient' && <IngredientDetails ingredients={data} currentId={currentId}/>}
               {typeOfModal === 'order' && <OrderDetails/>}
         </ Modal>
       }
