@@ -28,7 +28,7 @@ function Modal({ children, onClose, isHidden, heading }) {
 
   return createPortal(
     <>
-      <ModalOverlay isHidden={isHidden}/>
+      <ModalOverlay isHidden={isHidden} onClose={onClose} />
       <div className={`${modalStyles.modal} pt-10 pr-10 pb-15 pl-10 ${!isHidden && modalStyles.show}`}>
         <section className={modalStyles.header}>
           <h3 className={`${modalStyles.heading} text text_type_main-large pr-10`}>{heading}</h3>
