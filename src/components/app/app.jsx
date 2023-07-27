@@ -22,7 +22,10 @@ function App() {
       setHasError(false);
       setIsLoading(true);
       fetch(url)
-        .then(res => res.json())
+        .then(res => {
+          if (res.ok) return res.json();
+          return Promise.reject(`Ошибка ${res.status}`);
+        })
         .then(data => {
           setData(data.data);
           setIsLoading(false);
