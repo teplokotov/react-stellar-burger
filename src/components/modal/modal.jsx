@@ -21,7 +21,7 @@ function Modal({ children, onClose, isHidden, heading }) {
     };
     document.addEventListener('keydown', pressEsc);
     return () => {
-      document.addEventListener('keydown', pressEsc);
+      document.removeEventListener('keydown', pressEsc);
     };
   }, [onClose]);
 
