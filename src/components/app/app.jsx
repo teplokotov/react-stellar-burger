@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './app.module.css';
 import { url, ingredientsTypes } from '../../utils/constants';
+import { getIngredient } from '../../utils/utils';
 
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
@@ -64,7 +65,7 @@ function App() {
         <Modal onClose={() => setShowModal(false)}
                isHidden={!showModal}
                heading={typeOfModal === 'ingredient' ? 'Детали ингредиента' : ''}>
-              {typeOfModal === 'ingredient' && <IngredientDetails ingredients={data} currentId={currentId}/>}
+              {typeOfModal === 'ingredient' && <IngredientDetails ingredient={getIngredient(data, currentId)}/>}
               {typeOfModal === 'order' && <OrderDetails/>}
         </ Modal>
       }
