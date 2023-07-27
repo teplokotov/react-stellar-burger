@@ -28,13 +28,12 @@ function App() {
         })
         .then(data => {
           setData(data.data);
-          setIsLoading(false);
         })
         .catch(err => {
           setHasError(true);
-          setIsLoading(false);
           console.log(err);
-        });
+        })
+        .finally(() => setIsLoading(false));
     };
     loadData();
   }, []);
