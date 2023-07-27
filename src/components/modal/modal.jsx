@@ -16,6 +16,7 @@ function Modal({ children, onClose, isHidden, heading }) {
 
   // Closing Modal window by pressing ESC
   React.useEffect(() => {
+    if (isHidden) return; // When the popup is closed, it stops the effect (so as not to add a handler)
     function pressEsc(e) {
       if(e.key === 'Escape') onClose();
     };
@@ -23,7 +24,7 @@ function Modal({ children, onClose, isHidden, heading }) {
     return () => {
       document.removeEventListener('keydown', pressEsc);
     };
-  }, [onClose]);
+  }, [onClose, isHidden]);
 
   return createPortal(
     <>
