@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './app.module.css';
 import { url, ingredientsTypes } from '../../utils/constants';
 import { getIngredient } from '../../utils/utils';
+import { IngredientsContext } from '../../services/appContext';
 
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
@@ -17,6 +18,19 @@ function App() {
   const [showModal, setShowModal] = React.useState(false);
   const [typeOfModal, setTypeOfModal] = React.useState();
   const [currentId, setCurrentId] = React.useState();
+  const [cart, setCart] = React.useState({
+    bun: null,
+    // fillings: [
+    //   '643d69a5c3f7b9001cfa0944',
+    //   '643d69a5c3f7b9001cfa093f',
+    //   '643d69a5c3f7b9001cfa0947',
+    //   '643d69a5c3f7b9001cfa0946',
+    //   '643d69a5c3f7b9001cfa0946',
+    //   '643d69a5c3f7b9001cfa094a',
+    //   '643d69a5c3f7b9001cfa094a'
+    //  ],
+    fillings: []
+  });
 
   React.useEffect(() => {
     const loadData = () => {
@@ -43,23 +57,32 @@ function App() {
     <div className={styles.app}>
       <AppHeader />
       <main className={styles.main}>
-        <p className={`${styles.loadingMessage} text text_type_main-medium`}>
-          {isLoading && 'Загрузка...'}
-          {hasError && 'Произошла ошибка'}
-        </p>
+
+        {/* Loading or error messages */}
+        {
+          (isLoading || hasError) && (
+            <p className={`${styles.loadingMessage} text text_type_main-medium`}>
+              {isLoading && 'Загрузка...'}
+              {hasError && 'Произошла ошибка'}
+            </p>
+          )
+        }
+
+        {/* Main block */}
         {
           !isLoading && !hasError && data.length &&
             (
               <>
-                <BurgerIngredients ingredients={data}
-                                   ingredientsTypes={ingredientsTypes}
-                                   onClick={() => [setShowModal(true), setTypeOfModal('ingredient')]}
-                                   setCurrentId={setCurrentId}/>
-                <BurgerConstructor ingredients={data}
-                                   onClick={() => [setShowModal(true), setTypeOfModal('order')]} />
+                <IngredientsContext.Provider value={{data, cart, setCart}}>
+                  <BurgerIngredients ingredientsTypes={ingredientsTypes}
+                                     onClick={() => [setShowModal(true), setTypeOfModal('ingredient')]}
+                                     setCurrentId={setCurrentId}/>
+                  <BurgerConstructor onClick={() => [setShowModal(true), setTypeOfModal('order')]} />
+                </IngredientsContext.Provider>
               </>
             )
         }
+
       </main>
       {
         <Modal onClose={() => setShowModal(false)}

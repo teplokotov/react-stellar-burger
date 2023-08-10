@@ -11,7 +11,7 @@ ElementFilling.propTypes = {
 
 function ElementFilling({ ingredients, id }) {
   return (
-    <li className={`${elementFillingStyles.filling}`}>
+    <li className={`${elementFillingStyles.filling} pr-1`}>
       <ConstructorElement
         text={getProp(ingredients, id, 'name')}
         price={getProp(ingredients, id, 'price')}
