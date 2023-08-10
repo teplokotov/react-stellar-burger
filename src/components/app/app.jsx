@@ -11,6 +11,21 @@ import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 
+const totalPriceInitialState = { total: 0 };
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'add':
+      return { total: state.total + action.payload };
+    case 'remove':
+      return { total: state.total - action.payload };
+    case 'clearAll':
+      return totalPriceInitialState;
+    default:
+      throw new Error(`Wrong type of action: ${action.type}`);
+  }
+}
+
 function App() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [hasError, setHasError] = React.useState(false);
@@ -18,19 +33,8 @@ function App() {
   const [showModal, setShowModal] = React.useState(false);
   const [typeOfModal, setTypeOfModal] = React.useState();
   const [currentId, setCurrentId] = React.useState();
-  const [cart, setCart] = React.useState({
-    bun: null,
-    // fillings: [
-    //   '643d69a5c3f7b9001cfa0944',
-    //   '643d69a5c3f7b9001cfa093f',
-    //   '643d69a5c3f7b9001cfa0947',
-    //   '643d69a5c3f7b9001cfa0946',
-    //   '643d69a5c3f7b9001cfa0946',
-    //   '643d69a5c3f7b9001cfa094a',
-    //   '643d69a5c3f7b9001cfa094a'
-    //  ],
-    fillings: []
-  });
+  const [cart, setCart] = React.useState({ bun: null, fillings: [] });
+  const [totalPriceState, totalPriceDispatcher] = React.useReducer(reducer, totalPriceInitialState);
 
   React.useEffect(() => {
     const loadData = () => {
@@ -73,7 +77,7 @@ function App() {
           !isLoading && !hasError && data.length &&
             (
               <>
-                <IngredientsContext.Provider value={{data, cart, setCart, setCurrentId}}>
+                <IngredientsContext.Provider value={{data, cart, setCart, setCurrentId, totalPriceState, totalPriceDispatcher}}>
                   <BurgerIngredients ingredientsTypes={ingredientsTypes}
                                      onClick={() => [setShowModal(true), setTypeOfModal('ingredient')]}/>
                   <BurgerConstructor onClick={() => [setShowModal(true), setTypeOfModal('order')]} />

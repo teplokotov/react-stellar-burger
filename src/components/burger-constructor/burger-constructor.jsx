@@ -12,21 +12,11 @@ BurgerConstructor.propTypes = {
 
 function BurgerConstructor({ onClick }) {
 
-  const {data: ingredients, cart } = React.useContext(IngredientsContext);
+  const {data: ingredients, cart, totalPriceState } = React.useContext(IngredientsContext);
 
   const fillings = cart.fillings;
   const bun = cart.bun;
 
-  //const bun = '643d69a5c3f7b9001cfa093c';
-  // const fillings = [
-  //                   '643d69a5c3f7b9001cfa0944',
-  //                   '643d69a5c3f7b9001cfa093f',
-  //                   '643d69a5c3f7b9001cfa0947',
-  //                   '643d69a5c3f7b9001cfa0946',
-  //                   '643d69a5c3f7b9001cfa0946',
-  //                   '643d69a5c3f7b9001cfa094a',
-  //                   '643d69a5c3f7b9001cfa094a'
-  //                  ];
   return (
     <section className={`${burgerConstructorStyles.rightSection} pt-25`} aria-label='Оформление заказа'>
       <section className={burgerConstructorStyles.orderList} aria-label='Cостав заказа'>
@@ -56,7 +46,7 @@ function BurgerConstructor({ onClick }) {
       {/* Total */}
       <section className={`${burgerConstructorStyles.result} pt-10 mr-4`} aria-label='ИТОГО'>
         <p className={`${burgerConstructorStyles.total} text text_type_digits-medium`}>
-          610<CurrencyIcon type="primary" />
+          {totalPriceState.total}<CurrencyIcon type="primary" />
         </p>
         <Button htmlType="button" type="primary" size="large" onClick={onClick}>
           Оформить заказ

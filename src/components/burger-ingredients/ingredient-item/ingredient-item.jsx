@@ -3,6 +3,7 @@ import ingredientItemStyles from './ingredient-item.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientsContext } from '../../../services/appContext';
 import { ingredientPropType } from '../../../utils/prop-types';
+import { getProp } from '../../../utils/utils';
 import PropTypes from "prop-types";
 
 IngredientItem.propTypes = {
@@ -13,7 +14,7 @@ IngredientItem.propTypes = {
 
 function IngredientItem({ ingredient, onClick }) {
 
-  const {setCurrentId, cart, setCart} = React.useContext(IngredientsContext);
+  const {data: ingredients, setCurrentId, cart, setCart, totalPriceDispatcher} = React.useContext(IngredientsContext);
 
   function addToCart(ingredient){
     if (ingredient.type !== 'bun') {
@@ -32,12 +33,25 @@ function IngredientItem({ ingredient, onClick }) {
     }
   }
 
+  function updateTotal(ingredients, ingredient){
+    if (ingredient.type !== 'bun') {
+      totalPriceDispatcher({ type: 'add', payload: ingredient.price });
+    } else {
+      if (cart.bun !== null) totalPriceDispatcher({
+        type: 'remove',
+        payload: getProp(ingredients, cart.bun, 'price') * 2 // Previus price of bun
+      });
+      totalPriceDispatcher({ type: 'add', payload: ingredient.price * 2 });
+    }
+  }
+
   function handleOnClick() {
     // Temporarily disabled
     //onClick();
 
     setCurrentId(ingredient._id);
     addToCart(ingredient);
+    updateTotal(ingredients, ingredient);
   }
 
   return (

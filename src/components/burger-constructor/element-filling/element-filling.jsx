@@ -14,13 +14,14 @@ ElementFilling.propTypes = {
 
 function ElementFilling({ ingredients, id, index }) {
 
-  const { cart, setCart } = React.useContext(IngredientsContext);
+  const { cart, setCart, totalPriceDispatcher } = React.useContext(IngredientsContext);
 
-  function removeFromCart(index) {
+  function removeFromCart(index, price) {
     setCart({
       bun: cart.bun,
       fillings: [...cart.fillings.slice(0, index), ...cart.fillings.slice(index + 1)],
     });
+    totalPriceDispatcher({ type: 'remove', payload: price });
   }
 
   return (
@@ -29,7 +30,7 @@ function ElementFilling({ ingredients, id, index }) {
         text={getProp(ingredients, id, 'name')}
         price={getProp(ingredients, id, 'price')}
         thumbnail={getProp(ingredients, id, 'image')}
-        handleClose={() => removeFromCart(index)}
+        handleClose={() => removeFromCart(index, getProp(ingredients, id, 'price'))}
       />
     </li>
   );
