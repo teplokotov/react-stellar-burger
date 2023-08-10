@@ -73,10 +73,9 @@ function App() {
           !isLoading && !hasError && data.length &&
             (
               <>
-                <IngredientsContext.Provider value={{data, cart, setCart}}>
+                <IngredientsContext.Provider value={{data, cart, setCart, setCurrentId}}>
                   <BurgerIngredients ingredientsTypes={ingredientsTypes}
-                                     onClick={() => [setShowModal(true), setTypeOfModal('ingredient')]}
-                                     setCurrentId={setCurrentId}/>
+                                     onClick={() => [setShowModal(true), setTypeOfModal('ingredient')]}/>
                   <BurgerConstructor onClick={() => [setShowModal(true), setTypeOfModal('order')]} />
                 </IngredientsContext.Provider>
               </>

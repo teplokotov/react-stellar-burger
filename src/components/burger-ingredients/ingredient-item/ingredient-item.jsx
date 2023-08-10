@@ -1,19 +1,45 @@
+import React from 'react';
 import ingredientItemStyles from './ingredient-item.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { IngredientsContext } from '../../../services/appContext';
 import { ingredientPropType } from '../../../utils/prop-types';
 import PropTypes from "prop-types";
 
 IngredientItem.propTypes = {
   ingredient: ingredientPropType.isRequired,
   onClick: PropTypes.func.isRequired,
-  setCurrentId: PropTypes.func.isRequired,
+  // setCurrentId: PropTypes.func.isRequired,
 };
 
-function IngredientItem({ ingredient, onClick, setCurrentId }) {
+function IngredientItem({ ingredient, onClick }) {
+
+  const {setCurrentId, cart, setCart} = React.useContext(IngredientsContext);
+
+  function addToCart(ingredient){
+    if (ingredient.type !== 'bun') {
+      setCart({
+        bun: cart.bun,
+        fillings: [
+          ...cart.fillings,
+          ingredient._id
+         ],
+      });
+    } else {
+      setCart({
+        bun: ingredient._id,
+        fillings: [...cart.fillings],
+      });
+    }
+  }
 
   function handleOnClick() {
-    onClick();
+    // Temporarily disabled
+    //onClick();
+
     setCurrentId(ingredient._id);
+    addToCart(ingredient);
+
+    console.log(ingredient);
   }
 
   return (

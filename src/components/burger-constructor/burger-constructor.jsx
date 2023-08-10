@@ -12,7 +12,7 @@ BurgerConstructor.propTypes = {
 
 function BurgerConstructor({ onClick }) {
 
-  const {data: ingredients, cart, setCart} = React.useContext(IngredientsContext);
+  const {data: ingredients, cart } = React.useContext(IngredientsContext);
 
   const fillings = cart.fillings;
   const bun = cart.bun;

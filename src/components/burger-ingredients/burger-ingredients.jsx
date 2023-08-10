@@ -9,10 +9,10 @@ import PropTypes from "prop-types";
 BurgerIngredients.propTypes = {
   ingredientsTypes: ingredientsPropType.isRequired,
   onClick: PropTypes.func.isRequired,
-  setCurrentId: PropTypes.func.isRequired,
+  // setCurrentId: PropTypes.func.isRequired,
 };
 
-function BurgerIngredients({ ingredientsTypes, onClick, setCurrentId }) {
+function BurgerIngredients({ ingredientsTypes, onClick }) {
 
   const {data: ingredients} = React.useContext(IngredientsContext);
 
@@ -54,8 +54,7 @@ function BurgerIngredients({ ingredientsTypes, onClick, setCurrentId }) {
                                 groupId = {key}
                                 groupName = {ingredientsType}
                                 group = {group}
-                                onClick = {onClick}
-                                setCurrentId={setCurrentId}/>
+                                onClick = {onClick}/>
             );
           })
         }

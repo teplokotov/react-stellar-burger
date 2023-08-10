@@ -9,8 +9,9 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  max-height: calc(100vh - 532px);
+  height: calc(100vh - 528px);
   overflow-y: auto;
+  width: calc(100% - 16px);
 }
 
 .infoBlock {
