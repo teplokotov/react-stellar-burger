@@ -41,7 +41,7 @@ function BurgerConstructor({ onClick }) {
             <ul className={`${burgerConstructorStyles.fillings} mt-4 mb-4 custom-scroll`}>
               {
                 fillings.map((filling, index) => (
-                  <ElementFilling key={index} ingredients={ingredients} id={filling}/>
+                  <ElementFilling key={index} ingredients={ingredients} id={filling} index={index}/>
                 ))
               }
             </ul>

@@ -38,8 +38,6 @@ function IngredientItem({ ingredient, onClick }) {
 
     setCurrentId(ingredient._id);
     addToCart(ingredient);
-
-    console.log(ingredient);
   }
 
   return (
