@@ -1,8 +1,9 @@
 import React from 'react';
 import styles from './app.module.css';
-import { url, ingredientsTypes } from '../../utils/constants';
+import { APIconfig, ingredientsTypes } from '../../utils/constants';
 import { getIngredient } from '../../utils/utils';
 import { IngredientsContext } from '../../services/appContext';
+import { getIngredientsFromServer } from '../../utils/api';
 
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
@@ -40,14 +41,8 @@ function App() {
     const loadData = () => {
       setHasError(false);
       setIsLoading(true);
-      fetch(url)
-        .then(res => {
-          if (res.ok) return res.json();
-          return Promise.reject(`Ошибка ${res.status}`);
-        })
-        .then(data => {
-          setData(data.data);
-        })
+      getIngredientsFromServer(APIconfig)
+        .then(data => setData(data.data))
         .catch(err => {
           setHasError(true);
           console.log(err);
