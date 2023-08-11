@@ -9,7 +9,6 @@ import PropTypes from "prop-types";
 BurgerIngredients.propTypes = {
   ingredientsTypes: ingredientsPropType.isRequired,
   onClick: PropTypes.func.isRequired,
-  // setCurrentId: PropTypes.func.isRequired,
 };
 
 function BurgerIngredients({ ingredientsTypes, onClick }) {

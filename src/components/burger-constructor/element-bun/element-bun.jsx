@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 
 ElementBun.propTypes = {
   ingredients: PropTypes.arrayOf(ingredientPropType).isRequired,
-  // id: PropTypes.string.isRequired,
   position: PropTypes.string.isRequired,
 };
 
