@@ -4,6 +4,7 @@ import { APIconfig, ingredientsTypes } from '../../utils/constants';
 import { getIngredient } from '../../utils/utils';
 import { IngredientsContext } from '../../services/appContext';
 import { getIngredientsFromServer } from '../../utils/api';
+import { OrderContext } from '../../services/orderContext';
 
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
@@ -36,6 +37,7 @@ function App() {
   const [currentId, setCurrentId] = React.useState();
   const [cart, setCart] = React.useState({ bun: null, fillings: [] });
   const [totalPriceState, totalPriceDispatcher] = React.useReducer(reducer, totalPriceInitialState);
+  const [numOfOrder, setNumOfOrder] = React.useState();
 
   React.useEffect(() => {
     const loadData = () => {
@@ -75,7 +77,9 @@ function App() {
                 <IngredientsContext.Provider value={{data, cart, setCart, setCurrentId, totalPriceState, totalPriceDispatcher}}>
                   <BurgerIngredients ingredientsTypes={ingredientsTypes}
                                      onClick={() => [setShowModal(true), setTypeOfModal('ingredient')]}/>
-                  <BurgerConstructor onClick={() => [setShowModal(true), setTypeOfModal('order')]} />
+                  <OrderContext.Provider value={{numOfOrder, setNumOfOrder}}>
+                    <BurgerConstructor onClick={() => [setShowModal(true), setTypeOfModal('order')]} />
+                  </OrderContext.Provider>
                 </IngredientsContext.Provider>
               </>
             )
@@ -87,7 +91,7 @@ function App() {
                isHidden={!showModal}
                heading={typeOfModal === 'ingredient' ? 'Детали ингредиента' : ''}>
               {typeOfModal === 'ingredient' && <IngredientDetails ingredient={getIngredient(data, currentId)}/>}
-              {typeOfModal === 'order' && <OrderDetails/>}
+              {typeOfModal === 'order' && <OrderDetails numOfOrder={numOfOrder}/>}
         </ Modal>
       }
     </div>

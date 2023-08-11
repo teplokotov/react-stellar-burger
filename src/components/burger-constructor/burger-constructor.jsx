@@ -4,6 +4,9 @@ import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-co
 import ElementBun from './element-bun/element-bun';
 import ElementFilling from './element-filling/element-filling';
 import { IngredientsContext } from '../../services/appContext';
+import { OrderContext } from '../../services/orderContext';
+import { APIconfig } from '../../utils/constants';
+import { sendOrderToServer } from '../../utils/api';
 import PropTypes from "prop-types";
 
 BurgerConstructor.propTypes = {
@@ -13,9 +16,22 @@ BurgerConstructor.propTypes = {
 function BurgerConstructor({ onClick }) {
 
   const {data: ingredients, cart, totalPriceState } = React.useContext(IngredientsContext);
+  const { setNumOfOrder } = React.useContext(OrderContext);
 
   const fillings = cart.fillings;
   const bun = cart.bun;
+
+  function handleOnClick() {
+    const convertedCart = [bun, fillings, bun].flat();
+    bun !== null && sendOrderToServer(APIconfig, convertedCart)
+        .then((data) => {
+          if(data.success) {
+            setNumOfOrder(data.order.number);
+            onClick();
+          }
+        })
+        .catch(err => console.log(err));
+  }
 
   return (
     <section className={`${burgerConstructorStyles.rightSection} pt-25`} aria-label='Оформление заказа'>
@@ -48,7 +64,7 @@ function BurgerConstructor({ onClick }) {
         <p className={`${burgerConstructorStyles.total} text text_type_digits-medium`}>
           {totalPriceState.total}<CurrencyIcon type="primary" />
         </p>
-        <Button htmlType="button" type="primary" size="large" onClick={onClick}>
+        <Button htmlType="button" type="primary" size="large" onClick={handleOnClick}>
           Оформить заказ
         </Button>
       </section>

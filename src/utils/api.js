@@ -10,3 +10,11 @@ function _request(url, options) {
 export function getIngredientsFromServer(config) {
   return _request(`${config.baseUrl}/ingredients`, {headers: config.headers});
 };
+
+export function sendOrderToServer(config, cart) {
+  return _request(`${config.baseUrl}/orders`, {
+    method: 'POST',
+    headers: config.headers,
+    body: JSON.stringify({"ingredients": cart} )
+  });
+}
