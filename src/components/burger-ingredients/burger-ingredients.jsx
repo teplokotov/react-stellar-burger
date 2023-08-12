@@ -13,7 +13,8 @@ BurgerIngredients.propTypes = {
 
 function BurgerIngredients({ ingredientsTypes, onClick }) {
 
-  const {data: ingredients} = React.useContext(IngredientsContext);
+  const { ingredientsСontextValue } = React.useContext(IngredientsContext);
+  const { data: ingredients } = ingredientsСontextValue;
 
   // Initial state of tabs (Set first tab as active)
   const [current, setCurrent] = React.useState(Object.values(ingredientsTypes)[0]);

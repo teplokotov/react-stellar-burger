@@ -14,7 +14,8 @@ ElementFilling.propTypes = {
 
 function ElementFilling({ ingredients, id, index }) {
 
-  const { cart, setCart, totalPriceDispatcher } = React.useContext(IngredientsContext);
+  const { ingredientsСontextValue } = React.useContext(IngredientsContext);
+  const { cart, setCart, totalPriceDispatcher } = ingredientsСontextValue;
 
   function removeFromCart(index, price) {
     setCart({

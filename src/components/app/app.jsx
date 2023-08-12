@@ -39,6 +39,11 @@ function App() {
   const [totalPriceState, totalPriceDispatcher] = React.useReducer(reducer, totalPriceInitialState);
   const [numOfOrder, setNumOfOrder] = React.useState();
 
+  // Used the recommendation: https://github.com/teplokotov/react-stellar-burger/pull/3#discussion_r1291541751
+  const ingredientsСontextValue = React.useMemo(() => {
+    return { data, cart, setCart, setCurrentId, totalPriceState, totalPriceDispatcher };
+  }, [data, cart, setCart, setCurrentId, totalPriceState, totalPriceDispatcher]);
+
   React.useEffect(() => {
     const loadData = () => {
       setHasError(false);
@@ -74,7 +79,7 @@ function App() {
           !isLoading && !hasError && data.length &&
             (
               <>
-                <IngredientsContext.Provider value={{data, cart, setCart, setCurrentId, totalPriceState, totalPriceDispatcher}}>
+                <IngredientsContext.Provider value={{ingredientsСontextValue}}>
                   <BurgerIngredients ingredientsTypes={ingredientsTypes}
                                      onClick={() => [setShowModal(true), setTypeOfModal('ingredient')]}/>
                   <OrderContext.Provider value={{numOfOrder, setNumOfOrder}}>

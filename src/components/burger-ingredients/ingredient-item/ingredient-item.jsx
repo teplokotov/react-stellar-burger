@@ -14,7 +14,8 @@ IngredientItem.propTypes = {
 
 function IngredientItem({ ingredient, onClick }) {
 
-  const {data: ingredients, setCurrentId, cart, setCart, totalPriceDispatcher} = React.useContext(IngredientsContext);
+  const { ingredientsСontextValue } = React.useContext(IngredientsContext);
+  const { data: ingredients, setCurrentId, cart, setCart, totalPriceDispatcher } = ingredientsСontextValue;
 
   function addToCart(ingredient){
     if (ingredient.type !== 'bun') {
