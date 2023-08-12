@@ -1,52 +1,72 @@
+import React from 'react';
 import burgerConstructorStyles from './burger-constructor.module.css';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import ElementBun from './element-bun/element-bun';
 import ElementFilling from './element-filling/element-filling';
-import { ingredientPropType } from '../../utils/prop-types';
+import { IngredientsContext } from '../../services/appContext';
+import { OrderContext } from '../../services/orderContext';
+import { APIconfig } from '../../utils/constants';
+import { sendOrderToServer } from '../../utils/api';
 import PropTypes from "prop-types";
 
 BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropType).isRequired,
   onClick: PropTypes.func.isRequired,
 };
 
-function BurgerConstructor({ ingredients, onClick }) {
-  const fillings = [
-                    '643d69a5c3f7b9001cfa0944',
-                    '643d69a5c3f7b9001cfa093f',
-                    '643d69a5c3f7b9001cfa0947',
-                    '643d69a5c3f7b9001cfa0946',
-                    '643d69a5c3f7b9001cfa0946',
-                    '643d69a5c3f7b9001cfa094a',
-                    '643d69a5c3f7b9001cfa094a'
-                   ];
+function BurgerConstructor({ onClick }) {
+
+  const { ingredientsСontextValue } = React.useContext(IngredientsContext);
+  const { data: ingredients, cart, totalPriceState } = ingredientsСontextValue;
+
+  const { setNumOfOrder } = React.useContext(OrderContext);
+
+  const fillings = cart.fillings;
+  const bun = cart.bun;
+
+  function handleOnClick() {
+    const convertedCart = [bun, fillings, bun].flat();
+    bun !== null && sendOrderToServer(APIconfig, convertedCart)
+        .then((data) => {
+          if(data.success) {
+            setNumOfOrder(data.order.number);
+            onClick();
+          }
+        })
+        .catch(err => console.log(err));
+  }
+
   return (
-    <section className={`${burgerConstructorStyles.rightSection} pt-25 pl-4 pr-4`} aria-label='Оформление заказа'>
-      <section aria-label='Cостав заказа'>
+    <section className={`${burgerConstructorStyles.rightSection} pt-25`} aria-label='Оформление заказа'>
+      <section className={burgerConstructorStyles.orderList} aria-label='Cостав заказа'>
 
         {/* Top bun */}
-        <ElementBun ingredients={ingredients} id="643d69a5c3f7b9001cfa093c" position="top"/>
+        <ElementBun ingredients={ingredients} id={bun} position="top"/>
 
         {/* Fillings */}
-        <ul className={`${burgerConstructorStyles.fillings} mt-4 mb-4 custom-scroll`}>
-          {
-            fillings.map((filling, index) => (
-              <ElementFilling key={index} ingredients={ingredients} id={filling}/>
-            ))
-          }
-        </ul>
+        {
+          fillings.length > 0 ?
+          (
+            <ul className={`${burgerConstructorStyles.fillings} mt-4 mb-4 custom-scroll`}>
+              {
+                fillings.map((filling, index) => (
+                  <ElementFilling key={index} ingredients={ingredients} id={filling} index={index}/>
+                ))
+              }
+            </ul>
+          ) : <section className={`${burgerConstructorStyles.infoBlock} ml-8 mr-4 mt-4 mb-4 text text_type_main-default`}>Добавь начинку и соус</section>
+        }
 
         {/* Bottom bun */}
-        <ElementBun ingredients={ingredients} id="643d69a5c3f7b9001cfa093c" position="bottom"/>
+        <ElementBun ingredients={ingredients} id={bun} position="bottom"/>
 
       </section>
 
       {/* Total */}
       <section className={`${burgerConstructorStyles.result} pt-10 mr-4`} aria-label='ИТОГО'>
         <p className={`${burgerConstructorStyles.total} text text_type_digits-medium`}>
-          610<CurrencyIcon type="primary" />
+          {totalPriceState.total}<CurrencyIcon type="primary" />
         </p>
-        <Button htmlType="button" type="primary" size="large" onClick={onClick}>
+        <Button htmlType="button" type="primary" size="large" onClick={handleOnClick}>
           Оформить заказ
         </Button>
       </section>

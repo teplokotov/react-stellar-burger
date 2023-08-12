@@ -1,5 +1,6 @@
 .rightSection {
   max-width: 600px;
+  width: 100%;
 }
 
 .fillings {
@@ -8,8 +9,20 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  max-height: calc(100vh - 532px);
+  height: calc(100vh - 528px);
   overflow-y: auto;
+  width: calc(100% - 16px);
+}
+
+.infoBlock {
+  height: calc(100vh - 532px);
+  min-height: 80px;
+  border: 2px dashed #2f2f37;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 532px;
 }
 
 .result {
@@ -22,4 +35,10 @@
   display: flex;
   gap: 8px;
   align-items: center;
+}
+
+.orderList {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }

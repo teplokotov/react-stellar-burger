@@ -9,3 +9,13 @@
   width: 24px;
   height: 24px;
 }
+
+/* Fix styles of default components: */
+
+.filling > div {
+  display: flex;
+}
+
+.filling > div > span {
+  width: 100%;
+}

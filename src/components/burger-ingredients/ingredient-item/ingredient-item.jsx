@@ -1,19 +1,58 @@
+import React from 'react';
 import ingredientItemStyles from './ingredient-item.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { IngredientsContext } from '../../../services/appContext';
 import { ingredientPropType } from '../../../utils/prop-types';
+import { getProp } from '../../../utils/utils';
 import PropTypes from "prop-types";
 
 IngredientItem.propTypes = {
   ingredient: ingredientPropType.isRequired,
   onClick: PropTypes.func.isRequired,
-  setCurrentId: PropTypes.func.isRequired,
+  // setCurrentId: PropTypes.func.isRequired,
 };
 
-function IngredientItem({ ingredient, onClick, setCurrentId }) {
+function IngredientItem({ ingredient, onClick }) {
+
+  const { ingredientsСontextValue } = React.useContext(IngredientsContext);
+  const { data: ingredients, setCurrentId, cart, setCart, totalPriceDispatcher } = ingredientsСontextValue;
+
+  function addToCart(ingredient){
+    if (ingredient.type !== 'bun') {
+      setCart({
+        bun: cart.bun,
+        fillings: [
+          ...cart.fillings,
+          ingredient._id
+         ],
+      });
+    } else {
+      setCart({
+        bun: ingredient._id,
+        fillings: [...cart.fillings],
+      });
+    }
+  }
+
+  function updateTotal(ingredients, ingredient){
+    if (ingredient.type !== 'bun') {
+      totalPriceDispatcher({ type: 'add', payload: ingredient.price });
+    } else {
+      if (cart.bun !== null) totalPriceDispatcher({
+        type: 'remove',
+        payload: getProp(ingredients, cart.bun, 'price') * 2 // Previus price of bun
+      });
+      totalPriceDispatcher({ type: 'add', payload: ingredient.price * 2 });
+    }
+  }
 
   function handleOnClick() {
-    onClick();
+    // Temporarily disabled
+    //onClick();
+
     setCurrentId(ingredient._id);
+    addToCart(ingredient);
+    updateTotal(ingredients, ingredient);
   }
 
   return (
