@@ -19,9 +19,27 @@ function BurgerIngredients({ ingredientsTypes, onClick }) {
   // Initial state of tabs (Set first tab as active)
   const [current, setCurrent] = React.useState(Object.values(ingredientsTypes)[0]);
 
+  const [ingredientsGroups, setIngredientsGroups] = React.useState();
+  const [ingredientsArea, setIngredientsArea] = React.useState();
+
   function scrollToHeading(id) {
     document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
   };
+
+  React.useEffect(() => {
+    const ingredientsGroups = document.querySelectorAll('.ingredientsGroup');
+    const ingredientsArea = document.querySelector('.ingredientsArea');
+    setIngredientsGroups(ingredientsGroups);
+    setIngredientsArea(ingredientsArea);
+  },[]);
+
+  function changeActiveTab(sections) {
+    let currentSectionId = '';
+    sections.forEach((section) => {
+      if (ingredientsArea.scrollTop >= section.offsetTop - 284) currentSectionId = section.id;
+    });
+    setCurrent(ingredientsTypes[currentSectionId]);
+  }
 
   return (
     <section className={`${burgerIngredientsStyles.leftSection}`}>
@@ -44,7 +62,8 @@ function BurgerIngredients({ ingredientsTypes, onClick }) {
       </div>
 
       {/* Ingredients area */}
-      <section className={`${burgerIngredientsStyles.area} custom-scroll`}>
+      <section className={`${burgerIngredientsStyles.area} ingredientsArea custom-scroll`}
+               onScroll={() => changeActiveTab(ingredientsGroups)}>
         {
           Object.keys(ingredientsTypes).map((key, index) => {
             const ingredientsType = ingredientsTypes[key];
