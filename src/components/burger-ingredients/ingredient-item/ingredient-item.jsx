@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from "react-redux";
 import ingredientItemStyles from './ingredient-item.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientsContext } from '../../../services/appContext';
@@ -9,13 +10,14 @@ import PropTypes from "prop-types";
 IngredientItem.propTypes = {
   ingredient: ingredientPropType.isRequired,
   onClick: PropTypes.func.isRequired,
-  // setCurrentId: PropTypes.func.isRequired,
 };
 
 function IngredientItem({ ingredient, onClick }) {
 
   const { ingredientsСontextValue } = React.useContext(IngredientsContext);
-  const { data: ingredients, setCurrentId, cart, setCart, totalPriceDispatcher } = ingredientsСontextValue;
+  const { setCurrentId, cart, setCart, totalPriceDispatcher } = ingredientsСontextValue;
+
+  const { data: ingredients } = useSelector((store) => store.data);
 
   function addToCart(ingredient){
     if (ingredient.type !== 'bun') {

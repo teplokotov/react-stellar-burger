@@ -1,10 +1,11 @@
 import React from 'react';
+import { useSelector, useDispatch } from "react-redux";
 import styles from './app.module.css';
 import { APIconfig, ingredientsTypes } from '../../utils/constants';
 import { getIngredient } from '../../utils/utils';
 import { IngredientsContext } from '../../services/appContext';
-import { getIngredientsFromServer } from '../../utils/api';
 import { OrderContext } from '../../services/orderContext';
+import { loadData } from '../../services/actions';
 
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
@@ -29,9 +30,9 @@ function reducer(state, action) {
 }
 
 function App() {
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [hasError, setHasError] = React.useState(false);
-  const [data, setData] = React.useState([]);
+  // const [isLoading, setIsLoading] = React.useState(false);
+  // const [hasError, setHasError] = React.useState(false);
+  // const [data, setData] = React.useState([]);
   const [showModal, setShowModal] = React.useState(false);
   const [typeOfModal, setTypeOfModal] = React.useState();
   const [currentId, setCurrentId] = React.useState();
@@ -41,23 +42,15 @@ function App() {
 
   // Used the recommendation: https://github.com/teplokotov/react-stellar-burger/pull/3#discussion_r1291541751
   const ingredientsСontextValue = React.useMemo(() => {
-    return { data, cart, setCart, setCurrentId, totalPriceState, totalPriceDispatcher };
-  }, [data, cart, setCart, setCurrentId, totalPriceState, totalPriceDispatcher]);
+    return { cart, setCart, setCurrentId, totalPriceState, totalPriceDispatcher };
+  }, [cart, setCart, setCurrentId, totalPriceState, totalPriceDispatcher]);
+
+  const dispatch = useDispatch();
+  const { data, isLoading, hasError } = useSelector((store) => store.data);
 
   React.useEffect(() => {
-    const loadData = () => {
-      setHasError(false);
-      setIsLoading(true);
-      getIngredientsFromServer(APIconfig)
-        .then(data => setData(data.data))
-        .catch(err => {
-          setHasError(true);
-          console.log(err);
-        })
-        .finally(() => setIsLoading(false));
-    };
-    loadData();
-  }, []);
+    dispatch(loadData());
+  }, [dispatch]);
 
   return (
     <div className={styles.app}>
@@ -82,9 +75,9 @@ function App() {
                 <IngredientsContext.Provider value={{ingredientsСontextValue}}>
                   <BurgerIngredients ingredientsTypes={ingredientsTypes}
                                      onClick={() => [setShowModal(true), setTypeOfModal('ingredient')]}/>
-                  <OrderContext.Provider value={{numOfOrder, setNumOfOrder}}>
+                  {/* <OrderContext.Provider value={{numOfOrder, setNumOfOrder}}>
                     <BurgerConstructor onClick={() => [setShowModal(true), setTypeOfModal('order')]} />
-                  </OrderContext.Provider>
+                  </OrderContext.Provider> */}
                 </IngredientsContext.Provider>
               </>
             )
@@ -92,12 +85,12 @@ function App() {
 
       </main>
       {
-        <Modal onClose={() => setShowModal(false)}
-               isHidden={!showModal}
-               heading={typeOfModal === 'ingredient' ? 'Детали ингредиента' : ''}>
-              {typeOfModal === 'ingredient' && <IngredientDetails ingredient={getIngredient(data, currentId)}/>}
-              {typeOfModal === 'order' && <OrderDetails numOfOrder={numOfOrder}/>}
-        </ Modal>
+        // <Modal onClose={() => setShowModal(false)}
+        //        isHidden={!showModal}
+        //        heading={typeOfModal === 'ingredient' ? 'Детали ингредиента' : ''}>
+        //       {typeOfModal === 'ingredient' && <IngredientDetails ingredient={getIngredient(data, currentId)}/>}
+        //       {typeOfModal === 'order' && <OrderDetails numOfOrder={numOfOrder}/>}
+        // </ Modal>
       }
     </div>
   );

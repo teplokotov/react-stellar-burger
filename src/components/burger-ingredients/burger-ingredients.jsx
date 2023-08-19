@@ -1,9 +1,10 @@
 import React from 'react';
+import { useSelector } from "react-redux";
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsGroup from '../burger-ingredients/ingredients-group/ingredients-group';
 import { ingredientsPropType } from '../../utils/prop-types';
-import { IngredientsContext } from '../../services/appContext';
+//import { IngredientsContext } from '../../services/appContext';
 import PropTypes from "prop-types";
 
 BurgerIngredients.propTypes = {
@@ -13,8 +14,9 @@ BurgerIngredients.propTypes = {
 
 function BurgerIngredients({ ingredientsTypes, onClick }) {
 
-  const { ingredientsСontextValue } = React.useContext(IngredientsContext);
-  const { data: ingredients } = ingredientsСontextValue;
+  //const { ingredientsСontextValue } = React.useContext(IngredientsContext);
+  //const { data: ingredients } = ingredientsСontextValue;
+  const { data: ingredients } = useSelector((store) => store.data);
 
   // Initial state of tabs (Set first tab as active)
   const [current, setCurrent] = React.useState(Object.values(ingredientsTypes)[0]);
