@@ -1,11 +1,12 @@
 import React from 'react';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import ingredientItemStyles from './ingredient-item.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientsContext } from '../../../services/appContext';
 import { ingredientPropType } from '../../../utils/prop-types';
 import { getProp } from '../../../utils/utils';
 import PropTypes from "prop-types";
+import { SET_CURRENT_ID } from '../../../services/actions/currentId';
 
 IngredientItem.propTypes = {
   ingredient: ingredientPropType.isRequired,
@@ -15,8 +16,9 @@ IngredientItem.propTypes = {
 function IngredientItem({ ingredient, onClick }) {
 
   const { ingredientsСontextValue } = React.useContext(IngredientsContext);
-  const { setCurrentId, cart, setCart, totalPriceDispatcher } = ingredientsСontextValue;
+  const { cart, setCart, totalPriceDispatcher } = ingredientsСontextValue;
 
+  const dispatch = useDispatch();
   const { data: ingredients } = useSelector((store) => store.data);
 
   function addToCart(ingredient){
@@ -49,12 +51,14 @@ function IngredientItem({ ingredient, onClick }) {
   }
 
   function handleOnClick() {
-    // Temporarily disabled
-    //onClick();
+    dispatch({
+      type: SET_CURRENT_ID,
+      payload: ingredient._id,
+    });
+    onClick();
 
-    setCurrentId(ingredient._id);
-    addToCart(ingredient);
-    updateTotal(ingredients, ingredient);
+    // addToCart(ingredient);
+    // updateTotal(ingredients, ingredient);
   }
 
   return (

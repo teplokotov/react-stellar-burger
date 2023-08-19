@@ -35,18 +35,19 @@ function App() {
   // const [data, setData] = React.useState([]);
   const [showModal, setShowModal] = React.useState(false);
   const [typeOfModal, setTypeOfModal] = React.useState();
-  const [currentId, setCurrentId] = React.useState();
+  //const [currentId, setCurrentId] = React.useState();
   const [cart, setCart] = React.useState({ bun: null, fillings: [] });
   const [totalPriceState, totalPriceDispatcher] = React.useReducer(reducer, totalPriceInitialState);
   const [numOfOrder, setNumOfOrder] = React.useState();
 
   // Used the recommendation: https://github.com/teplokotov/react-stellar-burger/pull/3#discussion_r1291541751
   const ingredientsСontextValue = React.useMemo(() => {
-    return { cart, setCart, setCurrentId, totalPriceState, totalPriceDispatcher };
-  }, [cart, setCart, setCurrentId, totalPriceState, totalPriceDispatcher]);
+    return { cart, setCart, totalPriceState, totalPriceDispatcher };
+  }, [cart, setCart, totalPriceState, totalPriceDispatcher]);
 
   const dispatch = useDispatch();
   const { data, isLoading, hasError } = useSelector((store) => store.data);
+  const { currentId } = useSelector((store) => store.currentId);
 
   React.useEffect(() => {
     dispatch(loadData());
@@ -85,12 +86,12 @@ function App() {
 
       </main>
       {
-        // <Modal onClose={() => setShowModal(false)}
-        //        isHidden={!showModal}
-        //        heading={typeOfModal === 'ingredient' ? 'Детали ингредиента' : ''}>
-        //       {typeOfModal === 'ingredient' && <IngredientDetails ingredient={getIngredient(data, currentId)}/>}
-        //       {typeOfModal === 'order' && <OrderDetails numOfOrder={numOfOrder}/>}
-        // </ Modal>
+        <Modal onClose={() => setShowModal(false)}
+               isHidden={!showModal}
+               heading={typeOfModal === 'ingredient' ? 'Детали ингредиента' : ''}>
+              {typeOfModal === 'ingredient' && <IngredientDetails ingredient={getIngredient(data, currentId)}/>}
+              {/* {typeOfModal === 'order' && <OrderDetails numOfOrder={numOfOrder}/>} */}
+        </ Modal>
       }
     </div>
   );
