@@ -9,6 +9,7 @@ import { postOrder } from '../../services/actions/exchangingOrderDetails';
 //import { OrderContext } from '../../services/orderContext';
 import { APIconfig } from '../../utils/constants';
 import { sendOrderToServer } from '../../utils/api';
+import { getProp } from '../../utils/utils';
 import PropTypes from "prop-types";
 
 BurgerConstructor.propTypes = {
@@ -19,22 +20,26 @@ function BurgerConstructor({ onClick }) {
 
   const dispatch = useDispatch();
 
-  const { ingredientsСontextValue } = React.useContext(IngredientsContext);
-  const { totalPriceState } = ingredientsСontextValue;
-
   const { data: ingredients } = useSelector((store) => store.data);
   const { cart } = useSelector((store) => store.cart);
-
-  //const { setNumOfOrder } = React.useContext(OrderContext);
 
   const fillings = cart.fillings;
   const bun = cart.bun;
   //const fillings = ["643d69a5c3f7b9001cfa0941", "643d69a5c3f7b9001cfa0941"];
   //const bun = "643d69a5c3f7b9001cfa093c";
 
+  function getFlatCart() {
+    return [bun, fillings, bun].flat();
+  }
+
+  const totalPrice = React.useMemo(() => {
+    return getFlatCart().reduce((acc, id) => {
+      return bun ? acc + getProp(ingredients, id, 'price') : 0;
+    }, 0);
+  }, [cart]);
+
   function handleOnClick() {
-    const convertedCart = [bun, fillings, bun].flat();
-    bun !== null && dispatch(postOrder(convertedCart, onClick));
+    bun !== null && dispatch(postOrder(getFlatCart(), onClick));
   }
 
   return (
@@ -66,7 +71,7 @@ function BurgerConstructor({ onClick }) {
       {/* Total */}
       <section className={`${burgerConstructorStyles.result} pt-10 mr-4`} aria-label='ИТОГО'>
         <p className={`${burgerConstructorStyles.total} text text_type_digits-medium`}>
-          {totalPriceState.total}<CurrencyIcon type="primary" />
+          {totalPrice}<CurrencyIcon type="primary" />
         </p>
         <Button htmlType="button" type="primary" size="large" onClick={handleOnClick}>
           Оформить заказ

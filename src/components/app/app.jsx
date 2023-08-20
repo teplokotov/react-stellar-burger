@@ -14,21 +14,6 @@ import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 
-const totalPriceInitialState = { total: 0 };
-
-function reducer(state, action) {
-  switch (action.type) {
-    case 'add':
-      return { total: state.total + action.payload };
-    case 'remove':
-      return { total: state.total - action.payload };
-    case 'clearAll':
-      return totalPriceInitialState;
-    default:
-      throw new Error(`Wrong type of action: ${action.type}`);
-  }
-}
-
 function App() {
   // const [isLoading, setIsLoading] = React.useState(false);
   // const [hasError, setHasError] = React.useState(false);
@@ -37,13 +22,13 @@ function App() {
   const [typeOfModal, setTypeOfModal] = React.useState();
   //const [currentId, setCurrentId] = React.useState();
   //const [cart, setCart] = React.useState({ bun: null, fillings: [] });
-  const [totalPriceState, totalPriceDispatcher] = React.useReducer(reducer, totalPriceInitialState);
+  //const [totalPriceState, totalPriceDispatcher] = React.useReducer(reducer, totalPriceInitialState);
   //const [numOfOrder, setNumOfOrder] = React.useState();
 
   // Used the recommendation: https://github.com/teplokotov/react-stellar-burger/pull/3#discussion_r1291541751
-  const ingredientsСontextValue = React.useMemo(() => {
-    return { totalPriceState, totalPriceDispatcher };
-  }, [totalPriceState, totalPriceDispatcher]);
+  // const ingredientsСontextValue = React.useMemo(() => {
+  //   return { totalPriceState, totalPriceDispatcher };
+  // }, [totalPriceState, totalPriceDispatcher]);
 
   const dispatch = useDispatch();
   const { data, isLoading, hasError } = useSelector((store) => store.data);
@@ -74,13 +59,9 @@ function App() {
           !isLoading && !hasError && data.length &&
             (
               <>
-                <IngredientsContext.Provider value={{ingredientsСontextValue}}>
-                  <BurgerIngredients ingredientsTypes={ingredientsTypes}
-                                     onClick={() => [setShowModal(true), setTypeOfModal('ingredient')]}/>
-                  {/* <OrderContext.Provider value={{numOfOrder, setNumOfOrder}}> */}
-                    <BurgerConstructor onClick={() => [setShowModal(true), setTypeOfModal('order')]} />
-                  {/* </OrderContext.Provider> */}
-                </IngredientsContext.Provider>
+                <BurgerIngredients ingredientsTypes={ingredientsTypes}
+                                   onClick={() => [setShowModal(true), setTypeOfModal('ingredient')]}/>
+                <BurgerConstructor onClick={() => [setShowModal(true), setTypeOfModal('order')]} />
               </>
             )
         }

@@ -16,9 +16,6 @@ IngredientItem.propTypes = {
 
 function IngredientItem({ ingredient, onClick }) {
 
-  const { ingredientsСontextValue } = React.useContext(IngredientsContext);
-  const { totalPriceDispatcher } = ingredientsСontextValue;
-
   const dispatch = useDispatch();
   const { data: ingredients } = useSelector((store) => store.data);
 
@@ -36,18 +33,6 @@ function IngredientItem({ ingredient, onClick }) {
     }
   }
 
-  function updateTotal(ingredients, ingredient){
-    // if (ingredient.type !== 'bun') {
-    //   totalPriceDispatcher({ type: 'add', payload: ingredient.price });
-    // } else {
-    //   if (cart.bun !== null) totalPriceDispatcher({
-    //     type: 'remove',
-    //     payload: getProp(ingredients, cart.bun, 'price') * 2 // Previus price of bun
-    //   });
-    //   totalPriceDispatcher({ type: 'add', payload: ingredient.price * 2 });
-    // }
-  }
-
   function handleOnClick() {
     dispatch({
       type: SET_CURRENT_ID,
@@ -56,7 +41,6 @@ function IngredientItem({ ingredient, onClick }) {
     //onClick();
 
     addToCart(ingredient);
-    //updateTotal(ingredients, ingredient);
   }
 
   return (

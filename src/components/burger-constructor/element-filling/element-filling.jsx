@@ -16,9 +16,6 @@ ElementFilling.propTypes = {
 
 function ElementFilling({ ingredients, id, index }) {
 
-  const { ingredientsСontextValue } = React.useContext(IngredientsContext);
-  const { totalPriceDispatcher } = ingredientsСontextValue;
-
   const dispatch = useDispatch();
 
   function removeFromCart(index, price) {
@@ -26,7 +23,6 @@ function ElementFilling({ ingredients, id, index }) {
       type: REMOVE_INGREDIENT_FROM_CART,
       index: index,
     });
-    // totalPriceDispatcher({ type: 'remove', payload: price });
   }
 
   return (
