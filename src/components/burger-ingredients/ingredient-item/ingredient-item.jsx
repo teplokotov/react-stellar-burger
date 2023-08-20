@@ -7,6 +7,7 @@ import { ingredientPropType } from '../../../utils/prop-types';
 import { getProp } from '../../../utils/utils';
 import PropTypes from "prop-types";
 import { SET_CURRENT_ID } from '../../../services/actions/currentId';
+import { ADD_INGREDIENT_TO_CART, ADD_BUN_TO_CART } from '../../../services/actions/cart';
 
 IngredientItem.propTypes = {
   ingredient: ingredientPropType.isRequired,
@@ -16,38 +17,35 @@ IngredientItem.propTypes = {
 function IngredientItem({ ingredient, onClick }) {
 
   const { ingredientsСontextValue } = React.useContext(IngredientsContext);
-  const { cart, setCart, totalPriceDispatcher } = ingredientsСontextValue;
+  const { totalPriceDispatcher } = ingredientsСontextValue;
 
   const dispatch = useDispatch();
   const { data: ingredients } = useSelector((store) => store.data);
 
   function addToCart(ingredient){
     if (ingredient.type !== 'bun') {
-      setCart({
-        bun: cart.bun,
-        fillings: [
-          ...cart.fillings,
-          ingredient._id
-         ],
+      dispatch({
+        type: ADD_INGREDIENT_TO_CART,
+        id: ingredient._id,
       });
     } else {
-      setCart({
-        bun: ingredient._id,
-        fillings: [...cart.fillings],
+      dispatch({
+        type: ADD_BUN_TO_CART,
+        id: ingredient._id,
       });
     }
   }
 
   function updateTotal(ingredients, ingredient){
-    if (ingredient.type !== 'bun') {
-      totalPriceDispatcher({ type: 'add', payload: ingredient.price });
-    } else {
-      if (cart.bun !== null) totalPriceDispatcher({
-        type: 'remove',
-        payload: getProp(ingredients, cart.bun, 'price') * 2 // Previus price of bun
-      });
-      totalPriceDispatcher({ type: 'add', payload: ingredient.price * 2 });
-    }
+    // if (ingredient.type !== 'bun') {
+    //   totalPriceDispatcher({ type: 'add', payload: ingredient.price });
+    // } else {
+    //   if (cart.bun !== null) totalPriceDispatcher({
+    //     type: 'remove',
+    //     payload: getProp(ingredients, cart.bun, 'price') * 2 // Previus price of bun
+    //   });
+    //   totalPriceDispatcher({ type: 'add', payload: ingredient.price * 2 });
+    // }
   }
 
   function handleOnClick() {
@@ -55,10 +53,10 @@ function IngredientItem({ ingredient, onClick }) {
       type: SET_CURRENT_ID,
       payload: ingredient._id,
     });
-    onClick();
+    //onClick();
 
-    // addToCart(ingredient);
-    // updateTotal(ingredients, ingredient);
+    addToCart(ingredient);
+    //updateTotal(ingredients, ingredient);
   }
 
   return (

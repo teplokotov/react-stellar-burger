@@ -1,9 +1,11 @@
 import React from 'react';
+import { useDispatch } from "react-redux";
 import elementFillingStyles from './element-filling.module.css';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getProp } from '../../../utils/utils'
 import { ingredientPropType } from '../../../utils/prop-types';
 import { IngredientsContext } from '../../../services/appContext';
+import { REMOVE_INGREDIENT_FROM_CART } from '../../../services/actions/cart';
 import PropTypes from "prop-types";
 
 ElementFilling.propTypes = {
@@ -15,14 +17,16 @@ ElementFilling.propTypes = {
 function ElementFilling({ ingredients, id, index }) {
 
   const { ingredientsСontextValue } = React.useContext(IngredientsContext);
-  const { cart, setCart, totalPriceDispatcher } = ingredientsСontextValue;
+  const { totalPriceDispatcher } = ingredientsСontextValue;
+
+  const dispatch = useDispatch();
 
   function removeFromCart(index, price) {
-    setCart({
-      bun: cart.bun,
-      fillings: [...cart.fillings.slice(0, index), ...cart.fillings.slice(index + 1)],
+    dispatch({
+      type: REMOVE_INGREDIENT_FROM_CART,
+      index: index,
     });
-    totalPriceDispatcher({ type: 'remove', payload: price });
+    // totalPriceDispatcher({ type: 'remove', payload: price });
   }
 
   return (

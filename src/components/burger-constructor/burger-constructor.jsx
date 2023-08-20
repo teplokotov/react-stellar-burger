@@ -20,12 +20,17 @@ function BurgerConstructor({ onClick }) {
   const dispatch = useDispatch();
 
   const { ingredientsСontextValue } = React.useContext(IngredientsContext);
-  const { data: ingredients, cart, totalPriceState } = ingredientsСontextValue;
+  const { totalPriceState } = ingredientsСontextValue;
+
+  const { data: ingredients } = useSelector((store) => store.data);
+  const { cart } = useSelector((store) => store.cart);
 
   //const { setNumOfOrder } = React.useContext(OrderContext);
 
   const fillings = cart.fillings;
   const bun = cart.bun;
+  //const fillings = ["643d69a5c3f7b9001cfa0941", "643d69a5c3f7b9001cfa0941"];
+  //const bun = "643d69a5c3f7b9001cfa093c";
 
   function handleOnClick() {
     //const convertedCart = [bun, fillings, bun].flat();

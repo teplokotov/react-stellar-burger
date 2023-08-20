@@ -36,14 +36,14 @@ function App() {
   const [showModal, setShowModal] = React.useState(false);
   const [typeOfModal, setTypeOfModal] = React.useState();
   //const [currentId, setCurrentId] = React.useState();
-  const [cart, setCart] = React.useState({ bun: null, fillings: [] });
+  //const [cart, setCart] = React.useState({ bun: null, fillings: [] });
   const [totalPriceState, totalPriceDispatcher] = React.useReducer(reducer, totalPriceInitialState);
   //const [numOfOrder, setNumOfOrder] = React.useState();
 
   // Used the recommendation: https://github.com/teplokotov/react-stellar-burger/pull/3#discussion_r1291541751
   const ingredientsСontextValue = React.useMemo(() => {
-    return { cart, setCart, totalPriceState, totalPriceDispatcher };
-  }, [cart, setCart, totalPriceState, totalPriceDispatcher]);
+    return { totalPriceState, totalPriceDispatcher };
+  }, [totalPriceState, totalPriceDispatcher]);
 
   const dispatch = useDispatch();
   const { data, isLoading, hasError } = useSelector((store) => store.data);
