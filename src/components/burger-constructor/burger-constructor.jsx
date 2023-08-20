@@ -33,18 +33,8 @@ function BurgerConstructor({ onClick }) {
   //const bun = "643d69a5c3f7b9001cfa093c";
 
   function handleOnClick() {
-    //const convertedCart = [bun, fillings, bun].flat();
-    // bun !== null && sendOrderToServer(APIconfig, convertedCart)
-    //     .then((data) => {
-    //       if(data.success) {
-    //         setNumOfOrder(data.order.number);
-    //         onClick();
-    //       }
-    //     })
-    //     .catch(err => console.log(err));
-
-    const convertedCart = ["643d69a5c3f7b9001cfa093c", "643d69a5c3f7b9001cfa093c"]; // test cart
-    dispatch(postOrder(convertedCart));
+    const convertedCart = [bun, fillings, bun].flat();
+    bun !== null && dispatch(postOrder(convertedCart, onClick));
   }
 
   return (

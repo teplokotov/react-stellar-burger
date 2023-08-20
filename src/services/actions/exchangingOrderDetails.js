@@ -9,12 +9,15 @@ export const POST_ORDER_FAILED = 'POST_ORDER_FAILED';
 
 // Middlewares (thunks)
 
-export function postOrder(cart) {
+export function postOrder(cart, action) {
   return function(dispatch) {
     dispatch({ type: POST_ORDER_REQUEST });
     sendOrderToServer(APIconfig, cart)
       .then(data => {
-        if(data.success) dispatch({ type: POST_ORDER_SUCCESS, payload: data.order.number });
+        if(data.success) {
+          dispatch({ type: POST_ORDER_SUCCESS, payload: data.order.number });
+          action();
+        }
       })
       .catch(err => {
         dispatch({ type: POST_ORDER_FAILED });
