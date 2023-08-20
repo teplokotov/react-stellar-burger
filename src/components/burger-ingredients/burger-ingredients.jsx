@@ -9,10 +9,9 @@ import PropTypes from "prop-types";
 
 BurgerIngredients.propTypes = {
   ingredientsTypes: ingredientsPropType.isRequired,
-  onClick: PropTypes.func.isRequired,
 };
 
-function BurgerIngredients({ ingredientsTypes, onClick }) {
+function BurgerIngredients({ ingredientsTypes }) {
 
   //const { ingredientsСontextValue } = React.useContext(IngredientsContext);
   //const { data: ingredients } = ingredientsСontextValue;
@@ -74,8 +73,7 @@ function BurgerIngredients({ ingredientsTypes, onClick }) {
               <IngredientsGroup key = {index}
                                 groupId = {key}
                                 groupName = {ingredientsType}
-                                group = {group}
-                                onClick = {onClick}/>
+                                group = {group} />
             );
           })
         }

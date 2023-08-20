@@ -8,13 +8,13 @@ import { getProp } from '../../../utils/utils';
 import PropTypes from "prop-types";
 import { SET_CURRENT_ID } from '../../../services/actions/currentId';
 import { ADD_INGREDIENT_TO_CART, ADD_BUN_TO_CART } from '../../../services/actions/cart';
+import { OPEN_MODAL } from '../../../services/actions/modal';
 
 IngredientItem.propTypes = {
   ingredient: ingredientPropType.isRequired,
-  onClick: PropTypes.func.isRequired,
 };
 
-function IngredientItem({ ingredient, onClick }) {
+function IngredientItem({ ingredient }) {
 
   const dispatch = useDispatch();
   const { data: ingredients } = useSelector((store) => store.data);
@@ -38,7 +38,11 @@ function IngredientItem({ ingredient, onClick }) {
       type: SET_CURRENT_ID,
       payload: ingredient._id,
     });
-    //onClick();
+
+    dispatch({
+      type: OPEN_MODAL,
+      typeOfModal: 'ingredient',
+    });
 
     addToCart(ingredient);
   }

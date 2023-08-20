@@ -6,6 +6,7 @@ import { getIngredient } from '../../utils/utils';
 import { IngredientsContext } from '../../services/appContext';
 // import { OrderContext } from '../../services/orderContext';
 import { loadData } from '../../services/actions';
+import { CLOSE_MODAL } from '../../services/actions/modal';
 
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
@@ -18,8 +19,8 @@ function App() {
   // const [isLoading, setIsLoading] = React.useState(false);
   // const [hasError, setHasError] = React.useState(false);
   // const [data, setData] = React.useState([]);
-  const [showModal, setShowModal] = React.useState(false);
-  const [typeOfModal, setTypeOfModal] = React.useState();
+  //const [showModal, setShowModal] = React.useState(false);
+  //const [typeOfModal, setTypeOfModal] = React.useState();
   //const [currentId, setCurrentId] = React.useState();
   //const [cart, setCart] = React.useState({ bun: null, fillings: [] });
   //const [totalPriceState, totalPriceDispatcher] = React.useReducer(reducer, totalPriceInitialState);
@@ -32,8 +33,7 @@ function App() {
 
   const dispatch = useDispatch();
   const { data, isLoading, hasError } = useSelector((store) => store.data);
-  const { currentId } = useSelector((store) => store.currentId);
-  const { numOfOrder } = useSelector((store) => store.order);
+  const { typeOfModal } = useSelector((store) => store.modal);
 
   React.useEffect(() => {
     dispatch(loadData());
@@ -59,20 +59,17 @@ function App() {
           !isLoading && !hasError && data.length &&
             (
               <>
-                <BurgerIngredients ingredientsTypes={ingredientsTypes}
-                                   onClick={() => [setShowModal(true), setTypeOfModal('ingredient')]}/>
-                <BurgerConstructor onClick={() => [setShowModal(true), setTypeOfModal('order')]} />
+                <BurgerIngredients ingredientsTypes={ingredientsTypes} />
+                <BurgerConstructor />
               </>
             )
         }
 
       </main>
       {
-        <Modal onClose={() => setShowModal(false)}
-               isHidden={!showModal}
-               heading={typeOfModal === 'ingredient' ? 'Детали ингредиента' : ''}>
-              {typeOfModal === 'ingredient' && <IngredientDetails ingredient={getIngredient(data, currentId)}/>}
-              {typeOfModal === 'order' && <OrderDetails numOfOrder={numOfOrder}/>}
+        <Modal>
+          {typeOfModal === 'ingredient' && <IngredientDetails />}
+          {typeOfModal === 'order' && <OrderDetails />}
         </ Modal>
       }
     </div>

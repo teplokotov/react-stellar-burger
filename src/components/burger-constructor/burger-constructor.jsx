@@ -11,12 +11,10 @@ import { APIconfig } from '../../utils/constants';
 import { sendOrderToServer } from '../../utils/api';
 import { getProp } from '../../utils/utils';
 import PropTypes from "prop-types";
+import { OPEN_MODAL } from '../../services/actions/modal';
 
-BurgerConstructor.propTypes = {
-  onClick: PropTypes.func.isRequired,
-};
 
-function BurgerConstructor({ onClick }) {
+function BurgerConstructor() {
 
   const dispatch = useDispatch();
 
@@ -36,10 +34,11 @@ function BurgerConstructor({ onClick }) {
     return getFlatCart().reduce((acc, id) => {
       return bun ? acc + getProp(ingredients, id, 'price') : 0;
     }, 0);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart]);
 
   function handleOnClick() {
-    bun !== null && dispatch(postOrder(getFlatCart(), onClick));
+    bun !== null && dispatch(postOrder(getFlatCart()));
   }
 
   return (
