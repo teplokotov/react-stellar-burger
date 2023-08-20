@@ -3,18 +3,10 @@ import { useSelector } from "react-redux";
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsGroup from '../burger-ingredients/ingredients-group/ingredients-group';
-import { ingredientsPropType } from '../../utils/prop-types';
-//import { IngredientsContext } from '../../services/appContext';
-import PropTypes from "prop-types";
+import { ingredientsTypes } from '../../utils/constants';
 
-BurgerIngredients.propTypes = {
-  ingredientsTypes: ingredientsPropType.isRequired,
-};
+function BurgerIngredients() {
 
-function BurgerIngredients({ ingredientsTypes }) {
-
-  //const { ingredientsСontextValue } = React.useContext(IngredientsContext);
-  //const { data: ingredients } = ingredientsСontextValue;
   const { data: ingredients } = useSelector((store) => store.data);
 
   // Initial state of tabs (Set first tab as active)

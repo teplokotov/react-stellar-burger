@@ -4,15 +4,8 @@ import burgerConstructorStyles from './burger-constructor.module.css';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import ElementBun from './element-bun/element-bun';
 import ElementFilling from './element-filling/element-filling';
-import { IngredientsContext } from '../../services/appContext';
 import { postOrder } from '../../services/actions/exchangingOrderDetails';
-//import { OrderContext } from '../../services/orderContext';
-import { APIconfig } from '../../utils/constants';
-import { sendOrderToServer } from '../../utils/api';
 import { getProp } from '../../utils/utils';
-import PropTypes from "prop-types";
-import { OPEN_MODAL } from '../../services/actions/modal';
-
 
 function BurgerConstructor() {
 
