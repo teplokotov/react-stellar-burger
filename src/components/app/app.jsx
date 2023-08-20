@@ -4,7 +4,7 @@ import styles from './app.module.css';
 import { APIconfig, ingredientsTypes } from '../../utils/constants';
 import { getIngredient } from '../../utils/utils';
 import { IngredientsContext } from '../../services/appContext';
-import { OrderContext } from '../../services/orderContext';
+// import { OrderContext } from '../../services/orderContext';
 import { loadData } from '../../services/actions';
 
 import AppHeader from '../app-header/app-header';
@@ -38,7 +38,7 @@ function App() {
   //const [currentId, setCurrentId] = React.useState();
   const [cart, setCart] = React.useState({ bun: null, fillings: [] });
   const [totalPriceState, totalPriceDispatcher] = React.useReducer(reducer, totalPriceInitialState);
-  const [numOfOrder, setNumOfOrder] = React.useState();
+  //const [numOfOrder, setNumOfOrder] = React.useState();
 
   // Used the recommendation: https://github.com/teplokotov/react-stellar-burger/pull/3#discussion_r1291541751
   const ingredientsСontextValue = React.useMemo(() => {
@@ -48,6 +48,7 @@ function App() {
   const dispatch = useDispatch();
   const { data, isLoading, hasError } = useSelector((store) => store.data);
   const { currentId } = useSelector((store) => store.currentId);
+  const { numOfOrder } = useSelector((store) => store.order);
 
   React.useEffect(() => {
     dispatch(loadData());
@@ -76,9 +77,9 @@ function App() {
                 <IngredientsContext.Provider value={{ingredientsСontextValue}}>
                   <BurgerIngredients ingredientsTypes={ingredientsTypes}
                                      onClick={() => [setShowModal(true), setTypeOfModal('ingredient')]}/>
-                  {/* <OrderContext.Provider value={{numOfOrder, setNumOfOrder}}>
+                  {/* <OrderContext.Provider value={{numOfOrder, setNumOfOrder}}> */}
                     <BurgerConstructor onClick={() => [setShowModal(true), setTypeOfModal('order')]} />
-                  </OrderContext.Provider> */}
+                  {/* </OrderContext.Provider> */}
                 </IngredientsContext.Provider>
               </>
             )
@@ -90,7 +91,7 @@ function App() {
                isHidden={!showModal}
                heading={typeOfModal === 'ingredient' ? 'Детали ингредиента' : ''}>
               {typeOfModal === 'ingredient' && <IngredientDetails ingredient={getIngredient(data, currentId)}/>}
-              {/* {typeOfModal === 'order' && <OrderDetails numOfOrder={numOfOrder}/>} */}
+              {typeOfModal === 'order' && <OrderDetails numOfOrder={numOfOrder}/>}
         </ Modal>
       }
     </div>

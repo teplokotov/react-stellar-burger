@@ -1,10 +1,12 @@
 import React from 'react';
+import { useSelector, useDispatch } from "react-redux";
 import burgerConstructorStyles from './burger-constructor.module.css';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import ElementBun from './element-bun/element-bun';
 import ElementFilling from './element-filling/element-filling';
 import { IngredientsContext } from '../../services/appContext';
-import { OrderContext } from '../../services/orderContext';
+import { postOrder } from '../../services/actions/exchangingOrderDetails';
+//import { OrderContext } from '../../services/orderContext';
 import { APIconfig } from '../../utils/constants';
 import { sendOrderToServer } from '../../utils/api';
 import PropTypes from "prop-types";
@@ -15,24 +17,29 @@ BurgerConstructor.propTypes = {
 
 function BurgerConstructor({ onClick }) {
 
+  const dispatch = useDispatch();
+
   const { ingredientsСontextValue } = React.useContext(IngredientsContext);
   const { data: ingredients, cart, totalPriceState } = ingredientsСontextValue;
 
-  const { setNumOfOrder } = React.useContext(OrderContext);
+  //const { setNumOfOrder } = React.useContext(OrderContext);
 
   const fillings = cart.fillings;
   const bun = cart.bun;
 
   function handleOnClick() {
-    const convertedCart = [bun, fillings, bun].flat();
-    bun !== null && sendOrderToServer(APIconfig, convertedCart)
-        .then((data) => {
-          if(data.success) {
-            setNumOfOrder(data.order.number);
-            onClick();
-          }
-        })
-        .catch(err => console.log(err));
+    //const convertedCart = [bun, fillings, bun].flat();
+    // bun !== null && sendOrderToServer(APIconfig, convertedCart)
+    //     .then((data) => {
+    //       if(data.success) {
+    //         setNumOfOrder(data.order.number);
+    //         onClick();
+    //       }
+    //     })
+    //     .catch(err => console.log(err));
+
+    const convertedCart = ["643d69a5c3f7b9001cfa093c", "643d69a5c3f7b9001cfa093c"]; // test cart
+    dispatch(postOrder(convertedCart));
   }
 
   return (
