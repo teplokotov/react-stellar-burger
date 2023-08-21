@@ -1,5 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from "react-redux";
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { DndProvider } from 'react-dnd';
 import styles from './app.module.css';
 import { loadData } from '../../services/actions';
 
@@ -37,10 +39,10 @@ function App() {
         {
           !isLoading && !hasError && data.length &&
             (
-              <>
+              <DndProvider backend={HTML5Backend}>
                 <BurgerIngredients />
                 <BurgerConstructor />
-              </>
+              </DndProvider>
             )
         }
 

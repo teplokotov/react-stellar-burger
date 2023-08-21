@@ -1,10 +1,8 @@
-import React from 'react';
 import { useDispatch } from "react-redux";
 import elementFillingStyles from './element-filling.module.css';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getProp } from '../../../utils/utils'
 import { ingredientPropType } from '../../../utils/prop-types';
-import { IngredientsContext } from '../../../services/appContext';
 import { REMOVE_INGREDIENT_FROM_CART } from '../../../services/actions/cart';
 import PropTypes from "prop-types";
 

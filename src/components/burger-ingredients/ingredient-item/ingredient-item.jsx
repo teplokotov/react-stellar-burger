@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import { useDrag } from "react-dnd";
 import ingredientItemStyles from './ingredient-item.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingredientPropType } from '../../../utils/prop-types';
@@ -16,6 +17,11 @@ function IngredientItem({ ingredient }) {
   const dispatch = useDispatch();
   const { cart } = useSelector((store) => store.cart);
 
+  const [, dragRef] = useDrag({
+      type: ingredient.type,
+      item: { id: ingredient._id },
+  });
+
   const totalCount = React.useMemo(() => {
     function getFlatCart() {
       return [cart.bun, cart.fillings, cart.bun].flat();
@@ -23,20 +29,6 @@ function IngredientItem({ ingredient }) {
     return getFlatCart().filter((id) => id === ingredient._id).length;
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart]);
-
-  function addToCart(ingredient){
-    if (ingredient.type !== 'bun') {
-      dispatch({
-        type: ADD_INGREDIENT_TO_CART,
-        id: ingredient._id,
-      });
-    } else {
-      dispatch({
-        type: ADD_BUN_TO_CART,
-        id: ingredient._id,
-      });
-    }
-  }
 
   function handleOnClick() {
     dispatch({
@@ -49,13 +41,11 @@ function IngredientItem({ ingredient }) {
       typeOfModal: 'ingredient',
     });
 
-    addToCart(ingredient);
   }
 
   return (
-    <li className={ingredientItemStyles.item} onClick={handleOnClick}>
-      {/* <Counter extraClass={ingredientItemStyles.hide} count={1} size="default" /> */}
-      <Counter count={totalCount} size="default" />
+    <li className={ingredientItemStyles.item} onClick={handleOnClick} ref={dragRef}>
+      <Counter extraClass={totalCount === 0 && ingredientItemStyles.hide} count={totalCount} size="default" />
       <img className="pl-4 pr-4" src={ingredient.image} alt={ingredient.name} />
       <p className={`${ingredientItemStyles.price} text text_type_digits-default`}>
         {ingredient.price}<CurrencyIcon type="primary" />

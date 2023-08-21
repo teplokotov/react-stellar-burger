@@ -1,11 +1,13 @@
 import React from 'react';
 import { useSelector, useDispatch } from "react-redux";
+import { useDrop } from "react-dnd";
 import burgerConstructorStyles from './burger-constructor.module.css';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import ElementBun from './element-bun/element-bun';
 import ElementFilling from './element-filling/element-filling';
 import { postOrder } from '../../services/actions/exchangingOrderDetails';
 import { getProp } from '../../utils/utils';
+import { ADD_INGREDIENT_TO_CART } from '../../services/actions/cart';
 
 function BurgerConstructor() {
 
@@ -34,9 +36,24 @@ function BurgerConstructor() {
     bun !== null && dispatch(postOrder(getFlatCart()));
   }
 
+  const [{ canDrop }, dropTarget] = useDrop({
+    accept: ['sauce', 'main'],
+    drop(item) {
+      dispatch({
+        type: ADD_INGREDIENT_TO_CART,
+        id: item.id,
+      });
+    },
+    collect: monitor => ({
+      canDrop: monitor.canDrop(),
+    })
+  });
+
+  const borderColor = canDrop ? 'lightgreen' : '#2f2f37';
+
   return (
     <section className={`${burgerConstructorStyles.rightSection} pt-25`} aria-label='Оформление заказа'>
-      <section className={burgerConstructorStyles.orderList} aria-label='Cостав заказа'>
+      <section className={burgerConstructorStyles.orderList} ref={dropTarget} aria-label='Cостав заказа'>
 
         {/* Top bun */}
         <ElementBun ingredients={ingredients} id={bun} position="top"/>
@@ -52,7 +69,9 @@ function BurgerConstructor() {
                 ))
               }
             </ul>
-          ) : <section className={`${burgerConstructorStyles.infoBlock} ml-8 mr-4 mt-4 mb-4 text text_type_main-default`}>Добавь начинку и соус</section>
+          ) : <section className={`${burgerConstructorStyles.infoBlock} ml-8 mr-4 mt-4 mb-4 text text_type_main-default`}
+                       style={{borderColor}}
+              >Добавь начинку и соус</section>
         }
 
         {/* Bottom bun */}
