@@ -1,4 +1,5 @@
-import { useDispatch } from "react-redux";
+import React from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import ingredientItemStyles from './ingredient-item.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingredientPropType } from '../../../utils/prop-types';
@@ -13,6 +14,15 @@ IngredientItem.propTypes = {
 function IngredientItem({ ingredient }) {
 
   const dispatch = useDispatch();
+  const { cart } = useSelector((store) => store.cart);
+
+  const totalCount = React.useMemo(() => {
+    function getFlatCart() {
+      return [cart.bun, cart.fillings, cart.bun].flat();
+    }
+    return getFlatCart().filter((id) => id === ingredient._id).length;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cart]);
 
   function addToCart(ingredient){
     if (ingredient.type !== 'bun') {
@@ -44,7 +54,8 @@ function IngredientItem({ ingredient }) {
 
   return (
     <li className={ingredientItemStyles.item} onClick={handleOnClick}>
-      <Counter extraClass={ingredientItemStyles.hide} count={1} size="default" />
+      {/* <Counter extraClass={ingredientItemStyles.hide} count={1} size="default" /> */}
+      <Counter count={totalCount} size="default" />
       <img className="pl-4 pr-4" src={ingredient.image} alt={ingredient.name} />
       <p className={`${ingredientItemStyles.price} text text_type_digits-default`}>
         {ingredient.price}<CurrencyIcon type="primary" />
