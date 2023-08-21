@@ -65,7 +65,7 @@ function BurgerConstructor() {
         <p className={`${burgerConstructorStyles.total} text text_type_digits-medium`}>
           {totalPrice}<CurrencyIcon type="primary" />
         </p>
-        <Button htmlType="button" type="primary" size="large" onClick={handleOnClick}>
+        <Button htmlType="button" type="primary" size="large" onClick={handleOnClick} disabled={bun == null}>
           Оформить заказ
         </Button>
       </section>
