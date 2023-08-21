@@ -1,6 +1,7 @@
 import { APIconfig } from "../../utils/constants";
 import { sendOrderToServer } from "../../utils/api";
 import { OPEN_MODAL } from "./modal";
+import { CLEAR_CART } from "./cart";
 
 // Actions
 
@@ -17,7 +18,8 @@ export function postOrder(cart) {
       .then(data => {
         if(data.success) {
           dispatch({ type: POST_ORDER_SUCCESS, payload: data.order.number });
-          dispatch({ type: OPEN_MODAL, typeOfModal: 'order' })
+          dispatch({ type: OPEN_MODAL, typeOfModal: 'order' });
+          dispatch({ type: CLEAR_CART });
         }
       })
       .catch(err => {
