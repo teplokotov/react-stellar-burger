@@ -2,7 +2,8 @@ import {
   ADD_INGREDIENT_TO_CART,
   REMOVE_INGREDIENT_FROM_CART,
   ADD_BUN_TO_CART,
-  CLEAR_CART
+  CLEAR_CART,
+  MOVE_INGREDIENT_INSIDE_CART
 } from "../actions/cart";
 
 const initialState = {
@@ -47,6 +48,17 @@ export function cartReducer(state = initialState, action) {
         cart: {
           bun: null,
           fillings: [],
+        },
+      };
+    }
+    case MOVE_INGREDIENT_INSIDE_CART: {
+      const fillings = [...state.cart.fillings];
+      fillings.splice(action.toIndex, 0, fillings.splice(action.fromIndex, 1)[0]);
+      return {
+        ...state,
+        cart: {
+          bun: state.cart.bun,
+          fillings: fillings,
         },
       };
     }

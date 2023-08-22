@@ -5,7 +5,6 @@ import ingredientItemStyles from './ingredient-item.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingredientPropType } from '../../../utils/prop-types';
 import { SET_CURRENT_ID } from '../../../services/actions/currentId';
-import { ADD_INGREDIENT_TO_CART, ADD_BUN_TO_CART } from '../../../services/actions/cart';
 import { OPEN_MODAL } from '../../../services/actions/modal';
 
 IngredientItem.propTypes = {

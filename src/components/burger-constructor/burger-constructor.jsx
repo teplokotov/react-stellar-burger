@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
+import { v4 as uuidv4 } from 'uuid';
 import burgerConstructorStyles from './burger-constructor.module.css';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import ElementBun from './element-bun/element-bun';
@@ -8,6 +9,7 @@ import ElementFilling from './element-filling/element-filling';
 import { postOrder } from '../../services/actions/exchangingOrderDetails';
 import { getProp } from '../../utils/utils';
 import { ADD_INGREDIENT_TO_CART } from '../../services/actions/cart';
+import { MOVE_INGREDIENT_INSIDE_CART } from '../../services/actions/cart';
 
 function BurgerConstructor() {
 
@@ -18,16 +20,14 @@ function BurgerConstructor() {
 
   const fillings = cart.fillings;
   const bun = cart.bun;
-  //const fillings = ["643d69a5c3f7b9001cfa0941", "643d69a5c3f7b9001cfa0941"];
-  //const bun = "643d69a5c3f7b9001cfa093c";
 
   function getFlatCart() {
-    return [bun, fillings, bun].flat();
+    return bun ? [bun, fillings, bun].flat() : fillings;
   }
 
   const totalPrice = React.useMemo(() => {
     return getFlatCart().reduce((acc, id) => {
-      return bun ? acc + getProp(ingredients, id, 'price') : 0;
+      return bun || fillings.length > 0 ? acc + getProp(ingredients, id, 'price') : 0;
     }, 0);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart]);
@@ -49,6 +49,20 @@ function BurgerConstructor() {
     })
   });
 
+  const moveFilling = React.useCallback((dragIndex, hoverIndex) => {
+    dispatch({
+      type: MOVE_INGREDIENT_INSIDE_CART,
+      fromIndex: dragIndex,
+      toIndex: hoverIndex
+    });
+  }, [dispatch]);
+
+  const renderFilling = React.useCallback((filling, index) => {
+    return (
+      <ElementFilling key={uuidv4()} ingredients={ingredients} id={filling} index={index} moveFilling={moveFilling}/>
+    )
+  }, [ingredients, moveFilling])
+
   const borderColor = canDrop ? 'lightgreen' : '#2f2f37';
 
   return (
@@ -64,9 +78,7 @@ function BurgerConstructor() {
           (
             <ul className={`${burgerConstructorStyles.fillings} mt-4 mb-4 custom-scroll`}>
               {
-                fillings.map((filling, index) => (
-                  <ElementFilling key={index} ingredients={ingredients} id={filling} index={index}/>
-                ))
+                fillings.map((filling, index) => (renderFilling(filling, index)))
               }
             </ul>
           ) : <section className={`${burgerConstructorStyles.infoBlock} ml-8 mr-4 mt-4 mb-4 text text_type_main-default`}
