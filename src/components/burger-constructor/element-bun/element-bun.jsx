@@ -41,10 +41,10 @@ function ElementBun({ ingredients, id, position }) {
               thumbnail={getProp(ingredients, id, 'image')}
             />
          </section> :
-         <section ref={dropTarget}
+         <p ref={dropTarget}
                   className={`${elementBunStyles.infoBlock} ml-8 mr-4 text text_type_main-default`}
                   style={{borderColor}}
-         >Булочка не выбрана</section>
+         >Булочка не выбрана</p>
   );
 }
 

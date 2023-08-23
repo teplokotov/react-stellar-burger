@@ -16,7 +16,7 @@ function App() {
 
   const dispatch = useDispatch();
   const { data, isLoading, hasError } = useSelector((store) => store.data);
-  const { typeOfModal } = useSelector((store) => store.modal);
+  const typeOfModal = useSelector((store) => store.modal.typeOfModal);
 
   React.useEffect(() => dispatch(loadData()), [dispatch]);
 

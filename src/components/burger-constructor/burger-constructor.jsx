@@ -85,9 +85,9 @@ function BurgerConstructor() {
                 })
               }
             </ul>
-          ) : <section className={`${burgerConstructorStyles.infoBlock} ml-8 mr-4 mt-4 mb-4 text text_type_main-default`}
+          ) : <p className={`${burgerConstructorStyles.infoBlock} ml-8 mr-4 mt-4 mb-4 text text_type_main-default`}
                        style={{borderColor}}
-              >Добавь начинку и соус</section>
+              >Добавь начинку и соус</p>
         }
 
         {/* Bottom bun */}
