@@ -29,7 +29,8 @@ function BurgerIngredients() {
   function changeActiveTab(sections) {
     let currentSectionId = '';
     sections.forEach((section) => {
-      if (ingredientsArea.scrollTop >= section.offsetTop - 284) currentSectionId = section.id;
+      const ingredientsAreaOffsetTop = Math.ceil(ingredientsArea.getBoundingClientRect().top);
+      if (ingredientsArea.scrollTop >= section.offsetTop - ingredientsAreaOffsetTop) currentSectionId = section.id;
     });
     setCurrent(ingredientsTypes[currentSectionId]);
   }
