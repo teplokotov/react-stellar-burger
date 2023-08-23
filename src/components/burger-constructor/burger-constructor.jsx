@@ -18,8 +18,8 @@ function BurgerConstructor() {
   const { data: ingredients } = useSelector((store) => store.data);
   const { cart } = useSelector((store) => store.cart);
 
-  const fillings = cart.fillings;
-  const bun = cart.bun;
+  const fillings = cart.fillings.map((item) => item.id);
+  const bun = cart.bun ? cart.bun.id : null;
 
   function getFlatCart() {
     return bun ? [bun, fillings, bun].flat() : fillings;
@@ -42,6 +42,7 @@ function BurgerConstructor() {
       dispatch({
         type: ADD_INGREDIENT_TO_CART,
         id: item.id,
+        uuid: uuidv4(),
       });
     },
     collect: monitor => ({
@@ -57,9 +58,9 @@ function BurgerConstructor() {
     });
   }, [dispatch]);
 
-  const renderFilling = React.useCallback((filling, index) => {
+  const renderFilling = React.useCallback((filling, index, uuid) => {
     return (
-      <ElementFilling key={uuidv4()} ingredients={ingredients} id={filling} index={index} moveFilling={moveFilling}/>
+      <ElementFilling key={uuid} ingredients={ingredients} id={filling} index={index} moveFilling={moveFilling}/>
     )
   }, [ingredients, moveFilling])
 
@@ -78,7 +79,10 @@ function BurgerConstructor() {
           (
             <ul className={`${burgerConstructorStyles.fillings} mt-4 mb-4 custom-scroll`}>
               {
-                fillings.map((filling, index) => (renderFilling(filling, index)))
+                fillings.map((filling, index) => {
+                  const uuid = cart.fillings[index].uuid;
+                  return renderFilling(filling, index, uuid);
+                })
               }
             </ul>
           ) : <section className={`${burgerConstructorStyles.infoBlock} ml-8 mr-4 mt-4 mb-4 text text_type_main-default`}

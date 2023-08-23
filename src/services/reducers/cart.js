@@ -20,7 +20,7 @@ export function cartReducer(state = initialState, action) {
         ...state,
         cart: {
           bun: state.cart.bun,
-          fillings: [...state.cart.fillings, action.id],
+          fillings: [...state.cart.fillings, {id: action.id, uuid: action.uuid}],
         },
       };
     }
@@ -37,7 +37,7 @@ export function cartReducer(state = initialState, action) {
       return {
         ...state,
         cart: {
-          bun: action.id,
+          bun: {id: action.id, uuid: action.uuid},
           fillings: [...state.cart.fillings],
         },
       };
