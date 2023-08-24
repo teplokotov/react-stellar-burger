@@ -1,63 +1,50 @@
 import React from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { useDrag } from "react-dnd";
 import ingredientItemStyles from './ingredient-item.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { IngredientsContext } from '../../../services/appContext';
 import { ingredientPropType } from '../../../utils/prop-types';
-import { getProp } from '../../../utils/utils';
-import PropTypes from "prop-types";
+import { SET_CURRENT_ID } from '../../../services/actions/currentId';
+import { OPEN_MODAL } from '../../../services/actions/modal';
 
 IngredientItem.propTypes = {
   ingredient: ingredientPropType.isRequired,
-  onClick: PropTypes.func.isRequired,
-  // setCurrentId: PropTypes.func.isRequired,
 };
 
-function IngredientItem({ ingredient, onClick }) {
+function IngredientItem({ ingredient }) {
 
-  const { ingredientsСontextValue } = React.useContext(IngredientsContext);
-  const { data: ingredients, setCurrentId, cart, setCart, totalPriceDispatcher } = ingredientsСontextValue;
+  const dispatch = useDispatch();
+  const { cart } = useSelector((store) => store.cart);
 
-  function addToCart(ingredient){
-    if (ingredient.type !== 'bun') {
-      setCart({
-        bun: cart.bun,
-        fillings: [
-          ...cart.fillings,
-          ingredient._id
-         ],
-      });
-    } else {
-      setCart({
-        bun: ingredient._id,
-        fillings: [...cart.fillings],
-      });
+  const [, dragRef] = useDrag({
+      type: ingredient.type,
+      item: { id: ingredient._id },
+  });
+
+  const totalCount = React.useMemo(() => {
+    function getFlatCart() {
+      return [cart.bun, cart.fillings, cart.bun].flat();
     }
-  }
-
-  function updateTotal(ingredients, ingredient){
-    if (ingredient.type !== 'bun') {
-      totalPriceDispatcher({ type: 'add', payload: ingredient.price });
-    } else {
-      if (cart.bun !== null) totalPriceDispatcher({
-        type: 'remove',
-        payload: getProp(ingredients, cart.bun, 'price') * 2 // Previus price of bun
-      });
-      totalPriceDispatcher({ type: 'add', payload: ingredient.price * 2 });
-    }
-  }
+    return getFlatCart().filter((id) => id === ingredient._id).length;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cart]);
 
   function handleOnClick() {
-    // Temporarily disabled
-    //onClick();
+    dispatch({
+      type: SET_CURRENT_ID,
+      payload: ingredient._id,
+    });
 
-    setCurrentId(ingredient._id);
-    addToCart(ingredient);
-    updateTotal(ingredients, ingredient);
+    dispatch({
+      type: OPEN_MODAL,
+      typeOfModal: 'ingredient',
+    });
+
   }
 
   return (
-    <li className={ingredientItemStyles.item} onClick={handleOnClick}>
-      <Counter extraClass={ingredientItemStyles.hide} count={1} size="default" />
+    <li className={ingredientItemStyles.item} onClick={handleOnClick} ref={dragRef}>
+      <Counter extraClass={totalCount === 0 && ingredientItemStyles.hide} count={totalCount} size="default" />
       <img className="pl-4 pr-4" src={ingredient.image} alt={ingredient.name} />
       <p className={`${ingredientItemStyles.price} text text_type_digits-default`}>
         {ingredient.price}<CurrencyIcon type="primary" />

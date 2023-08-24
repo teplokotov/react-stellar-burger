@@ -1,11 +1,14 @@
 import ingredientDetailsStyles from './ingredient-details.module.css';
-import { ingredientPropType } from '../../utils/prop-types';
+import { useSelector } from "react-redux";
+import { getIngredient } from '../../utils/utils';
 
-IngredientDetails.propTypes = {
-  ingredient: ingredientPropType.isRequired,
-};
+function IngredientDetails() {
 
-function IngredientDetails({ ingredient }) {
+  const { data } = useSelector((store) => store.data);
+  const { currentId } = useSelector((store) => store.currentId);
+
+  const ingredient = getIngredient(data, currentId);
+
   return (
     <section className={`${ingredientDetailsStyles.section}`} aria-label='Пищевая ценность'>
       <img className={ingredientDetailsStyles.image} src={ingredient.image_large} alt={ingredient.name} />

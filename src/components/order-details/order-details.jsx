@@ -1,12 +1,11 @@
+import { useSelector } from "react-redux";
 import orderDetailsStyles from './order-details.module.css';
 import imgDone from '../../images/done.svg';
-import PropTypes from "prop-types";
 
-OrderDetails.propTypes = {
-  numOfOrder: PropTypes.number.isRequired,
-};
+function OrderDetails() {
 
-function OrderDetails({numOfOrder}) {
+  const { numOfOrder } = useSelector((store) => store.order);
+
   return (
     <section className={`${orderDetailsStyles.section} pt-4 pb-15`} aria-label='Информация о заказе'>
       <p className={`${orderDetailsStyles.id} text text_type_digits-large`}>{numOfOrder}</p>

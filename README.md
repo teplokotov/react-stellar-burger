@@ -1,6 +1,18 @@
 # **Проект «Stellar Burger»**
 - Проект Яндекс Практикума
 - Автор: Филипп Добриков, студент 23 когорты Web+
+## Этап 4: Практика Redux и React DND
+### Описание
+- Отправлен на проверку 23.08.2023 / дедлайн 03.09.2023
+- Задание: [Ссылка](https://practicum.yandex.ru/learn/web-plus/courses/b0b7bb62-bda6-4416-af0f-13b5f7a7ff24/sprints/37344/topics/f3cc59f4-5155-4009-93df-1707ea38eef5/lessons/c4f0f268-8ff6-49f1-a491-41bd20ef4ba9/)
+- Чеклист по самопроверке №8: [Ссылка](https://code.s3.yandex.net/web-plus/checklists/checklist_pdf/checklist_8.pdf)
+### Перечень работ
+- Установлены необходимые пакеты, которые отвечают за работу Redux-хранилища приложения и `DnD`
+- Подготовлено хранилище `Redux store`
+- Вся бизнес логика описана в `Actions` и `Reducers`
+- Доработан интерфейс навигации по ингредиентам
+- Реализована возможность перетаскивания ингредиентов мышью из перечня в корзину
+- Реализована сортировка ингредиентов в корзине
 ## Этап 3: Перенос состояния в Context
 ### Описание
 - Отправлен на проверку 11.08.2023 / дедлайн 03.09.2023
@@ -47,6 +59,12 @@
 - TinyPNG
 - Postman
 - React 17 CRA + JSX
-- [prop-types](https://www.npmjs.com/package/prop-types) library
+- [prop-types](https://www.npmjs.com/package/prop-types)
+- [redux](https://www.npmjs.com/package/redux)
+- [react-redux](https://www.npmjs.com/package/react-redux)
+- [redux-thunk](https://www.npmjs.com/package/redux-thunk)
+- [react-dnd](https://www.npmjs.com/package/react-dnd)
+- [react-dnd-html5-backend](https://www.npmjs.com/package/react-dnd-html5-backend)
+- [uuid](https://www.npmjs.com/package/uuid)
 - [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
 - [React Developer Burger UI Components](https://yandex-practicum.github.io/react-developer-burger-ui-components/docs/)

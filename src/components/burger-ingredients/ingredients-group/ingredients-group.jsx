@@ -7,21 +7,20 @@ IngredientsGroup.propTypes = {
   groupId: PropTypes.string.isRequired,
   groupName: PropTypes.string.isRequired,
   group: PropTypes.arrayOf(ingredientPropType).isRequired,
-  onClick: PropTypes.func.isRequired,
 };
 
-function IngredientsGroup({ groupId, groupName, group, onClick }) {
+function IngredientsGroup({ groupId, groupName, group }) {
   return (
-    <>
-      <h2 id={groupId} className='text text_type_main-medium'>{groupName}</h2>
+    <section id={groupId} className='ingredientsGroup'>
+      <h2 className='text text_type_main-medium'>{groupName}</h2>
       <ul className={`${ingredientsGroupStyles.group} pt-6 pb-10 pl-4`}>
         {
           group.map((item) => (
-            <IngredientItem key={item._id} ingredient={item} onClick={onClick} />
+            <IngredientItem key={item._id} ingredient={item} />
           ))
         }
       </ul>
-    </>
+    </section>
   );
 }
 
