@@ -7,6 +7,7 @@ import { compose, legacy_createStore as createStore, applyMiddleware } from 'red
 import { Provider } from 'react-redux';
 import { rootReducer } from './services/reducers';
 import thunk from 'redux-thunk';
+import {BrowserRouter as Router} from 'react-router-dom';
 
 // Turn on Redux Devtools
 const composeEnhancers =
@@ -23,14 +24,15 @@ const store = createStore(rootReducer, enhancer);
 
 ReactDOM.render(
   <React.StrictMode>
-    {/*
-        Allow to use "store" by Redux Provider (using React Context)
-        as props at each level of the hierarchy
-    */}
-    <Provider store={store}>
-      <App />
-    </Provider>
-
+    <Router>
+      {/*
+          Allow to use "store" by Redux Provider (using React Context)
+          as props at each level of the hierarchy
+      */}
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </Router>
   </React.StrictMode>,
   document.getElementById("root")
 );
