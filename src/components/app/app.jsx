@@ -7,9 +7,11 @@ import AppHeader from '../app-header/app-header';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+//import { OnlyAuth, OnlyUnAuth } from "./protected-route";
 
 // Pages
 import Home from '../../pages/home';
+import Login from '../../pages/login';
 
 function App() {
 
@@ -20,8 +22,9 @@ function App() {
       <AppHeader />
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/login" element={<OnlyUnAuth component={<Login/>} />} />
-        <Route path="/profile" element={<OnlyAuth component={<Profile/>} />} /> */}
+        <Route path="/login" element={<Login/>} />
+        {/* <Route path="/login" element={<OnlyUnAuth component={<Login/>} />} /> */}
+        {/* <Route path="/profile" element={<OnlyAuth component={<Profile/>} />} /> */}
       </Routes>
 
       <Modal>
