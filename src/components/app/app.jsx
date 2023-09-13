@@ -12,6 +12,7 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 // Pages
 import Home from '../../pages/home';
 import Login from '../../pages/login';
+import Register from '../../pages/register';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login/>} />
+        <Route path="/register" element={<Register/>} />
         {/* <Route path="/login" element={<OnlyUnAuth component={<Login/>} />} /> */}
         {/* <Route path="/profile" element={<OnlyAuth component={<Profile/>} />} /> */}
       </Routes>
