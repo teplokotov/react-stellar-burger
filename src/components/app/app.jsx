@@ -13,6 +13,8 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import Home from '../../pages/home';
 import Login from '../../pages/login';
 import Register from '../../pages/register';
+import ForgotPassword from '../../pages/forgot-password';
+import ResetPassword from '../../pages/reset-password';
 
 function App() {
 
@@ -23,8 +25,10 @@ function App() {
       <AppHeader />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login/>} />
-        <Route path="/register" element={<Register/>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         {/* <Route path="/login" element={<OnlyUnAuth component={<Login/>} />} /> */}
         {/* <Route path="/profile" element={<OnlyAuth component={<Profile/>} />} /> */}
       </Routes>
