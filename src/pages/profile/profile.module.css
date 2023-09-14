@@ -1,0 +1,64 @@
+.main {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  gap: 60px;
+}
+
+.nav {
+  width: 100%;
+  max-width: 320px;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navlink {
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: color .3s ease-in;
+}
+
+.navlink:hover {
+  color: #fff;
+}
+
+.navlink_active {
+  color: #fff;
+  text-decoration: none;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.button {
+  max-width: fit-content;
+}
+
+.link {
+  text-decoration: none;
+  color: #4C4CFF;
+}
+
+.link:hover {
+  text-decoration: underline;
+  text-underline-position: under;
+}
+
+/* Fix styles of default components: */
+
+p {
+  margin-block-end: 0;
+}
