@@ -17,6 +17,7 @@ import ForgotPassword from '../../pages/forgot-password';
 import ResetPassword from '../../pages/reset-password';
 import Profile from '../../pages/profile';
 import NotFound404 from '../../pages/not-found-404';
+import Ingredient from '../../pages/ingredient/ingredient';
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/ingredient/:id" element={<Ingredient />} />
         <Route path="*" element={<NotFound404 />} />
         {/* <Route path="/login" element={<OnlyUnAuth component={<Login/>} />} /> */}
         {/* <Route path="/profile" element={<OnlyAuth component={<Profile/>} />} /> */}

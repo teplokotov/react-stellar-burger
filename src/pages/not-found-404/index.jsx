@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from 'react-router-dom';
 import styles from './not-found-404.module.css';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
