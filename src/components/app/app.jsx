@@ -16,6 +16,7 @@ import Register from '../../pages/register';
 import ForgotPassword from '../../pages/forgot-password';
 import ResetPassword from '../../pages/reset-password';
 import Profile from '../../pages/profile';
+import NotFound404 from '../../pages/not-found-404';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="*" element={<NotFound404 />} />
         {/* <Route path="/login" element={<OnlyUnAuth component={<Login/>} />} /> */}
         {/* <Route path="/profile" element={<OnlyAuth component={<Profile/>} />} /> */}
       </Routes>
