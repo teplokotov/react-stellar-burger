@@ -1,9 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 import styles from './login.module.css';
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function Login() {
+
+  const { email: emailAfterReset } = useSelector((store) => store.resetPassword);
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -12,6 +15,14 @@ function Login() {
     e.preventDefault();
     email && password && console.log('Успешный успех');
   }
+
+  React.useEffect(() => {
+    if (emailAfterReset) {
+      setEmail(emailAfterReset);
+      const passwordInput = document.querySelector('input[name="password"]');
+      setTimeout(() => passwordInput.focus(), 0);
+    }
+  },[emailAfterReset]);
 
   return (
     <main className={styles.main}>

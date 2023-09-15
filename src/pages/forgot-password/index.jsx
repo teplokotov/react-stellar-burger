@@ -15,7 +15,7 @@ function ForgotPassword() {
 
   function onSubmit(e) {
     e.preventDefault();
-    dispatch(resetPassword(email))
+    email && dispatch(resetPassword(email))
       .then(() => {
         navigate('/reset-password', {
           replace: true,

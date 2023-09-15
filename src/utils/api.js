@@ -26,3 +26,11 @@ export function getAccessToResetPassword(config, email) {
     body: JSON.stringify({"email": email} )
   });
 }
+
+export function sendNewPassword(config, password, token) {
+  return _request(`${config.baseUrl}/password-reset/reset`, {
+    method: 'POST',
+    headers: config.headers,
+    body: JSON.stringify({"password": password, "token": token} )
+  });
+}
