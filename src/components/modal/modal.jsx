@@ -19,6 +19,7 @@ function Modal({ children }) {
 
   function handleOnClose() {
     dispatch({ type: CLOSE_MODAL });
+    window.history.pushState({}, '', '/');
   }
 
   const heading = typeOfModal === 'ingredient' ? 'Детали ингредиента' : '';
@@ -27,7 +28,10 @@ function Modal({ children }) {
   React.useEffect(() => {
     if (isHidden) return; // When the popup is closed, it stops the effect (so as not to add a handler)
     function pressEsc(e) {
-      if(e.key === 'Escape') dispatch({ type: CLOSE_MODAL });
+      if(e.key === 'Escape') {
+        dispatch({ type: CLOSE_MODAL });
+        window.history.pushState({}, '', '/');
+      };
     };
     document.addEventListener('keydown', pressEsc);
     return () => {

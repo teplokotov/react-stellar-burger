@@ -40,6 +40,8 @@ function IngredientItem({ ingredient }) {
       typeOfModal: 'ingredient',
     });
 
+    localStorage.setItem('currentId', ingredient._id);
+    window.history.pushState({}, '', '/ingredients/' + ingredient._id);
   }
 
   return (

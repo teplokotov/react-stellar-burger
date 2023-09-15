@@ -33,7 +33,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/ingredient/:id" element={<Ingredient />} />
+        <Route path="/ingredients/:id" element={<Ingredient />} />
         <Route path="*" element={<NotFound404 />} />
         {/* <Route path="/login" element={<OnlyUnAuth component={<Login/>} />} /> */}
         {/* <Route path="/profile" element={<OnlyAuth component={<Profile/>} />} /> */}
