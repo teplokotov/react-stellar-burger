@@ -4,6 +4,7 @@ import { currentIdReducer } from './currentId';
 import { exchangingOrderDetailsReducer } from './exchangingOrderDetails';
 import { cartReducer } from './cart';
 import { modalReducer } from './modal';
+import { resetPasswordReducer } from './resetPassword';
 
 // "rootReducer" allow to combine several reducers
 export const rootReducer = combineReducers({
@@ -12,4 +13,5 @@ export const rootReducer = combineReducers({
   order: exchangingOrderDetailsReducer,
   cart: cartReducer,
   modal: modalReducer,
+  resetPassword: resetPasswordReducer,
 });

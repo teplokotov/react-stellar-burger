@@ -3,18 +3,25 @@ import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import styles from './forgot-password.module.css';
 import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { resetPassword } from "../../services/actions/resetPassword";
+import { useDispatch } from "react-redux";
 
 function ForgotPassword() {
+
+  const dispatch = useDispatch();
 
   const [email, setEmail] = React.useState('');
   const navigate = useNavigate();
 
   function onSubmit(e) {
     e.preventDefault();
-    email && navigate('/reset-password', {
-      replace: true,
-      state: { hasAccess: true }
-    });
+    dispatch(resetPassword(email))
+      .then(() => {
+        navigate('/reset-password', {
+          replace: true,
+          state: { hasAccess: true }
+        });
+      });
   }
 
   return (

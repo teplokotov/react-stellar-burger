@@ -18,3 +18,11 @@ export function sendOrderToServer(config, cart) {
     body: JSON.stringify({"ingredients": cart} )
   });
 }
+
+export function getAccessToResetPassword(config, email) {
+  return _request(`${config.baseUrl}/password-reset`, {
+    method: 'POST',
+    headers: config.headers,
+    body: JSON.stringify({"email": email} )
+  });
+}
