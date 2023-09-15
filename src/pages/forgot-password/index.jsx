@@ -11,7 +11,10 @@ function ForgotPassword() {
 
   function onSubmit(e) {
     e.preventDefault();
-    email && navigate('/reset-password', {replace: true});
+    email && navigate('/reset-password', {
+      replace: true,
+      state: { hasAccess: true }
+    });
   }
 
   return (
