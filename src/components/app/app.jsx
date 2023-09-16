@@ -1,6 +1,10 @@
+import React from 'react';
 import styles from './app.module.css';
-import { useSelector } from "react-redux";
-import { Route, Routes } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Route, Routes, useLocation } from "react-router-dom";
+
+import { OPEN_MODAL } from '../../services/actions/modal';
+import { SET_CURRENT_ID } from '../../services/actions/currentId';
 
 // Components
 import AppHeader from '../app-header/app-header';
@@ -21,12 +25,24 @@ import Ingredient from '../../pages/ingredient/ingredient';
 
 function App() {
 
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    background && dispatch({
+      type: OPEN_MODAL,
+      typeOfModal: 'ingredient',
+    });
+  }, []);
+
+  const location = useLocation();
+  const background = location.state && location.state.background;
+
   const typeOfModal = useSelector((store) => store.modal.typeOfModal);
 
   return (
     <div className={styles.app}>
       <AppHeader />
-      <Routes>
+      <Routes location={background || location}>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -39,10 +55,13 @@ function App() {
         {/* <Route path="/profile" element={<OnlyAuth component={<Profile/>} />} /> */}
       </Routes>
 
-      <Modal>
-        {typeOfModal === 'ingredient' && <IngredientDetails />}
-        {typeOfModal === 'order' && <OrderDetails />}
-      </ Modal>
+      {background && <Routes>
+        <Route path="/ingredients/:id" element={
+          typeOfModal === 'ingredient' && <Modal><IngredientDetails /></ Modal>
+        } />
+      </Routes>}
+
+      {typeOfModal === 'order' && <Modal><OrderDetails/></ Modal>}
 
     </div>
   );

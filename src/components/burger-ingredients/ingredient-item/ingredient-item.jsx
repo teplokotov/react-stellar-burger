@@ -6,6 +6,7 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import { ingredientPropType } from '../../../utils/prop-types';
 import { SET_CURRENT_ID } from '../../../services/actions/currentId';
 import { OPEN_MODAL } from '../../../services/actions/modal';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 IngredientItem.propTypes = {
   ingredient: ingredientPropType.isRequired,
@@ -13,6 +14,8 @@ IngredientItem.propTypes = {
 
 function IngredientItem({ ingredient }) {
 
+  const location = useLocation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { cart } = useSelector((store) => store.cart);
 
@@ -40,8 +43,7 @@ function IngredientItem({ ingredient }) {
       typeOfModal: 'ingredient',
     });
 
-    localStorage.setItem('currentId', ingredient._id);
-    window.history.pushState({}, '', '/ingredients/' + ingredient._id);
+    navigate('/ingredients/' + ingredient._id, {state: { background: location }});
   }
 
   return (
