@@ -26,18 +26,17 @@ import Ingredient from '../../pages/ingredient/ingredient';
 function App() {
 
   const dispatch = useDispatch();
+  const location = useLocation();
+  const background = location.state && location.state.background;
+
+  const typeOfModal = useSelector((store) => store.modal.typeOfModal);
 
   React.useEffect(() => {
     background && dispatch({
       type: OPEN_MODAL,
       typeOfModal: 'ingredient',
     });
-  }, []);
-
-  const location = useLocation();
-  const background = location.state && location.state.background;
-
-  const typeOfModal = useSelector((store) => store.modal.typeOfModal);
+  }, [background, dispatch]);
 
   return (
     <div className={styles.app}>
