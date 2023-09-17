@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
 
 import { OPEN_MODAL } from '../../services/actions/modal';
-import { SET_CURRENT_ID } from '../../services/actions/currentId';
 
 // Components
 import AppHeader from '../app-header/app-header';

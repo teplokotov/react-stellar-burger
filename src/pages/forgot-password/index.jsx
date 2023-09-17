@@ -16,11 +16,13 @@ function ForgotPassword() {
   function onSubmit(e) {
     e.preventDefault();
     email && dispatch(resetPassword(email))
-      .then(() => {
-        navigate('/reset-password', {
-          replace: true,
-          state: { hasAccess: true }
-        });
+      .then((data) => {
+        if(data && data.success) {
+          navigate('/reset-password', {
+            replace: true,
+            state: { hasAccess: true }
+          });
+        }
       });
   }
 

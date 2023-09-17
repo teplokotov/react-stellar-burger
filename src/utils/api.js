@@ -1,5 +1,8 @@
 function _checkResponse(res) {
   if (res.ok) return res.json();
+  if (res.status === 403) {
+    return res.json().then(data => Promise.reject(`Ошибка: ${res.status} - ${data.message}`));
+  }
   return Promise.reject(`Ошибка: ${res.status}`);
 };
 
@@ -32,5 +35,37 @@ export function sendNewPassword(config, password, token) {
     method: 'POST',
     headers: config.headers,
     body: JSON.stringify({"password": password, "token": token} )
+  });
+}
+
+export function getAccessToLogin(config, email, password) {
+  return _request(`${config.baseUrl}/auth/login`, {
+    method: 'POST',
+    headers: config.headers,
+    body: JSON.stringify({"email": email, "password": password})
+  });
+}
+
+export function sendRegistrationData(config, email, password, name) {
+  return _request(`${config.baseUrl}/auth/register`, {
+    method: 'POST',
+    headers: config.headers,
+    body: JSON.stringify({"email": email, "password": password, "name": name})
+  });
+}
+
+export function getAccessToLogout(config, refreshToken) {
+  return _request(`${config.baseUrl}/auth/logout`, {
+    method: 'POST',
+    headers: config.headers,
+    body: JSON.stringify({"token": refreshToken})
+  });
+}
+
+export function refreshToken(config, refreshToken) {
+  return _request(`${config.baseUrl}/auth/token`, {
+    method: 'POST',
+    headers: config.headers,
+    body: JSON.stringify({"token": refreshToken})
   });
 }
