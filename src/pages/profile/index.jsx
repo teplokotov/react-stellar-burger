@@ -1,10 +1,14 @@
 import React from "react";
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import styles from './profile.module.css';
 import { EmailInput, PasswordInput, Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../../services/actions/logoutUser";
 
 function Profile() {
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isNameDisabled, setIsNameDisabled] = React.useState(true);
 
   const [firstname, setFirstname] = React.useState('Марк');
@@ -14,7 +18,15 @@ function Profile() {
   const nameRef = React.useRef(null);
 
   function logOut() {
-    console.log('Нажали выход');
+    const refreshToken = localStorage.getItem("refreshToken");
+    dispatch(logoutUser(refreshToken))
+    .then(data => {
+      if(data && data.success) {
+        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("accessToken");
+        navigate('/');
+      };
+    })
   }
 
   function onNameIconClick() {

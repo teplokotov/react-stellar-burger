@@ -8,6 +8,7 @@ import { resetPasswordReducer } from './resetPassword';
 import { saveNewPasswordReducer } from './saveNewPassword';
 import { registerUserReducer } from './registerUser';
 import { loginUserReducer } from './loginUser';
+import { logoutUserReducer } from './logoutUser';
 
 // "rootReducer" allow to combine several reducers
 export const rootReducer = combineReducers({
@@ -20,4 +21,5 @@ export const rootReducer = combineReducers({
   saveNewPassword: saveNewPasswordReducer,
   registerUser: registerUserReducer,
   loginUser: loginUserReducer,
+  logoutUser: logoutUserReducer,
 });
