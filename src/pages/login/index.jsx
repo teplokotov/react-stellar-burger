@@ -1,19 +1,29 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './login.module.css';
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { loginUser } from "../../services/actions/loginUser";
 
 function Login() {
 
   const { email: emailAfterReset } = useSelector((store) => store.resetPassword);
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
   function onSubmit(e) {
     e.preventDefault();
-    email && password && console.log('Успешный успех');
+    email && password && dispatch(loginUser(email, password))
+    .then(data => {
+      if(data && data.success) {
+        localStorage.setItem("refreshToken", data.refreshToken);
+        localStorage.setItem("accessToken", data.accessToken);
+        navigate('/');
+      };
+    })
   }
 
   React.useEffect(() => {

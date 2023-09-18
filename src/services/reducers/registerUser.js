@@ -6,7 +6,7 @@ import {
 
 const initialState = {};
 
-export function resetPasswordReducer(state = initialState, action) {
+export function registerUserReducer(state = initialState, action) {
   switch (action.type) {
     case POST_REGISTER_USER_REQUEST: {
       return {
