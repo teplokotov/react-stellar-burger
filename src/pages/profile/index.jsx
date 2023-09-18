@@ -4,6 +4,7 @@ import styles from './profile.module.css';
 import { EmailInput, PasswordInput, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../services/actions/logoutUser";
+import { getUserInfo } from "../../services/actions/userInfo";
 
 function Profile() {
 
@@ -11,11 +12,22 @@ function Profile() {
   const navigate = useNavigate();
   const [isNameDisabled, setIsNameDisabled] = React.useState(true);
 
-  const [firstname, setFirstname] = React.useState('Марк');
-  const [email, setEmail] = React.useState('mail@stellar.burgers');
-  const [password, setPassword] = React.useState('123456');
+  const [firstname, setFirstname] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('******');
 
   const nameRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    dispatch(getUserInfo(accessToken))
+    .then(data => {
+      if(data && data.success) {
+        setFirstname(data.user.name);
+        setEmail(data.user.email);
+      };
+    })
+  },[dispatch]);
 
   function logOut() {
     const refreshToken = localStorage.getItem("refreshToken");
