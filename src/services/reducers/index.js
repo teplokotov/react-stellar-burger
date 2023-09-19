@@ -23,5 +23,5 @@ export const rootReducer = combineReducers({
   registerUser: registerUserReducer,
   loginUser: loginUserReducer,
   logoutUser: logoutUserReducer,
-  userInfo: exchangingUserInfoReducer
+  userInfo: exchangingUserInfoReducer,
 });

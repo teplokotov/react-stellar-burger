@@ -4,7 +4,7 @@ import styles from './profile.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../services/actions/logoutUser";
-import { getUserInfo, sendUserInfo } from "../../services/actions/userInfo";
+import { RESET_USER_INFO, getUserInfo, sendUserInfo } from "../../services/actions/userInfo";
 
 function Profile() {
 
@@ -56,6 +56,7 @@ function Profile() {
     dispatch(logoutUser(refreshToken))
     .then(data => {
       if(data && data.success) {
+        dispatch({ type: RESET_USER_INFO });
         localStorage.removeItem("refreshToken");
         localStorage.removeItem("accessToken");
         navigate('/');

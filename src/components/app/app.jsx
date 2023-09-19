@@ -4,13 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
 
 import { OPEN_MODAL } from '../../services/actions/modal';
+import { checkUserAuth } from '../../services/actions/userInfo';
 
 // Components
 import AppHeader from '../app-header/app-header';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-//import { OnlyAuth, OnlyUnAuth } from "./protected-route";
+import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 
 // Pages
 import Home from '../../pages/home';
@@ -31,6 +32,7 @@ function App() {
   const typeOfModal = useSelector((store) => store.modal.typeOfModal);
 
   React.useEffect(() => {
+    dispatch(checkUserAuth(localStorage.getItem("accessToken")));
     background && dispatch({
       type: OPEN_MODAL,
       typeOfModal: 'ingredient',
@@ -42,15 +44,13 @@ function App() {
       <AppHeader />
       <Routes location={background || location}>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/login" element={<OnlyUnAuth component={<Login />} />} />
+        <Route path="/register" element={<OnlyUnAuth component={<Register />} />} />
+        <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPassword />} />} />
+        <Route path="/reset-password" element={<OnlyUnAuth component={<ResetPassword />} />} />
+        <Route path="/profile" element={<OnlyAuth component={<Profile />} />} />
         <Route path="/ingredients/:id" element={<Ingredient />} />
         <Route path="*" element={<NotFound404 />} />
-        {/* <Route path="/login" element={<OnlyUnAuth component={<Login/>} />} /> */}
-        {/* <Route path="/profile" element={<OnlyAuth component={<Profile/>} />} /> */}
       </Routes>
 
       {background && <Routes>

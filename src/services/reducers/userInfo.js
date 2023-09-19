@@ -4,13 +4,16 @@ import {
   GET_USER_INFO_FAILED,
   PATCH_USER_INFO_REQUEST,
   PATCH_USER_INFO_SUCCESS,
-  PATCH_USER_INFO_FAILED
+  PATCH_USER_INFO_FAILED,
+  SET_AUTH_CHECKED,
+  RESET_USER_INFO
 } from "../actions/userInfo";
 
 const initialState = {
   email: null,
   firstname: null,
-  password: null
+  password: null,
+  isAuthChecked: false,
 };
 
 export function exchangingUserInfoReducer(state = initialState, action) {
@@ -48,6 +51,20 @@ export function exchangingUserInfoReducer(state = initialState, action) {
     case PATCH_USER_INFO_FAILED: {
       return {
         ...state,
+      };
+    }
+    case SET_AUTH_CHECKED: {
+      return {
+        ...state,
+        isAuthChecked: action.isAuthChecked
+      };
+    }
+    case RESET_USER_INFO: {
+      return {
+        ...state,
+        email: null,
+        firstname: null,
+        password: null,
       };
     }
     default: {
