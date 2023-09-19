@@ -10,12 +10,15 @@ import { postOrder } from '../../services/actions/exchangingOrderDetails';
 import { getProp } from '../../utils/utils';
 import { ADD_INGREDIENT_TO_CART } from '../../services/actions/cart';
 import { MOVE_INGREDIENT_INSIDE_CART } from '../../services/actions/cart';
+import { useNavigate } from 'react-router-dom';
 
 function BurgerConstructor() {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { data: ingredients } = useSelector((store) => store.data);
+  const email = useSelector((store) => store.userInfo.email);
   const { cart } = useSelector((store) => store.cart);
 
   const fillings = cart.fillings.map((item) => item.id);
@@ -33,7 +36,11 @@ function BurgerConstructor() {
   }, [cart]);
 
   function handleOnClick() {
-    bun !== null && dispatch(postOrder(getFlatCart()));
+    if(email) {
+      bun !== null && dispatch(postOrder(getFlatCart()));
+    }else{
+      navigate('/login');
+    }
   }
 
   const [{ canDrop }, dropTarget] = useDrop({
