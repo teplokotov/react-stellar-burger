@@ -1,11 +1,14 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from './login.module.css';
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { loginUser } from "../../services/actions/loginUser";
 
 function Login() {
+
+  const location = useLocation();
+  const { from } = location.state || { from: { pathname: "/" } };
 
   const { email: emailAfterReset } = useSelector((store) => store.resetPassword);
 
@@ -21,7 +24,7 @@ function Login() {
       if(data && data.success) {
         localStorage.setItem("refreshToken", data.refreshToken);
         localStorage.setItem("accessToken", data.accessToken);
-        navigate('/');
+        navigate(from);
       };
     })
   }
