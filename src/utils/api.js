@@ -1,6 +1,6 @@
 function _checkResponse(res) {
   if (res.ok) return res.json();
-  if (res.status === 403) {
+  if (res.status === 401 || 403) {
     return res.json().then(data => Promise.reject(`Ошибка: ${res.status} - ${data.message}`));
   }
   return Promise.reject(`Ошибка: ${res.status}`);
@@ -55,7 +55,7 @@ export function sendRegistrationData(config, email, password, name) {
 }
 
 export function getAccessToLogout(config, refreshToken) {
-  return _request(`${config.baseUrl}/auth/logout`, {
+  return fetchWithRefresh(`${config.baseUrl}/auth/logout`, {
     method: 'POST',
     headers: config.headers,
     body: JSON.stringify({"token": refreshToken})
