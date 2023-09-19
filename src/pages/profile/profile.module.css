@@ -57,6 +57,17 @@
   text-underline-position: under;
 }
 
+.buttonsSection {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.caption {
+  opacity: 0.4;
+}
+
 /* Fix styles of default components: */
 
 p {

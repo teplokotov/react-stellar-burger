@@ -12,7 +12,7 @@ export const POST_RESET_PASSWORD_FAILED = 'POST_RESET_PASSWORD_FAILED';
 export function resetPassword(email) {
   return function(dispatch) {
     dispatch({ type: POST_RESET_PASSWORD_REQUEST });
-    return getAccessToResetPassword(APIconfig, email)
+    getAccessToResetPassword(APIconfig, email)
       .then(data => {
         if(data.success) {
           dispatch({ type: POST_RESET_PASSWORD_SUCCESS, payload: email })

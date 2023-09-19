@@ -100,3 +100,16 @@ export function getUserInfoRequest(config, accessToken) {
     }
   });
 }
+
+export function sendUserInfoRequest(config, accessToken, email, name, password) {
+  return fetchWithRefresh(`${config.baseUrl}/auth/user`, {
+    method: 'PATCH',
+    headers: {
+      ...config.headers,
+      authorization: accessToken,
+    },
+    body: JSON.stringify(
+      password !== '******' ? {"email": email, "password": password, "name": name} : {"email": email, "name": name}
+    )
+  });
+}
