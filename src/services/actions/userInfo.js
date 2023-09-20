@@ -43,7 +43,8 @@ export const POST_SAVE_NEW_PASSWORD_FAILED = 'POST_SAVE_NEW_PASSWORD_FAILED';
 
 // Middlewares (thunks)
 
-export function getUserInfo(accessToken) {
+export function getUserInfo() {
+  const accessToken = localStorage.getItem("accessToken");
   return function(dispatch) {
     dispatch({ type: GET_USER_INFO_REQUEST });
     return getUserInfoRequest(APIconfig, accessToken)
@@ -64,7 +65,8 @@ export function getUserInfo(accessToken) {
   };
 }
 
-export function sendUserInfo(accessToken, email, password, name) {
+export function sendUserInfo(email, password, name) {
+  const accessToken = localStorage.getItem("accessToken");
   return function(dispatch) {
     dispatch({ type: PATCH_USER_INFO_REQUEST });
     return sendUserInfoRequest(APIconfig, accessToken, email, password, name)
@@ -81,7 +83,8 @@ export function sendUserInfo(accessToken, email, password, name) {
   };
 }
 
-export function checkUserAuth(accessToken) {
+export function checkUserAuth() {
+  const accessToken = localStorage.getItem("accessToken");
   return function(dispatch) {
     dispatch({ type: GET_USER_INFO_REQUEST });
     if (accessToken) {
@@ -129,7 +132,8 @@ export function loginUser(email, password) {
   };
 }
 
-export function logoutUser(refreshToken) {
+export function logoutUser() {
+  const refreshToken = localStorage.getItem("refreshToken");
   return function(dispatch) {
     dispatch({ type: POST_LOGOUT_USER_REQUEST });
     getAccessToLogout(APIconfig, refreshToken)

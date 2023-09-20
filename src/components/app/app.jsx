@@ -32,7 +32,7 @@ function App() {
   const typeOfModal = useSelector((store) => store.modal.typeOfModal);
 
   React.useEffect(() => {
-    dispatch(checkUserAuth(localStorage.getItem("accessToken")));
+    dispatch(checkUserAuth());
     background && dispatch({
       type: OPEN_MODAL,
       typeOfModal: 'ingredient',

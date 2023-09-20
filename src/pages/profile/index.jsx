@@ -24,25 +24,21 @@ function Profile() {
   const emailRef = React.useRef(null);
   const passwordRef = React.useRef(null);
 
-  const accessToken = React.useCallback(() => {
-    return localStorage.getItem("accessToken");
-  },[]);
-
   React.useEffect(() => {
-    dispatch(getUserInfo(accessToken()))
+    dispatch(getUserInfo())
       .then(data => {
         if(data && data.success) {
           setFirstname(data.user.name);
           setEmail(data.user.email);
         };
       })
-  },[accessToken, dispatch]);
+  },[dispatch]);
 
   function onSubmit(e) {
     e.preventDefault();
     password !== '******' ?
-      dispatch(sendUserInfo(accessToken(), email, firstname, password)) :
-      dispatch(sendUserInfo(accessToken(), email, firstname));
+      dispatch(sendUserInfo(email, firstname, password)) :
+      dispatch(sendUserInfo(email, firstname));
   }
 
   function onClickResetBtn() {
@@ -52,8 +48,7 @@ function Profile() {
   }
 
   function logOut() {
-    const refreshToken = localStorage.getItem("refreshToken");
-    dispatch(logoutUser(refreshToken));
+    dispatch(logoutUser());
   }
 
   function onNameIconClick() {
