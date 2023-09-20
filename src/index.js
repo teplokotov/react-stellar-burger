@@ -26,7 +26,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
-    <Router>
+    <Router basename="/react-stellar-burger">
       {/*
           Allow to use "store" by Redux Provider (using React Context)
           as props at each level of the hierarchy
