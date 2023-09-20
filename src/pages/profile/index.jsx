@@ -4,7 +4,7 @@ import styles from './profile.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../services/actions/userInfo";
-import { getUserInfo, sendUserInfo } from "../../services/actions/userInfo";
+import { sendUserInfo } from "../../services/actions/userInfo";
 
 function Profile() {
 
@@ -15,24 +15,14 @@ function Profile() {
   const [isNameDisabled, setIsNameDisabled] = React.useState(true);
   const [isEmailDisabled, setIsEmailDisabled] = React.useState(true);
   const [isPasswordDisabled, setIsPasswordDisabled] = React.useState(true);
-  const [firstname, setFirstname] = React.useState('');
-  const [email, setEmail] = React.useState('');
+  const [firstname, setFirstname] = React.useState(userInfo.firstname);
+  const [email, setEmail] = React.useState(userInfo.email);
   const [password, setPassword] = React.useState('******');
   const [isShowButtons, setIsShowButtons] = React.useState(false);
 
   const nameRef = React.useRef(null);
   const emailRef = React.useRef(null);
   const passwordRef = React.useRef(null);
-
-  React.useEffect(() => {
-    dispatch(getUserInfo())
-      .then(data => {
-        if(data && data.success) {
-          setFirstname(data.user.name);
-          setEmail(data.user.email);
-        };
-      })
-  },[dispatch]);
 
   function onSubmit(e) {
     e.preventDefault();
