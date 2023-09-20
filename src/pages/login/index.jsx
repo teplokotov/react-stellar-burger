@@ -1,32 +1,22 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from './login.module.css';
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { loginUser } from "../../services/actions/userInfo";
 
 function Login() {
 
-  const location = useLocation();
-  const { from } = location.state || { from: { pathname: "/" } };
-
   const { email: emailAfterReset } = useSelector((store) => store.userInfo);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
   function onSubmit(e) {
     e.preventDefault();
-    email && password && dispatch(loginUser(email, password))
-    .then(data => {
-      if(data && data.success) {
-        localStorage.setItem("refreshToken", data.refreshToken);
-        localStorage.setItem("accessToken", data.accessToken);
-        navigate(from);
-      };
-    })
+    email && password && dispatch(loginUser(email, password));
   }
 
   React.useEffect(() => {

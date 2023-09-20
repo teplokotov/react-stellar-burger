@@ -110,7 +110,7 @@ export function checkUserAuth(accessToken) {
 export function loginUser(email, password) {
   return function(dispatch) {
     dispatch({ type: POST_LOGIN_USER_REQUEST });
-    return getAccessToLogin(APIconfig, email, password)
+    getAccessToLogin(APIconfig, email, password)
       .then(data => {
         if(data.success) {
           dispatch({
@@ -118,8 +118,9 @@ export function loginUser(email, password) {
             email: data.user.email,
             firstname: data.user.name
           });
+          localStorage.setItem("refreshToken", data.refreshToken);
+          localStorage.setItem("accessToken", data.accessToken);
         }
-        return data;
       })
       .catch(err => {
         dispatch({ type: POST_LOGIN_USER_FAILED });
@@ -131,12 +132,14 @@ export function loginUser(email, password) {
 export function logoutUser(refreshToken) {
   return function(dispatch) {
     dispatch({ type: POST_LOGOUT_USER_REQUEST });
-    return getAccessToLogout(APIconfig, refreshToken)
+    getAccessToLogout(APIconfig, refreshToken)
       .then(data => {
         if(data.success) {
           dispatch({ type: POST_LOGOUT_USER_SUCCESS });
+          dispatch({ type: RESET_USER_INFO });
+          localStorage.removeItem("refreshToken");
+          localStorage.removeItem("accessToken");
         }
-        return data;
       })
       .catch(err => {
         dispatch({ type: POST_LOGOUT_USER_FAILED });
@@ -148,12 +151,13 @@ export function logoutUser(refreshToken) {
 export function registerUser(email, password, name) {
   return function(dispatch) {
     dispatch({ type: POST_REGISTER_USER_REQUEST });
-    return sendRegistrationData(APIconfig, email, password, name)
+    sendRegistrationData(APIconfig, email, password, name)
       .then(data => {
         if(data.success) {
           dispatch({ type: POST_REGISTER_USER_SUCCESS });
+          localStorage.setItem("refreshToken", data.refreshToken);
+          localStorage.setItem("accessToken", data.accessToken);
         }
-        return data;
       })
       .catch(err => {
         dispatch({ type: POST_REGISTER_USER_FAILED });

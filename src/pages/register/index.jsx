@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from './register.module.css';
 import { EmailInput, PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch } from "react-redux";
@@ -8,7 +8,6 @@ import { registerUser } from "../../services/actions/userInfo";
 function Register() {
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [firstname, setFirstname] = React.useState('');
   const [email, setEmail] = React.useState('');
@@ -16,14 +15,7 @@ function Register() {
 
   function onSubmit(e) {
     e.preventDefault();
-    firstname && email && password && dispatch(registerUser(email, password, firstname))
-      .then(data => {
-        if(data && data.success) {
-          localStorage.setItem("refreshToken", data.refreshToken);
-          localStorage.setItem("accessToken", data.accessToken);
-          navigate('/');
-        };
-      })
+    firstname && email && password && dispatch(registerUser(email, password, firstname));
   }
 
   return (

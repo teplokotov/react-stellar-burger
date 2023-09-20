@@ -1,15 +1,15 @@
 import React from "react";
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import styles from './profile.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../services/actions/userInfo";
-import { RESET_USER_INFO, getUserInfo, sendUserInfo } from "../../services/actions/userInfo";
+import { getUserInfo, sendUserInfo } from "../../services/actions/userInfo";
 
 function Profile() {
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   const userInfo = useSelector((store) => store.userInfo);
 
   const [isNameDisabled, setIsNameDisabled] = React.useState(true);
@@ -30,12 +30,12 @@ function Profile() {
 
   React.useEffect(() => {
     dispatch(getUserInfo(accessToken()))
-    .then(data => {
-      if(data && data.success) {
-        setFirstname(data.user.name);
-        setEmail(data.user.email);
-      };
-    })
+      .then(data => {
+        if(data && data.success) {
+          setFirstname(data.user.name);
+          setEmail(data.user.email);
+        };
+      })
   },[accessToken, dispatch]);
 
   function onSubmit(e) {
@@ -53,15 +53,7 @@ function Profile() {
 
   function logOut() {
     const refreshToken = localStorage.getItem("refreshToken");
-    dispatch(logoutUser(refreshToken))
-    .then(data => {
-      if(data && data.success) {
-        dispatch({ type: RESET_USER_INFO });
-        localStorage.removeItem("refreshToken");
-        localStorage.removeItem("accessToken");
-        navigate('/');
-      };
-    })
+    dispatch(logoutUser(refreshToken));
   }
 
   function onNameIconClick() {
