@@ -13,6 +13,7 @@ import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import UserForm from '../user-form/user-form';
 import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
+import PreloaderOrder from '../preloader-order/preloader-order';
 
 // Pages
 import Home from '../../pages/home';
@@ -31,6 +32,7 @@ function App() {
   const background = location.state && location.state.background;
 
   const typeOfModal = useSelector((store) => store.modal.typeOfModal);
+  const isLoadingOrder = useSelector((store) => store.order.isLoading);
 
   React.useEffect(() => {
     dispatch(checkUserAuth());
@@ -64,6 +66,7 @@ function App() {
       </Routes>}
 
       {typeOfModal === 'order' && <Modal><OrderDetails/></ Modal>}
+      {isLoadingOrder && <PreloaderOrder />}
 
     </div>
   );

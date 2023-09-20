@@ -6,6 +6,7 @@ import {
 
 const initialState = {
   numOfOrder: null,
+  isLoading: false
 };
 
 export function exchangingOrderDetailsReducer(state = initialState, action) {
@@ -13,12 +14,14 @@ export function exchangingOrderDetailsReducer(state = initialState, action) {
     case POST_ORDER_REQUEST: {
       return {
         ...state,
+        isLoading: action.isLoading
       };
     }
     case POST_ORDER_SUCCESS: {
       return {
         ...state,
-        numOfOrder: action.payload,
+        numOfOrder: action.numOfOrder,
+        isLoading: action.isLoading
       };
     }
     case POST_ORDER_FAILED: {
