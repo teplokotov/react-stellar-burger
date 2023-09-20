@@ -18,7 +18,7 @@ function BurgerConstructor() {
   const navigate = useNavigate();
 
   const { data: ingredients } = useSelector((store) => store.data);
-  const email = useSelector((store) => store.userInfo.email);
+  const firstname = useSelector((store) => store.userInfo.firstname);
   const { cart } = useSelector((store) => store.cart);
 
   const fillings = cart.fillings.map((item) => item.id);
@@ -36,7 +36,7 @@ function BurgerConstructor() {
   }, [cart]);
 
   function handleOnClick() {
-    if(email) {
+    if(firstname) {
       bun !== null && dispatch(postOrder(getFlatCart()));
     }else{
       navigate('/login');

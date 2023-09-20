@@ -3,7 +3,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import styles from './profile.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from "react-redux";
-import { logoutUser } from "../../services/actions/logoutUser";
+import { logoutUser } from "../../services/actions/userInfo";
 import { RESET_USER_INFO, getUserInfo, sendUserInfo } from "../../services/actions/userInfo";
 
 function Profile() {

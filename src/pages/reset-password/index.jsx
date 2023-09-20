@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import styles from './reset-password.module.css';
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch } from "react-redux";
-import { saveNewPassword } from "../../services/actions/saveNewPassword";
+import { saveNewPassword } from "../../services/actions/userInfo";
 
 function ResetPassword() {
 

@@ -4,11 +4,6 @@ import { currentIdReducer } from './currentId';
 import { exchangingOrderDetailsReducer } from './exchangingOrderDetails';
 import { cartReducer } from './cart';
 import { modalReducer } from './modal';
-import { resetPasswordReducer } from './resetPassword';
-import { saveNewPasswordReducer } from './saveNewPassword';
-import { registerUserReducer } from './registerUser';
-import { loginUserReducer } from './loginUser';
-import { logoutUserReducer } from './logoutUser';
 import { exchangingUserInfoReducer } from './userInfo';
 
 // "rootReducer" allow to combine several reducers
@@ -18,10 +13,5 @@ export const rootReducer = combineReducers({
   order: exchangingOrderDetailsReducer,
   cart: cartReducer,
   modal: modalReducer,
-  resetPassword: resetPasswordReducer,
-  saveNewPassword: saveNewPasswordReducer,
-  registerUser: registerUserReducer,
-  loginUser: loginUserReducer,
-  logoutUser: logoutUserReducer,
   userInfo: exchangingUserInfoReducer,
 });

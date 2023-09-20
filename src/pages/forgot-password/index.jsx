@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import styles from './forgot-password.module.css';
 import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { resetPassword } from "../../services/actions/resetPassword";
+import { resetPassword } from "../../services/actions/userInfo";
 import { useDispatch, useSelector } from "react-redux";
 
 function ForgotPassword() {
@@ -13,7 +13,7 @@ function ForgotPassword() {
   const [email, setEmail] = React.useState('');
   const navigate = useNavigate();
 
-  const hasAccessToResetPassword = useSelector((store) => store.resetPassword.email !== '');
+  const hasAccessToResetPassword = useSelector((store) => store.userInfo.email !== null);
 
   React.useEffect(() => {
     hasAccessToResetPassword && navigate('/reset-password', {
