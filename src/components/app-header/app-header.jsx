@@ -31,11 +31,11 @@ function AppHeader() {
           </li>
           <li>
             <Button htmlType="button"
-                    onClick={() => navigate('/profile/orders/')}
+                    onClick={() => navigate('/feed/')}
                     type="secondary"
                     size="medium"
-                    extraClass={`${appHeaderStyles.button} ${getStyleOfText('/profile/orders/')} pr-5 pl-5`}>
-              <ListIcon type={getStyleOfIcon('/profile/orders/')} />Лента заказов
+                    extraClass={`${appHeaderStyles.button} ${getStyleOfText('/feed/')} pr-5 pl-5`}>
+              <ListIcon type={getStyleOfIcon('/feed/')} />Лента заказов
             </Button>
           </li>
         </ul>

@@ -11,6 +11,7 @@ import AppHeader from '../app-header/app-header';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import UserForm from '../user-form/user-form';
 import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 
 // Pages
@@ -48,7 +49,10 @@ function App() {
         <Route path="/register" element={<OnlyUnAuth component={<Register />} />} />
         <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPassword />} />} />
         <Route path="/reset-password" element={<OnlyUnAuth component={<ResetPassword />} />} />
-        <Route path="/profile" element={<OnlyAuth component={<Profile />} />} />
+        <Route path="/profile" element={<OnlyAuth component={<Profile />} />} >
+          <Route path="/profile/" element={<UserForm />} />
+          <Route path="/profile/orders" element={<>История заказов</>} />
+        </Route>
         <Route path="/ingredients/:id" element={<Ingredient />} />
         <Route path="*" element={<NotFound404 />} />
       </Routes>
