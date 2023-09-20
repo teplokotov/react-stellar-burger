@@ -14,10 +14,13 @@ export function getIngredientsFromServer(config) {
   return _request(`${config.baseUrl}/ingredients`, {headers: config.headers});
 };
 
-export function sendOrderToServer(config, cart) {
+export function sendOrderToServer(config, cart, accessToken) {
   return _request(`${config.baseUrl}/orders`, {
     method: 'POST',
-    headers: config.headers,
+    headers: {
+      ...config.headers,
+      authorization: accessToken,
+    },
     body: JSON.stringify({"ingredients": cart} )
   });
 }
