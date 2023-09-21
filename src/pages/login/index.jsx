@@ -7,7 +7,7 @@ import { loginUser } from "../../services/actions/userInfo";
 
 function Login() {
 
-  const { email: emailAfterReset } = useSelector((store) => store.userInfo);
+  const emailAfterReset = useSelector((store) => store.userInfo.email);
 
   const dispatch = useDispatch();
 

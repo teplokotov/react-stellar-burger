@@ -7,7 +7,8 @@ import { compose, legacy_createStore as createStore, applyMiddleware } from 'red
 import { Provider } from 'react-redux';
 import { rootReducer } from './services/reducers';
 import thunk from 'redux-thunk';
-import {BrowserRouter as Router} from 'react-router-dom';
+import {HashRouter as Router} from 'react-router-dom'; // Trick: HashRouter for deploying at gh-pages
+// import {BrowserRouter as Router} from 'react-router-dom';
 
 // Turn on Redux Devtools
 const composeEnhancers =
@@ -26,7 +27,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
-    <Router basename="/react-stellar-burger">
+    <Router>
       {/*
           Allow to use "store" by Redux Provider (using React Context)
           as props at each level of the hierarchy
