@@ -6,6 +6,7 @@ import modalStyles from './modal.module.css';
 import ModalOverlay from '../modal-overlay/modal-overlay'
 import PropTypes from "prop-types";
 import { CLOSE_MODAL } from '../../services/actions/modal';
+import { useNavigate } from 'react-router-dom';
 
 Modal.propTypes = {
   children: PropTypes.node.isRequired,
@@ -13,12 +14,14 @@ Modal.propTypes = {
 
 function Modal({ children }) {
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isHidden } = useSelector((store) => store.modal);
   const { typeOfModal } = useSelector((store) => store.modal);
 
   function handleOnClose() {
     dispatch({ type: CLOSE_MODAL });
+    typeOfModal === 'ingredient' && navigate(-1);
   }
 
   const heading = typeOfModal === 'ingredient' ? 'Детали ингредиента' : '';
@@ -27,13 +30,16 @@ function Modal({ children }) {
   React.useEffect(() => {
     if (isHidden) return; // When the popup is closed, it stops the effect (so as not to add a handler)
     function pressEsc(e) {
-      if(e.key === 'Escape') dispatch({ type: CLOSE_MODAL });
+      if(e.key === 'Escape') {
+        dispatch({ type: CLOSE_MODAL });
+        typeOfModal === 'ingredient' && navigate(-1);
+      };
     };
     document.addEventListener('keydown', pressEsc);
     return () => {
       document.removeEventListener('keydown', pressEsc);
     };
-  }, [dispatch, isHidden]);
+  }, [dispatch, isHidden, navigate, typeOfModal]);
 
   return createPortal(
     <>

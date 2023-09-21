@@ -1,58 +1,73 @@
 import React from 'react';
-import { useSelector, useDispatch } from "react-redux";
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { DndProvider } from 'react-dnd';
 import styles from './app.module.css';
-import { loadData } from '../../services/actions';
+import { useDispatch, useSelector } from "react-redux";
+import { Route, Routes, useLocation } from "react-router-dom";
 
+import { OPEN_MODAL } from '../../services/actions/modal';
+import { checkUserAuth } from '../../services/actions/userInfo';
+
+// Components
 import AppHeader from '../app-header/app-header';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import UserForm from '../user-form/user-form';
+import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
+import PreloaderOrder from '../preloader-order/preloader-order';
+
+// Pages
+import Home from '../../pages/home';
+import Login from '../../pages/login';
+import Register from '../../pages/register';
+import ForgotPassword from '../../pages/forgot-password';
+import ResetPassword from '../../pages/reset-password';
+import Profile from '../../pages/profile';
+import NotFound404 from '../../pages/not-found-404';
+import Ingredient from '../../pages/ingredient/ingredient';
 
 function App() {
 
   const dispatch = useDispatch();
-  const { data, isLoading, hasError } = useSelector((store) => store.data);
-  const typeOfModal = useSelector((store) => store.modal.typeOfModal);
+  const location = useLocation();
+  const background = location.state && location.state.background;
 
-  React.useEffect(() => dispatch(loadData()), [dispatch]);
+  const typeOfModal = useSelector((store) => store.modal.typeOfModal);
+  const isLoadingOrder = useSelector((store) => store.order.isLoading);
+
+  React.useEffect(() => {
+    dispatch(checkUserAuth());
+    background && dispatch({
+      type: OPEN_MODAL,
+      typeOfModal: 'ingredient',
+    });
+  }, [background, dispatch]);
 
   return (
     <div className={styles.app}>
       <AppHeader />
-      <main className={styles.main}>
+      <Routes location={background || location}>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<OnlyUnAuth component={<Login />} />} />
+        <Route path="/register" element={<OnlyUnAuth component={<Register />} />} />
+        <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPassword />} />} />
+        <Route path="/reset-password" element={<OnlyUnAuth component={<ResetPassword />} />} />
+        <Route path="/profile" element={<OnlyAuth component={<Profile />} />} >
+          <Route path="/profile/" element={<UserForm />} />
+          <Route path="/profile/orders" element={<>История заказов</>} />
+        </Route>
+        <Route path="/ingredients/:id" element={<Ingredient />} />
+        <Route path="*" element={<NotFound404 />} />
+      </Routes>
 
-        {/* Loading or error messages */}
-        {
-          (isLoading || hasError) && (
-            <p className={`${styles.loadingMessage} text text_type_main-medium`}>
-              {isLoading && 'Загрузка...'}
-              {hasError && 'Произошла ошибка'}
-            </p>
-          )
-        }
+      {background && <Routes>
+        <Route path="/ingredients/:id" element={
+          typeOfModal === 'ingredient' && <Modal><IngredientDetails /></ Modal>
+        } />
+      </Routes>}
 
-        {/* Main block */}
-        {
-          !isLoading && !hasError && data.length &&
-            (
-              <DndProvider backend={HTML5Backend}>
-                <BurgerIngredients />
-                <BurgerConstructor />
-              </DndProvider>
-            )
-        }
+      {typeOfModal === 'order' && <Modal><OrderDetails/></ Modal>}
+      {isLoadingOrder && <PreloaderOrder />}
 
-      </main>
-      {
-        <Modal>
-          {typeOfModal === 'ingredient' && <IngredientDetails />}
-          {typeOfModal === 'order' && <OrderDetails />}
-        </ Modal>
-      }
     </div>
   );
 }

@@ -12,12 +12,16 @@ export const POST_ORDER_FAILED = 'POST_ORDER_FAILED';
 // Middlewares (thunks)
 
 export function postOrder(cart) {
+  const accessToken = localStorage.getItem("accessToken");
   return function(dispatch) {
-    dispatch({ type: POST_ORDER_REQUEST });
-    sendOrderToServer(APIconfig, cart)
+    dispatch({ type: POST_ORDER_REQUEST, isLoading: true });
+    sendOrderToServer(APIconfig, cart, accessToken)
       .then(data => {
         if(data.success) {
-          dispatch({ type: POST_ORDER_SUCCESS, payload: data.order.number });
+          dispatch({ type: POST_ORDER_SUCCESS,
+                     numOfOrder: data.order.number,
+                     isLoading: false
+          });
           dispatch({ type: OPEN_MODAL, typeOfModal: 'order' });
           dispatch({ type: CLEAR_CART });
         }

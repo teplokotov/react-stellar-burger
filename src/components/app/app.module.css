@@ -5,16 +5,3 @@
   background-color: #131316;
   color: #f2f2f3;
 }
-
-.main {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 40px;
-}
-
-.loadingMessage {
-  display: flex;
-  align-items: center;
-  height: calc(100vh - 88px);
-}

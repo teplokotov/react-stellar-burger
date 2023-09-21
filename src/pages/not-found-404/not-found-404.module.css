@@ -1,0 +1,12 @@
+.main {
+  height: calc(100vh - 88px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
+  margin: 0;
+  font-size: 256px;
+}
