@@ -54,8 +54,11 @@ function App() {
         <Route path="/profile" element={<OnlyAuth component={<Profile />} />} >
           <Route path="/profile/" element={<UserForm />} />
           <Route path="/profile/orders" element={<>История заказов</>} />
+          <Route path="/profile/orders/:id" element={<>Описание заказа</>} />
         </Route>
         <Route path="/ingredients/:id" element={<Ingredient />} />
+        <Route path="/feed" element={<>Лента заказов</>} />
+        <Route path="/feed/:id" element={<>Описание заказа</>} />
         <Route path="*" element={<NotFound404 />} />
       </Routes>
 
