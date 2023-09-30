@@ -12,3 +12,22 @@ export const ingredientsTypes = {
   'sauce': 'Соусы',
   'main': 'Начинки',
 };
+
+export const orderStatuses = {
+  created: {
+    text: 'Создан',
+    color: '#fff',
+  },
+  pending: {
+    text: 'Готовится',
+    color: '#fff',
+  },
+  done: {
+    text: 'Выполнен',
+    color: '#0CC',
+  },
+  canceled: {
+    text: 'Отменён',
+    color: '#CE3D2A',
+  },
+}

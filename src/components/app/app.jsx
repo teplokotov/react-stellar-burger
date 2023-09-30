@@ -25,6 +25,7 @@ import Profile from '../../pages/profile';
 import NotFound404 from '../../pages/not-found-404';
 import Ingredient from '../../pages/ingredient/ingredient';
 import Feed from '../../pages/feed';
+import OrderInfo from '../../pages/orderInfo';
 
 function App() {
 
@@ -59,7 +60,7 @@ function App() {
         </Route>
         <Route path="/ingredients/:id" element={<Ingredient />} />
         <Route path="/feed" element={<Feed />} />
-        <Route path="/feed/:id" element={<>Описание заказа</>} />
+        <Route path="/feed/:id" element={<OrderInfo />} />
         <Route path="*" element={<NotFound404 />} />
       </Routes>
 
@@ -70,7 +71,7 @@ function App() {
       </Routes>}
 
       {typeOfModal === 'order' && <Modal><OrderDetails/></ Modal>}
-      {isLoadingOrder && <PreloaderOrder />}
+      {isLoadingOrder && location.pathname === '/' && <PreloaderOrder />}
 
     </div>
   );
