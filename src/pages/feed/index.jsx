@@ -1,7 +1,24 @@
+import { useDispatch } from 'react-redux';
 import styles from './feed.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { OPEN_MODAL } from '../../services/actions/modal';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function Feed() {
+
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  function handleOnClick() {
+    dispatch({
+      type: OPEN_MODAL,
+      typeOfModal: 'orderInfo',
+    });
+
+    navigate('/feed/' + 21890, {state: { background: location }});
+  }
+
   return (
     <main className={styles.main}>
       <section className={`${styles.leftSection} pt-10`}>
@@ -10,7 +27,7 @@ function Feed() {
         {/* Orders area */}
         <section className={`${styles.ordersArea} custom-scroll mt-5`}>
           <ul className={`${styles.ordersList}`}>
-            <li className={`${styles.orderDetails}`}>
+            <li className={`${styles.orderDetails}`} onClick={handleOnClick}>
               <div className={`${styles.orderDetailsHeader}`}>
                 <p className="text text_type_digits-default">#034535</p>
                 <p className="text text_type_main-default text_color_inactive">Сегодня, 16:20 i-GMT+3</p>

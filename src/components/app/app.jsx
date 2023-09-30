@@ -14,6 +14,7 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import UserForm from '../user-form/user-form';
 import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 import PreloaderOrder from '../preloader-order/preloader-order';
+import OrderInfoDetails from '../order-info-details/order-info-details';
 
 // Pages
 import Home from '../../pages/home';
@@ -38,9 +39,13 @@ function App() {
 
   React.useEffect(() => {
     dispatch(checkUserAuth());
-    background && dispatch({
+    background?.pathname === '/' && dispatch({
       type: OPEN_MODAL,
       typeOfModal: 'ingredient',
+    });
+    background?.pathname === '/feed/' && dispatch({
+      type: OPEN_MODAL,
+      typeOfModal: 'orderInfo',
     });
   }, [background, dispatch]);
 
@@ -67,6 +72,9 @@ function App() {
       {background && <Routes>
         <Route path="/ingredients/:id" element={
           typeOfModal === 'ingredient' && <Modal><IngredientDetails /></ Modal>
+        } />
+        <Route path="/feed/:id" element={
+          typeOfModal === 'orderInfo' && <Modal><OrderInfoDetails /></ Modal>
         } />
       </Routes>}
 

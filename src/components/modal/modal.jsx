@@ -21,7 +21,7 @@ function Modal({ children }) {
 
   function handleOnClose() {
     dispatch({ type: CLOSE_MODAL });
-    typeOfModal === 'ingredient' && navigate(-1);
+    (typeOfModal === 'ingredient' || typeOfModal === 'orderInfo') && navigate(-1);
   }
 
   const heading = typeOfModal === 'ingredient' ? 'Детали ингредиента' : '';
@@ -32,7 +32,7 @@ function Modal({ children }) {
     function pressEsc(e) {
       if(e.key === 'Escape') {
         dispatch({ type: CLOSE_MODAL });
-        typeOfModal === 'ingredient' && navigate(-1);
+        (typeOfModal === 'ingredient' || typeOfModal === 'orderInfo') && navigate(-1);
       };
     };
     document.addEventListener('keydown', pressEsc);

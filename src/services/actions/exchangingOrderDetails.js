@@ -13,6 +13,8 @@ export const GET_ORDER_INFO_REQUEST = 'GET_ORDER_INFO_REQUEST';
 export const GET_ORDER_INFO_SUCCESS = 'GET_ORDER_INFO_SUCCESS';
 export const GET_ORDER_INFO_FAILED = 'GET_ORDER_INFO_FAILED';
 
+export const SET_CURRENT_ORDER_ID = 'SET_CURRENT_ORDER_ID';
+
 // Middlewares (thunks)
 
 export function postOrder(cart) {

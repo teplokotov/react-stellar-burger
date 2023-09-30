@@ -5,6 +5,7 @@ import {
   GET_ORDER_INFO_REQUEST,
   GET_ORDER_INFO_SUCCESS,
   GET_ORDER_INFO_FAILED,
+  SET_CURRENT_ORDER_ID
 } from "../actions/exchangingOrderDetails";
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   isLoading: false,
   orderInfo: [],
   hasError: false,
+  currentOrderID: ''
 };
 
 export function exchangingOrderDetailsReducer(state = initialState, action) {
@@ -51,6 +53,12 @@ export function exchangingOrderDetailsReducer(state = initialState, action) {
       return {
         ...state,
         hasError: action.hasError
+      };
+    }
+    case SET_CURRENT_ORDER_ID: {
+      return {
+        ...state,
+        currentOrderID: action.currentOrderID
       };
     }
     default: {
