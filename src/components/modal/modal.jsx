@@ -6,13 +6,15 @@ import modalStyles from './modal.module.css';
 import ModalOverlay from '../modal-overlay/modal-overlay'
 import PropTypes from "prop-types";
 import { CLOSE_MODAL } from '../../services/actions/modal';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 Modal.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
 function Modal({ children }) {
+
+  const { id } = useParams();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -46,7 +48,11 @@ function Modal({ children }) {
       <ModalOverlay isHidden={isHidden} onClose={handleOnClose} />
       <div className={`${modalStyles.modal} pt-10 pr-10 pb-15 pl-10 ${!isHidden && modalStyles.show}`}>
         <section className={modalStyles.header}>
-          <h3 className={`${modalStyles.heading} text text_type_main-large pr-10`}>{heading}</h3>
+          {
+            id && typeOfModal === 'orderInfo' ?
+              <p className='text text_type_digits-default'>#{id}</p> :
+              <h3 className={`${modalStyles.heading} text text_type_main-large pr-10`}>{heading}</h3>
+          }
           <button className={modalStyles.button} onClick={handleOnClose}>
             <CloseIcon type="primary" />
           </button>

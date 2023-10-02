@@ -74,7 +74,7 @@ function App() {
           typeOfModal === 'ingredient' && <Modal><IngredientDetails /></ Modal>
         } />
         <Route path="/feed/:id" element={
-          typeOfModal === 'orderInfo' && <Modal><OrderInfoDetails /></ Modal>
+          typeOfModal === 'orderInfo' && <Modal><OrderInfoDetails isModal={true}/></ Modal>
         } />
       </Routes>}
 

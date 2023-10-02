@@ -8,7 +8,7 @@ import { getProp } from '../../utils/utils';
 import { loadData } from '../../services/actions';
 import { orderStatuses } from '../../utils/constants';
 
-function OrderInfoDetails() {
+function OrderInfoDetails({isModal}) {
 
   const dispatch = useDispatch();
 
@@ -40,8 +40,8 @@ function OrderInfoDetails() {
 
   return orderInfo[0] && (
     <section className={`${styles.orderInfoSection}`}>
-      <p className={`${styles.orderNumber} text text_type_digits-default`}>#{orderInfo[0].number}</p>
-      <h1 className="text text_type_main-medium pt-10">{orderInfo[0].name}</h1>
+      {!isModal && <p className={`${styles.orderNumber} text text_type_digits-default pb-5`}>#{orderInfo[0].number}</p>}
+      <h1 className="text text_type_main-medium pt-5">{orderInfo[0].name}</h1>
       <p className="text text_type_main-default pt-3"
           style={{color: orderStatuses[orderInfo[0].status]['color']}}
       >{orderStatuses[orderInfo[0].status]['text']}</p>
