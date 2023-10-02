@@ -1,14 +1,25 @@
-import { useDispatch } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './feed.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { OPEN_MODAL } from '../../services/actions/modal';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { connect, disconnect } from '../../services/actions/socket';
 
 function Feed() {
 
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { total, totalToday } = useSelector((store) => store.socket);
+
+  React.useEffect(() => {
+    dispatch(connect());
+    return () => {
+      setTimeout(() => dispatch(disconnect()), 1000);
+    }
+  },[dispatch]);
 
   function handleOnClick() {
     dispatch({
@@ -103,12 +114,12 @@ function Feed() {
 
         <div>
           <h2 className="text text_type_main-medium">Выполнено за все время:</h2>
-          <p className="text text_type_digits-large">28 752</p>
+          <p className="text text_type_digits-large">{total}</p>
         </div>
 
         <div>
           <h2 className="text text_type_main-medium">Выполнено за сегодня:</h2>
-          <p className="text text_type_digits-large">138</p>
+          <p className="text text_type_digits-large">{totalToday}</p>
         </div>
       </section>
     </main>

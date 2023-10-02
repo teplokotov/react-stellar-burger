@@ -6,6 +6,9 @@ export const APIconfig = {
   }
 }
 
+// WebSocket url
+export const wsURL = 'wss://norma.nomoreparties.space';
+
 // Types of ingredients
 export const ingredientsTypes = {
   'bun': 'Булки',

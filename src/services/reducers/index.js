@@ -5,6 +5,7 @@ import { exchangingOrderDetailsReducer } from './exchangingOrderDetails';
 import { cartReducer } from './cart';
 import { modalReducer } from './modal';
 import { exchangingUserInfoReducer } from './userInfo';
+import { socketReducer } from './socket';
 
 // "rootReducer" allow to combine several reducers
 export const rootReducer = combineReducers({
@@ -14,4 +15,5 @@ export const rootReducer = combineReducers({
   cart: cartReducer,
   modal: modalReducer,
   userInfo: exchangingUserInfoReducer,
+  socket: socketReducer,
 });

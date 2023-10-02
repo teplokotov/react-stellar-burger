@@ -32,7 +32,7 @@ function Home() {
 
       {/* Main block */}
       {
-        !isLoading && !hasError && data.length &&
+        !isLoading && !hasError && data.length > 0 &&
           (
             <DndProvider backend={HTML5Backend}>
               <BurgerIngredients />
