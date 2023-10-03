@@ -43,11 +43,11 @@ function App() {
       type: OPEN_MODAL,
       typeOfModal: 'ingredient',
     });
-    background?.pathname === '/feed/' && dispatch({
+    background?.pathname === '/feed/' && !isLoadingOrder && dispatch({
       type: OPEN_MODAL,
       typeOfModal: 'orderInfo',
     });
-  }, [background, dispatch]);
+  }, [background, dispatch, isLoadingOrder]);
 
   return (
     <div className={styles.app}>

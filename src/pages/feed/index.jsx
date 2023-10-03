@@ -1,34 +1,27 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './feed.module.css';
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { OPEN_MODAL } from '../../services/actions/modal';
-import { useNavigate, useLocation } from 'react-router-dom';
 import { connect, disconnect } from '../../services/actions/socket';
+import OrderBadge from '../../components/order-badge/order-badge';
+import { loadData } from '../../services/actions';
 
 function Feed() {
 
-  const location = useLocation();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
-  const { total, totalToday } = useSelector((store) => store.socket);
+  const { orders, total, totalToday } = useSelector((store) => store.socket);
+  const { data: ingredients } = useSelector((store) => store.data);
 
   React.useEffect(() => {
     dispatch(connect());
     return () => {
-      setTimeout(() => dispatch(disconnect()), 1000);
+      dispatch(disconnect());
     }
   },[dispatch]);
 
-  function handleOnClick() {
-    dispatch({
-      type: OPEN_MODAL,
-      typeOfModal: 'orderInfo',
-    });
-
-    navigate('/feed/' + 21890, {state: { background: location }});
-  }
+  React.useEffect(() => {
+    ingredients.length === 0 && dispatch(loadData());
+  },[dispatch, ingredients]);
 
   return (
     <main className={styles.main}>
@@ -38,37 +31,13 @@ function Feed() {
         {/* Orders area */}
         <section className={`${styles.ordersArea} custom-scroll mt-5`}>
           <ul className={`${styles.ordersList}`}>
-            <li className={`${styles.orderDetails}`} onClick={handleOnClick}>
-              <div className={`${styles.orderDetailsHeader}`}>
-                <p className="text text_type_digits-default">#034535</p>
-                <p className="text text_type_main-default text_color_inactive">Сегодня, 16:20 i-GMT+3</p>
-              </div>
-              <p className="text text_type_main-medium">Death Star Starship Main бургер</p>
-              <div className={`${styles.orderDetailsFooter}`}>
-                <ul className={`${styles.orderIngredients}`}>
-                  <li className={`${styles.orderIngredient}`} style={{zIndex: 6}}>
-                    <img className={`${styles.orderIngredientImage}`} src="https://code.s3.yandex.net/react/code/bun-01.png" alt="" />
-                  </li>
-                  <li className={`${styles.orderIngredient}`} style={{zIndex: 5}}>
-                    <img className={`${styles.orderIngredientImage}`} src="https://code.s3.yandex.net/react/code/bun-01.png" alt="" />
-                  </li>
-                  <li className={`${styles.orderIngredient}`} style={{zIndex: 4}}>
-                    <img className={`${styles.orderIngredientImage}`} src="https://code.s3.yandex.net/react/code/bun-01.png" alt="" />
-                  </li>
-                  <li className={`${styles.orderIngredient}`} style={{zIndex: 3}}>
-                    <img className={`${styles.orderIngredientImage}`} src="https://code.s3.yandex.net/react/code/bun-01.png" alt="" />
-                  </li>
-                  <li className={`${styles.orderIngredient}`} style={{zIndex: 2}}>
-                    <img className={`${styles.orderIngredientImage}`} src="https://code.s3.yandex.net/react/code/bun-01.png" alt="" />
-                  </li>
-                  <li className={`${styles.orderIngredient}`} style={{zIndex: 1}}>
-                    <img className={`${styles.orderIngredientImage}`} src="https://code.s3.yandex.net/react/code/bun-01.png" alt="" />
-                    <p className={`text text_type_main-default ${styles.orderIngredientCounter}`}>+3</p>
-                  </li>
-                </ul>
-                <p className={`${styles.orderDetailsPrice} text text_type_digits-default`}>480<CurrencyIcon type="primary" /></p>
-              </div>
-            </li>
+
+          {
+            orders.map((order) => (
+              <OrderBadge key={order._id} orderData={order} />
+            ))
+          }
+
           </ul>
         </section>
 
