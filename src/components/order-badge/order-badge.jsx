@@ -44,7 +44,6 @@ function OrderBadge({ orderData }) {
       <p className="text text_type_main-medium">{orderData.name}</p>
       <div className={`${styles.orderDetailsFooter}`}>
         <ul className={`${styles.orderIngredients}`}>
-
           {
             getUniqueIngredients(orderData.ingredients).map((ingredientId, index, arr) => {
               return index <= 5 && (
@@ -67,26 +66,6 @@ function OrderBadge({ orderData }) {
               )
             })
           }
-          {/* <li className={`${styles.orderIngredient}`} style={{zIndex: 6}}>
-            <img className={`${styles.orderIngredientImage}`} src="https://code.s3.yandex.net/react/code/bun-01.png" alt="" />
-          </li>
-          <li className={`${styles.orderIngredient}`} style={{zIndex: 5}}>
-            <img className={`${styles.orderIngredientImage}`} src="https://code.s3.yandex.net/react/code/bun-01.png" alt="" />
-          </li>
-          <li className={`${styles.orderIngredient}`} style={{zIndex: 4}}>
-            <img className={`${styles.orderIngredientImage}`} src="https://code.s3.yandex.net/react/code/bun-01.png" alt="" />
-          </li>
-          <li className={`${styles.orderIngredient}`} style={{zIndex: 3}}>
-            <img className={`${styles.orderIngredientImage}`} src="https://code.s3.yandex.net/react/code/bun-01.png" alt="" />
-          </li>
-          <li className={`${styles.orderIngredient}`} style={{zIndex: 2}}>
-            <img className={`${styles.orderIngredientImage}`} src="https://code.s3.yandex.net/react/code/bun-01.png" alt="" />
-          </li>
-          <li className={`${styles.orderIngredient}`} style={{zIndex: 1}}>
-            <img className={`${styles.orderIngredientImage}`} src="https://code.s3.yandex.net/react/code/bun-01.png" alt="" />
-            <p className={`text text_type_main-default ${styles.orderIngredientCounter}`}>+3</p>
-          </li> */}
-
         </ul>
         <p className={`${styles.orderDetailsPrice} text text_type_digits-default`}>{totalPrice}<CurrencyIcon type="primary" /></p>
       </div>

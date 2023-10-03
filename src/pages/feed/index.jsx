@@ -23,6 +23,14 @@ function Feed() {
     ingredients.length === 0 && dispatch(loadData());
   },[dispatch, ingredients]);
 
+  const ordersReady = React.useCallback(() => {
+    return orders.filter((order) => order.status === 'done').toSpliced(30, 20);
+  }, [orders]);
+
+  const ordersCooking = React.useCallback(() => {
+    return orders.filter((order) => order.status === 'pending').toSpliced(30, 20);
+  }, [orders]);
+
   return (
     <main className={styles.main}>
       <section className={`${styles.leftSection} pt-10`}>
@@ -48,35 +56,29 @@ function Feed() {
           <div className={`${styles.ordersNums}`}>
             <h2 className="text text_type_main-medium pb-6">Готовы:</h2>
             <ul className={`${styles.list} ${styles.list_colored}`}>
-              <li>
-                <p className="text text_type_digits-default">034533</p>
-              </li>
-              <li>
-                <p className="text text_type_digits-default">034532</p>
-              </li>
-              <li>
-                <p className="text text_type_digits-default">034530</p>
-              </li>
-              <li>
-                <p className="text text_type_digits-default">034527</p>
-              </li>
-              <li>
-                <p className="text text_type_digits-default">034525</p>
-              </li>
+              {
+                ordersReady().map((order, index) => {
+                  return (
+                    <li key={index}>
+                      <p className="text text_type_digits-default">{order.number}</p>
+                    </li>
+                  )
+                })
+              }
             </ul>
           </div>
           <div className={`${styles.ordersNums}`}>
             <h2 className="text text_type_main-medium pb-6">В работе:</h2>
             <ul className={`${styles.list}`}>
-              <li>
-                <p className="text text_type_digits-default">034538</p>
-              </li>
-              <li>
-                <p className="text text_type_digits-default">034541</p>
-              </li>
-              <li>
-                <p className="text text_type_digits-default">034542</p>
-              </li>
+              {
+                ordersCooking().map((order, index) => {
+                  return (
+                    <li key={index}>
+                      <p className="text text_type_digits-default">{order.number}</p>
+                    </li>
+                  )
+                })
+              }
             </ul>
           </div>
         </div>

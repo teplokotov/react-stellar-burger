@@ -54,6 +54,10 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-height: 241px;
 }
 
 .list_colored {
