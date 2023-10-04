@@ -13,30 +13,32 @@ function OrderInfoDetails({isModal}) {
   const dispatch = useDispatch();
 
   const { id: orderId } = useParams();
-  const { data: ingredients } = useSelector((store) => store.data);
-  const { orderInfo } = useSelector((store) => store.order);
+  const { data: ingredients, isLoading, hasError } = useSelector((store) => store.data);
+  const { orderInfo, isLoadingOrder } = useSelector((store) => store.order);
 
   const id = orderInfo.currentOrderID ? orderInfo.currentOrderID : orderId;
 
-  function getOrderIngredients() {
+  function getOrderIngredients(ingredients) {
     const uniqueIds = Array.from(new Set(orderInfo[0].ingredients));
     const result = { ids: [], total: 0 };
-    uniqueIds.forEach((id) => {
-      result['ids'][id] = {
-        'image': getProp(ingredients, id, 'image'),
-        'name': getProp(ingredients, id, 'name'),
-        'count': orderInfo[0].ingredients.reduce((acc, item) => acc += item === id ? 1 : 0, 0),
-        'price': getProp(ingredients, id, 'price'),
-      };
-    });
-    result['total'] = orderInfo[0].ingredients.reduce((acc, item) => acc += getProp(ingredients, item, 'price'), 0);
+    if(ingredients) {
+      uniqueIds.forEach((id) => {
+        result['ids'][id] = {
+          'image': getProp(ingredients, id, 'image'),
+          'name': getProp(ingredients, id, 'name'),
+          'count': orderInfo[0].ingredients.reduce((acc, item) => acc += item === id ? 1 : 0, 0),
+          'price': getProp(ingredients, id, 'price'),
+        };
+      });
+      result['total'] = orderInfo[0].ingredients.reduce((acc, item) => acc += getProp(ingredients, item, 'price'), 0);
+    }
     return result;
   };
 
   React.useEffect(() => {
-    !orderInfo[0] && dispatch(getOrderInfo(id));
+    !orderInfo[0] && !isLoadingOrder && dispatch(getOrderInfo(id));
     !orderInfo[0] && dispatch(loadData());
-  },[dispatch, id, orderInfo]);
+  },[dispatch, id, isLoadingOrder, orderInfo]);
 
   return orderInfo[0] && (
     <section className={`${styles.orderInfoSection}`}>
@@ -50,8 +52,9 @@ function OrderInfoDetails({isModal}) {
         <ul className={`${styles.ingredientsList}`}>
 
           {
-            Object.keys(getOrderIngredients().ids).map((key, index) => {
-              const item = getOrderIngredients().ids[key];
+            !isLoading && !hasError && ingredients.length > 0 &&
+            Object.keys(getOrderIngredients(ingredients).ids).map((key, index) => {
+              const item = getOrderIngredients(ingredients).ids[key];
               return (
                 <li key={index}>
                   <div className={`${styles.ingredient}`}>

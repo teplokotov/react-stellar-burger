@@ -1,11 +1,12 @@
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../services/actions/userInfo";
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import styles from './profile.module.css';
 
 function Profile() {
 
   const dispatch = useDispatch();
+  const location = useLocation();
 
   function logOut() {
     dispatch(logoutUser());
@@ -35,7 +36,10 @@ function Profile() {
             <Link onClick={logOut} className={inactiveLinkStyle}>Выход</Link>
           </li>
         </ul>
-        <p className={`${styles.caption} text text_type_main-default text_color_inactive pt-20`}>В этом разделе вы можете изменить свои персональные данные</p>
+        <p className={`${styles.caption} text text_type_main-default text_color_inactive pt-20`}>
+          {location.pathname === '/profile/' && 'В этом разделе вы можете изменить свои персональные данные'}
+          {location.pathname === '/profile/orders/' && 'В этом разделе вы можете просмотреть свою историю заказов'}
+        </p>
       </nav>
       <Outlet />
     </main>

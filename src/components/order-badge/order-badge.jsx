@@ -5,6 +5,7 @@ import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burge
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getProp } from '../../utils/utils';
 import { SET_CURRENT_ORDER_ID, getOrderInfo } from '../../services/actions/exchangingOrderDetails';
+import { orderStatuses } from '../../utils/constants';
 
 function OrderBadge({ orderData }) {
 
@@ -32,7 +33,7 @@ function OrderBadge({ orderData }) {
       currentOrderID: orderData.number,
     });
 
-    navigate('/feed/' + orderData.number, {state: { background: location }});
+    navigate(location.pathname + orderData.number, {state: { background: location }});
   }
 
   return (
@@ -41,7 +42,15 @@ function OrderBadge({ orderData }) {
         <p className="text text_type_digits-default">#{orderData.number}</p>
         <p className="text text_type_main-default text_color_inactive"><FormattedDate date={new Date(orderData.createdAt)} /></p>
       </div>
-      <p className="text text_type_main-medium">{orderData.name}</p>
+      <div>
+        <p className="text text_type_main-medium">{orderData.name}</p>
+        {
+          location.pathname.includes('profile') &&
+          <p className="text text_type_main-default pt-2"
+           style={{color: orderStatuses[orderData.status]['color']}}
+          >{orderStatuses[orderData.status]['text']}</p>
+        }
+      </div>
       <div className={`${styles.orderDetailsFooter}`}>
         <ul className={`${styles.orderIngredients}`}>
           {

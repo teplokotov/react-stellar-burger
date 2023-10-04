@@ -1,4 +1,5 @@
-import { wsURL } from "../../utils/constants";
+import { getUserInfoRequest } from "../../utils/api";
+import { APIconfig, wsURL } from "../../utils/constants";
 
 // Actions
 
@@ -28,6 +29,24 @@ export function connect() {
       type: ORDERS_WS_CONNECT,
       payload: `${wsURL}/orders/all`
     })
+  }
+};
+
+export function connectPrivate() {
+  const accessToken = localStorage.getItem("accessToken");
+  return function(dispatch) {
+    getUserInfoRequest(APIconfig, accessToken)
+      .then(data => {
+        if(data.success) {
+          dispatch({
+            type: ORDERS_WS_CONNECT,
+            payload: `${wsURL}/orders?token=${accessToken.split(' ')[1]}`
+          })
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 };
 

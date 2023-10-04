@@ -15,6 +15,7 @@ import UserForm from '../user-form/user-form';
 import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 import PreloaderOrder from '../preloader-order/preloader-order';
 import OrderInfoDetails from '../order-info-details/order-info-details';
+import OrdersHistory from '../orders-history/orders-history';
 
 // Pages
 import Home from '../../pages/home';
@@ -43,7 +44,7 @@ function App() {
       type: OPEN_MODAL,
       typeOfModal: 'ingredient',
     });
-    background?.pathname === '/feed/' && !isLoadingOrder && dispatch({
+    (background?.pathname === '/feed/' || background?.pathname === '/profile/orders/') && !isLoadingOrder && dispatch({
       type: OPEN_MODAL,
       typeOfModal: 'orderInfo',
     });
@@ -60,9 +61,9 @@ function App() {
         <Route path="/reset-password" element={<OnlyUnAuth component={<ResetPassword />} />} />
         <Route path="/profile" element={<OnlyAuth component={<Profile />} />} >
           <Route path="/profile/" element={<UserForm />} />
-          <Route path="/profile/orders" element={<>История заказов</>} />
-          <Route path="/profile/orders/:id" element={<>Описание заказа</>} />
+          <Route path="/profile/orders" element={<OrdersHistory />} />
         </Route>
+        <Route path="/profile/orders/:id" element={<OnlyAuth component={<OrderInfo />} />} />
         <Route path="/ingredients/:id" element={<Ingredient />} />
         <Route path="/feed" element={<Feed />} />
         <Route path="/feed/:id" element={<OrderInfo />} />
@@ -74,6 +75,9 @@ function App() {
           typeOfModal === 'ingredient' && <Modal><IngredientDetails /></ Modal>
         } />
         <Route path="/feed/:id" element={
+          typeOfModal === 'orderInfo' && <Modal><OrderInfoDetails isModal={true}/></ Modal>
+        } />
+        <Route path="/profile/orders/:id" element={
           typeOfModal === 'orderInfo' && <Modal><OrderInfoDetails isModal={true}/></ Modal>
         } />
       </Routes>}
