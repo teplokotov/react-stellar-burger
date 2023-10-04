@@ -7,6 +7,11 @@ import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burge
 import { getProp } from '../../utils/utils';
 import { loadData } from '../../services/actions';
 import { orderStatuses } from '../../utils/constants';
+import PropTypes from "prop-types";
+
+OrderInfoDetails.propTypes = {
+  isModal: PropTypes.bool.isRequired,
+};
 
 function OrderInfoDetails({isModal}) {
 

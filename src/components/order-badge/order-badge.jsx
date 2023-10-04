@@ -6,6 +6,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { getProp } from '../../utils/utils';
 import { SET_CURRENT_ORDER_ID, getOrderInfo } from '../../services/actions/exchangingOrderDetails';
 import { orderStatuses } from '../../utils/constants';
+import PropTypes from "prop-types";
+
+OrderBadge.propTypes = {
+  orderData: PropTypes.object.isRequired,
+};
 
 function OrderBadge({ orderData }) {
 
