@@ -83,7 +83,7 @@ function OrderInfoDetails({isModal}) {
           <FormattedDate date={new Date(orderInfo[0].createdAt)} />
         </p>
         <p className={`${styles.orderTotal} text text_type_digits-default`}>
-          {getOrderIngredients().total}<CurrencyIcon type="primary" />
+          {getOrderIngredients(ingredients).total}<CurrencyIcon type="primary" />
         </p>
       </div>
     </section>
