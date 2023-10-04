@@ -2,6 +2,16 @@
 - Проект Яндекс Практикума
 - Автор: Филипп Добриков, студент 23 когорты Web+
 - Результат: [Ссылка](https://teplokotov.github.io/react-stellar-burger/)
+## Этап 6: Создание ленты заказов
+### Описание
+- Отправлен на проверку 04.10.2023 / дедлайн 15.10.2023
+- Задание: [Ссылка](https://practicum.yandex.ru/learn/web-plus/courses/e582d61b-d35a-4f5e-8318-4edc3c968373/sprints/37364/topics/6f94cabd-953b-4814-ba98-29250394bbbf/lessons/7f59c435-66cc-4068-bf4d-4d96a3899820/)
+- Чеклист по самопроверке №9.2: [Ссылка](https://code.s3.yandex.net/web-plus/checklists/checklist_pdf/checklist_9-2.pdf)
+### Перечень работ
+- Добавлены страницы 'общая лента заказов' и 'лента заказов пользователя'
+- Добавлено информационное табло со статусами заказов и общая статистика заказов
+- Реализовано открытие информации о заказе как в модальном окне, так и отдельно на странице
+- Дополнены защищенные и незащищённые маршруты
 ## Этап 5: Роутинг и авторизация
 ### Описание
 - Отправлен на проверку 20.09.2023 / дедлайн 15.10.2023
@@ -14,7 +24,7 @@
 - Реализован выход из системы
 - Указаны защищенные и незащищённые маршруты
 - Подсвечены ссылки текущего нахождения пользователя
-- Реализовано открытие информации об ингредиенте как модальном окне, так и отдельно на странице
+- Реализовано открытие информации об ингредиенте как в модальном окне, так и отдельно на странице
 ## Этап 4: Практика Redux и React DND
 ### Описание
 - Отправлен на проверку 23.08.2023 / дедлайн 03.09.2023
@@ -72,13 +82,16 @@
 - PerfectPixel by WellDoneCode
 - TinyPNG
 - Postman
-- React 17 CRA + JSX
+- React 18.2 CRA + JSX
+- REST API
+- WebSocket API
 - [prop-types](https://www.npmjs.com/package/prop-types)
 - [redux](https://www.npmjs.com/package/redux)
 - [react-redux](https://www.npmjs.com/package/react-redux)
 - [redux-thunk](https://www.npmjs.com/package/redux-thunk)
 - [react-dnd](https://www.npmjs.com/package/react-dnd)
 - [react-dnd-html5-backend](https://www.npmjs.com/package/react-dnd-html5-backend)
+- [React Router 6.15](https://www.npmjs.com/package/react-router-dom)
 - [uuid](https://www.npmjs.com/package/uuid)
 - [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
 - [React Developer Burger UI Components](https://yandex-practicum.github.io/react-developer-burger-ui-components/docs/)
