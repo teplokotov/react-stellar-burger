@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './orders-history.module.css';
 import { connectPrivate, disconnect } from '../../services/actions/socket';
-import OrderBadge from '../../components/order-badge/order-badge';
+import OrderBadge from '../order-badge/order-badge';
 import { loadData } from '../../services/actions';
 
 function OrdersHistory() {

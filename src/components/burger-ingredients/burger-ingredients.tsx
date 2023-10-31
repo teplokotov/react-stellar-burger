@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from "react-redux";
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import IngredientsGroup from '../burger-ingredients/ingredients-group/ingredients-group';
+import IngredientsGroup from './ingredients-group/ingredients-group';
 import { ingredientsTypes } from '../../utils/constants';
 
 function BurgerIngredients() {
