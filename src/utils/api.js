@@ -116,3 +116,12 @@ export function sendUserInfoRequest(config, accessToken, email, name, password) 
     )
   });
 }
+
+export function getOrderInfoRequest(config, numOfOrder) {
+  return _request(`${config.baseUrl}/orders/${numOfOrder}`, {
+    method: 'GET',
+    headers: {
+      ...config.headers
+    }
+  });
+}

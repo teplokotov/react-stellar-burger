@@ -1,0 +1,65 @@
+.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 60px;
+}
+
+.leftSection {
+  width: 100%;
+  max-width: 600px;
+}
+
+.ordersArea {
+  max-height: calc(100vh - 188px);
+  overflow-y: auto;
+}
+
+.ordersArea::-webkit-scrollbar-track {
+  margin-bottom: 52px;
+}
+
+.ordersList {
+  box-sizing: border-box;
+  list-style: none;
+  margin: 0;
+  padding: 0 8px 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 584px;
+}
+
+.rightSection {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  width: 100%;
+  max-width: 580px;
+}
+
+.statuses {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 36px;
+}
+
+.ordersNums {
+  width: 100%;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-height: 241px;
+}
+
+.list_colored {
+  color: #00CCCC;
+}

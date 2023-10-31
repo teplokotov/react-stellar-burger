@@ -14,6 +14,8 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import UserForm from '../user-form/user-form';
 import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 import PreloaderOrder from '../preloader-order/preloader-order';
+import OrderInfoDetails from '../order-info-details/order-info-details';
+import OrdersHistory from '../orders-history/orders-history';
 
 // Pages
 import Home from '../../pages/home';
@@ -24,6 +26,8 @@ import ResetPassword from '../../pages/reset-password';
 import Profile from '../../pages/profile';
 import NotFound404 from '../../pages/not-found-404';
 import Ingredient from '../../pages/ingredient/ingredient';
+import Feed from '../../pages/feed';
+import OrderInfo from '../../pages/orderInfo';
 
 function App() {
 
@@ -36,11 +40,15 @@ function App() {
 
   React.useEffect(() => {
     dispatch(checkUserAuth());
-    background && dispatch({
+    background?.pathname === '/' && dispatch({
       type: OPEN_MODAL,
       typeOfModal: 'ingredient',
     });
-  }, [background, dispatch]);
+    (background?.pathname === '/feed/' || background?.pathname === '/profile/orders/') && !isLoadingOrder && dispatch({
+      type: OPEN_MODAL,
+      typeOfModal: 'orderInfo',
+    });
+  }, [background, dispatch, isLoadingOrder]);
 
   return (
     <div className={styles.app}>
@@ -53,9 +61,12 @@ function App() {
         <Route path="/reset-password" element={<OnlyUnAuth component={<ResetPassword />} />} />
         <Route path="/profile" element={<OnlyAuth component={<Profile />} />} >
           <Route path="/profile/" element={<UserForm />} />
-          <Route path="/profile/orders" element={<>История заказов</>} />
+          <Route path="/profile/orders" element={<OrdersHistory />} />
         </Route>
+        <Route path="/profile/orders/:id" element={<OnlyAuth component={<OrderInfo />} />} />
         <Route path="/ingredients/:id" element={<Ingredient />} />
+        <Route path="/feed" element={<Feed />} />
+        <Route path="/feed/:id" element={<OrderInfo />} />
         <Route path="*" element={<NotFound404 />} />
       </Routes>
 
@@ -63,10 +74,16 @@ function App() {
         <Route path="/ingredients/:id" element={
           typeOfModal === 'ingredient' && <Modal><IngredientDetails /></ Modal>
         } />
+        <Route path="/feed/:id" element={
+          typeOfModal === 'orderInfo' && <Modal><OrderInfoDetails isModal={true}/></ Modal>
+        } />
+        <Route path="/profile/orders/:id" element={
+          typeOfModal === 'orderInfo' && <Modal><OrderInfoDetails isModal={true}/></ Modal>
+        } />
       </Routes>}
 
       {typeOfModal === 'order' && <Modal><OrderDetails/></ Modal>}
-      {isLoadingOrder && <PreloaderOrder />}
+      {isLoadingOrder && location.pathname === '/' && <PreloaderOrder />}
 
     </div>
   );

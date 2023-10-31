@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import { rootReducer } from './services/reducers';
 import thunk from 'redux-thunk';
 import {HashRouter as Router} from 'react-router-dom'; // Trick: HashRouter for deploying at gh-pages
+import { socketMiddleware, wsActions } from "./services/actions/socket";
 // import {BrowserRouter as Router} from 'react-router-dom';
 
 // Turn on Redux Devtools
@@ -16,8 +17,8 @@ const composeEnhancers =
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
     : compose;
 
-// Apply middleware "thunk"
-const enhancer = composeEnhancers(applyMiddleware(thunk));
+// Apply "thunk" and "socketMiddleware" middlewares
+const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware(wsActions)));
 
 // Store initialization with "reducers" and "enhancer".
 // "rootReducer" allow to combine several reducers

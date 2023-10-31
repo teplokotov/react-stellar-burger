@@ -5,7 +5,6 @@ import ingredientItemStyles from './ingredient-item.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingredientPropType } from '../../../utils/prop-types';
 import { SET_CURRENT_ID } from '../../../services/actions/currentId';
-import { OPEN_MODAL } from '../../../services/actions/modal';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 IngredientItem.propTypes = {
@@ -36,11 +35,6 @@ function IngredientItem({ ingredient }) {
     dispatch({
       type: SET_CURRENT_ID,
       payload: ingredient._id,
-    });
-
-    dispatch({
-      type: OPEN_MODAL,
-      typeOfModal: 'ingredient',
     });
 
     navigate('/ingredients/' + ingredient._id, {state: { background: location }});
