@@ -1,4 +1,5 @@
 import {
+  TCartActions,
   ADD_INGREDIENT_TO_CART,
   REMOVE_INGREDIENT_FROM_CART,
   ADD_BUN_TO_CART,
@@ -6,14 +7,21 @@ import {
   MOVE_INGREDIENT_INSIDE_CART
 } from "../actions/cart";
 
-const initialState = {
+type TInitialState = {
+  cart: {
+    bun: {} | null;
+    fillings: object[];
+  }
+};
+
+const initialState: TInitialState = {
   cart: {
     bun: null,
     fillings: [],
   },
 };
 
-export function cartReducer(state = initialState, action) {
+export function cartReducer(state = initialState, action: TCartActions): TInitialState {
   switch (action.type) {
     case ADD_INGREDIENT_TO_CART: {
       return {

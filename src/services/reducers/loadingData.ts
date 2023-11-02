@@ -2,15 +2,22 @@ import {
   GET_ITEMS_REQUEST,
   GET_ITEMS_SUCCESS,
   GET_ITEMS_FAILED,
+  TItemsActions,
 } from "../actions";
 
-const initialState = {
+type TInitialState = {
+  data: string[];
+  isLoading: boolean;
+  hasError: boolean;
+}
+
+const initialState: TInitialState = {
   data: [],
   isLoading: false,
   hasError: false,
 };
 
-export function loadingDataReducer(state = initialState, action) {
+export function loadingDataReducer(state = initialState, action: TItemsActions): TInitialState {
   switch (action.type) {
     case GET_ITEMS_REQUEST: {
       return {

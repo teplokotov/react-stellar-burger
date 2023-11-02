@@ -1,17 +1,30 @@
+import { Middleware } from "redux";
 import { getUserInfoRequest } from "../../utils/api";
 import { APIconfig, wsURL } from "../../utils/constants";
+import { AppDispatch, AppThunk, RootState } from "../types";
 
 // Actions
 
-export const ORDERS_WS_CONNECT = 'ORDERS_WS_CONNECT';
-export const ORDERS_WS_DISCONNECT = 'ORDERS_WS_DISCONNECT';
-export const ORDERS_WS_CONNECTING = 'ORDERS_WS_CONNECTING';
-export const ORDERS_WS_OPEN = 'ORDERS_WS_OPEN';
-export const ORDERS_WS_CLOSE = 'ORDERS_WS_CLOSE';
-export const ORDERS_WS_ERROR = 'ORDERS_WS_ERROR';
-export const ORDERS_WS_MESSAGE = 'ORDERS_WS_MESSAGE';
+export const ORDERS_WS_CONNECT: 'ORDERS_WS_CONNECT' = 'ORDERS_WS_CONNECT';
+export const ORDERS_WS_DISCONNECT: 'ORDERS_WS_DISCONNECT' = 'ORDERS_WS_DISCONNECT';
+export const ORDERS_WS_CONNECTING: 'ORDERS_WS_CONNECTING' = 'ORDERS_WS_CONNECTING';
+export const ORDERS_WS_OPEN: 'ORDERS_WS_OPEN' = 'ORDERS_WS_OPEN';
+export const ORDERS_WS_CLOSE: 'ORDERS_WS_CLOSE' = 'ORDERS_WS_CLOSE';
+export const ORDERS_WS_ERROR: 'ORDERS_WS_ERROR' = 'ORDERS_WS_ERROR';
+export const ORDERS_WS_MESSAGE: 'ORDERS_WS_MESSAGE' = 'ORDERS_WS_MESSAGE';
 
-export const wsActions = {
+type TWSActions = {
+  wsConnect: string;
+  wsSendMessage? : string;
+  wsDisconnect: string;
+  wsConnecting: string;
+  onOpen: string;
+  onClose: string;
+  onError: string;
+  onMessage: string;
+};
+
+export const wsActions: TWSActions = {
   wsConnect: ORDERS_WS_CONNECT,
   wsDisconnect: ORDERS_WS_DISCONNECT,
   wsConnecting: ORDERS_WS_CONNECTING,
@@ -21,10 +34,55 @@ export const wsActions = {
   onMessage: ORDERS_WS_MESSAGE
 }
 
+export interface IOrdersWSConnect {
+  readonly type: typeof ORDERS_WS_CONNECT;
+}
+
+export interface IOrdersWSDisconnect {
+  readonly type: typeof ORDERS_WS_DISCONNECT;
+}
+
+export interface IOrdersWSConnecting {
+  readonly type: typeof ORDERS_WS_CONNECTING;
+}
+
+export interface IOrdersWSOpen {
+  readonly type: typeof ORDERS_WS_OPEN;
+}
+
+export interface IOrdersWSClose {
+  readonly type: typeof ORDERS_WS_CLOSE;
+}
+
+export interface IOrdersWSError {
+  payload: {
+    connectingError: string;
+  };
+  readonly type: typeof ORDERS_WS_ERROR;
+}
+
+export interface IOrdersWSMessage {
+  readonly type: typeof ORDERS_WS_MESSAGE;
+  payload: {
+    orders: string[];
+    total: number;
+    totalToday: number;
+  };
+}
+
+export type TSocketActions =
+    IOrdersWSConnect
+  | IOrdersWSDisconnect
+  | IOrdersWSConnecting
+  | IOrdersWSOpen
+  | IOrdersWSClose
+  | IOrdersWSError
+  | IOrdersWSMessage;
+
 // Thunks
 
-export function connect() {
-  return function(dispatch) {
+export function connect(): AppThunk {
+  return function(dispatch: AppDispatch) {
     dispatch({
       type: ORDERS_WS_CONNECT,
       payload: `${wsURL}/orders/all`
@@ -32,12 +90,12 @@ export function connect() {
   }
 };
 
-export function connectPrivate() {
+export function connectPrivate(): AppThunk {
   const accessToken = localStorage.getItem("accessToken");
-  return function(dispatch) {
+  return function(dispatch: AppDispatch) {
     getUserInfoRequest(APIconfig, accessToken)
       .then(data => {
-        if(data.success) {
+        if(data.success && accessToken !== null) {
           dispatch({
             type: ORDERS_WS_CONNECT,
             payload: `${wsURL}/orders?token=${accessToken.split(' ')[1]}`
@@ -50,8 +108,8 @@ export function connectPrivate() {
   }
 };
 
-export function disconnect() {
-  return function(dispatch) {
+export function disconnect(): AppThunk {
+  return function(dispatch: AppDispatch) {
     dispatch({
       type: ORDERS_WS_DISCONNECT,
     })
@@ -60,9 +118,9 @@ export function disconnect() {
 
 // Middleware
 
-export function socketMiddleware(wsActions) {
+export function socketMiddleware(wsActions: TWSActions): Middleware<{}, RootState> {
   return store => {
-      let socket = null;
+      let socket: WebSocket | null;
 
       return next => action => {
           const { dispatch } = store;

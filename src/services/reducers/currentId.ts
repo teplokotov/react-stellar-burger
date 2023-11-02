@@ -1,12 +1,16 @@
 import {
-  SET_CURRENT_ID,
-} from "../actions/currentId";
+  SET_CURRENT_ID, TCurrentIdActions,
+} from '../actions/currentId';
 
-const initialState = {
+type TInitialState = {
+  currentId: '' | number;
+}
+
+const initialState: TInitialState = {
   currentId: '',
 };
 
-export function currentIdReducer(state = initialState, action) {
+export function currentIdReducer(state = initialState, action: TCurrentIdActions): TInitialState {
   switch (action.type) {
     case SET_CURRENT_ID: {
       return {

@@ -3,28 +3,12 @@ import ReactDOM from 'react-dom/client';
 import "./index.css";
 import App from "./components/app/app";
 import reportWebVitals from "./reportWebVitals";
-import { compose, legacy_createStore as createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import { rootReducer } from './services/reducers';
-import thunk from 'redux-thunk';
-import {HashRouter as Router} from 'react-router-dom'; // Trick: HashRouter for deploying at gh-pages
-import { socketMiddleware, wsActions } from "./services/actions/socket";
+import { HashRouter as Router } from 'react-router-dom'; // Trick: HashRouter for deploying at gh-pages
 // import {BrowserRouter as Router} from 'react-router-dom';
+import { store } from "./services/store";
 
-// Turn on Redux Devtools
-const composeEnhancers =
-  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
-    : compose;
-
-// Apply "thunk" and "socketMiddleware" middlewares
-const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware(wsActions)));
-
-// Store initialization with "reducers" and "enhancer".
-// "rootReducer" allow to combine several reducers
-const store = createStore(rootReducer, enhancer);
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 
 root.render(
   <React.StrictMode>

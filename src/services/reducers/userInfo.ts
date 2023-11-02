@@ -22,16 +22,24 @@ import {
   POST_SAVE_NEW_PASSWORD_REQUEST,
   POST_SAVE_NEW_PASSWORD_SUCCESS,
   POST_SAVE_NEW_PASSWORD_FAILED,
+  TUserInfoActions,
 } from "../actions/userInfo";
 
-const initialState = {
+type TInitialState = {
+  email: null | string;
+  firstname: null | string;
+  password: null | string;
+  isAuthChecked: boolean;
+}
+
+const initialState: TInitialState = {
   email: null,
   firstname: null,
   password: null,
   isAuthChecked: false,
 };
 
-export function exchangingUserInfoReducer(state = initialState, action) {
+export function exchangingUserInfoReducer(state = initialState, action: TUserInfoActions): TInitialState {
   switch (action.type) {
     case GET_USER_INFO_REQUEST: {
       return {
@@ -58,9 +66,6 @@ export function exchangingUserInfoReducer(state = initialState, action) {
     case PATCH_USER_INFO_SUCCESS: {
       return {
         ...state,
-        email: action.email,
-        firstname: action.firstname,
-        password: action.password
       };
     }
     case PATCH_USER_INFO_FAILED: {

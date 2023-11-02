@@ -5,10 +5,19 @@ import {
   GET_ORDER_INFO_REQUEST,
   GET_ORDER_INFO_SUCCESS,
   GET_ORDER_INFO_FAILED,
-  SET_CURRENT_ORDER_ID
+  SET_CURRENT_ORDER_ID,
+  TExchangingOrderDetailsActions
 } from "../actions/exchangingOrderDetails";
 
-const initialState = {
+type TInitialState = {
+  numOfOrder: null | number;
+  isLoading: boolean;
+  orderInfo: string[];
+  hasError: boolean;
+  currentOrderID: '' | number;
+};
+
+const initialState: TInitialState = {
   numOfOrder: null,
   isLoading: false,
   orderInfo: [],
@@ -16,7 +25,7 @@ const initialState = {
   currentOrderID: ''
 };
 
-export function exchangingOrderDetailsReducer(state = initialState, action) {
+export function exchangingOrderDetailsReducer(state = initialState, action: TExchangingOrderDetailsActions): TInitialState {
   switch (action.type) {
     case POST_ORDER_REQUEST: {
       return {

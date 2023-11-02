@@ -4,9 +4,18 @@ import {
   ORDERS_WS_CLOSE,
   ORDERS_WS_ERROR,
   ORDERS_WS_MESSAGE,
+  TSocketActions,
 } from '../actions/socket'
 
-const initialState = {
+type TInitialState = {
+  status: string;
+  connectingError: string;
+  orders: string[];
+  total: number;
+  totalToday: number;
+}
+
+const initialState: TInitialState = {
   status: 'OFFLINE',
   connectingError: '',
   orders: [],
@@ -14,7 +23,7 @@ const initialState = {
   totalToday: 0,
 };
 
-export function socketReducer(state = initialState, action) {
+export function socketReducer(state = initialState, action: TSocketActions): TInitialState {
   switch (action.type){
     case ORDERS_WS_CONNECTING:
         return {
