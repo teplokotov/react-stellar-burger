@@ -5,17 +5,18 @@ import { useParams } from 'react-router-dom';
 import OrderInfoDetails from '../../components/order-info-details/order-info-details';
 import { SET_CURRENT_ORDER_ID, getOrderInfo } from '../../services/actions/exchangingOrderDetails';
 import { loadData } from '../../services/actions';
+import { RootState } from '../../services/types';
 
 function OrderInfo() {
 
   const dispatch = useDispatch();
 
   const { id } = useParams();
-  const { data: ingredients } = useSelector((store) => store.data);
-  const { orderInfo, isLoading, hasError } = useSelector((store) => store.order);
+  const { data: ingredients } = useSelector((store: RootState) => store.data);
+  const { orderInfo, isLoading, hasError } = useSelector((store: RootState) => store.order);
 
   React.useEffect(() => {
-    dispatch(getOrderInfo(id));
+    dispatch(getOrderInfo(Number(id)));
     dispatch(loadData());
     dispatch({
       type: SET_CURRENT_ORDER_ID,

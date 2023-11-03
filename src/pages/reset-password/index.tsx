@@ -12,20 +12,17 @@ function ResetPassword() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [password, setPassword] = React.useState('');
-  const [code, setCode] = React.useState('');
+  const [password, setPassword] = React.useState<string>('');
+  const [code, setCode] = React.useState<string>('');
 
   const checkHasAccess = React.useCallback(() => {
     return location.state && location.state.hasAccess !== null ? location.state.hasAccess : false;
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
-  function onSubmit(e) {
+  function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    code && password && dispatch(saveNewPassword(password, code))
-      .then(() => {
-        navigate('/login');
-      });
+    code && password && dispatch(saveNewPassword(password, code)) && navigate('/login');
   }
 
   return (
@@ -46,6 +43,7 @@ function ResetPassword() {
                 placeholder="Введите новый пароль"
                 value={password}
                 name={'password'}
+                // @ts-ignore
                 errorText={'Минимальная длина пароля — 6 символов'}
               />
               <Input

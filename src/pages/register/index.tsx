@@ -9,11 +9,11 @@ function Register() {
 
   const dispatch = useDispatch();
 
-  const [firstname, setFirstname] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [firstname, setFirstname] = React.useState<string>('');
+  const [email, setEmail] = React.useState<string>('');
+  const [password, setPassword] = React.useState<string>('');
 
-  function onSubmit(e) {
+  function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     firstname && email && password && dispatch(registerUser(email, password, firstname));
   }
@@ -34,12 +34,14 @@ function Register() {
           value={email}
           name={'email'}
           isIcon={false}
+          // @ts-ignore
           errorText={'Исправьте ошибку в написании e-mail'}
         />
         <PasswordInput
           onChange={(e) => setPassword(e.target.value)}
           value={password}
           name={'password'}
+          // @ts-ignore
           errorText={'Минимальная длина пароля — 6 символов'}
         />
         <Button

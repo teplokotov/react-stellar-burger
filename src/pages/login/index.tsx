@@ -4,17 +4,18 @@ import { Link } from 'react-router-dom';
 import styles from './login.module.css';
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { loginUser } from "../../services/actions/userInfo";
+import { RootState } from "../../services/types";
 
 function Login() {
 
-  const emailAfterReset = useSelector((store) => store.userInfo.email);
+  const emailAfterReset = useSelector((store: RootState) => store.userInfo.email);
 
   const dispatch = useDispatch();
 
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [email, setEmail] = React.useState<string>('');
+  const [password, setPassword] = React.useState<string>('');
 
-  function onSubmit(e) {
+  function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     email && password && dispatch(loginUser(email, password));
   }
@@ -23,7 +24,7 @@ function Login() {
     if (emailAfterReset) {
       setEmail(emailAfterReset);
       const passwordInput = document.querySelector('input[name="password"]');
-      setTimeout(() => passwordInput.focus(), 0);
+      setTimeout(() => (passwordInput as HTMLElement)?.focus(), 0);
     }
   },[emailAfterReset]);
 
@@ -36,12 +37,14 @@ function Login() {
           value={email}
           name={'email'}
           isIcon={false}
+          // @ts-ignore
           errorText={'Исправьте ошибку в написании e-mail'}
         />
         <PasswordInput
           onChange={(e) => setPassword(e.target.value)}
           value={password}
           name={'password'}
+          // @ts-ignore
           errorText={'Минимальная длина пароля — 6 символов'}
         />
         <Button

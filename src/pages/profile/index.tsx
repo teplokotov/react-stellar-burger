@@ -33,7 +33,7 @@ function Profile() {
             >История заказов</NavLink>
           </li>
           <li>
-            <Link onClick={logOut} className={inactiveLinkStyle}>Выход</Link>
+            <Link to='/' onClick={logOut} className={inactiveLinkStyle}>Выход</Link>
           </li>
         </ul>
         <p className={`${styles.caption} text text_type_main-default text_color_inactive pt-20`}>

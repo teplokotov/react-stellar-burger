@@ -5,12 +5,13 @@ import { SET_CURRENT_ID } from '../../services/actions/currentId';
 import IngredientDetails from '../../components/ingredient-details/ingredient-details';
 import styles from './ingredient.module.css';
 import { useParams } from 'react-router-dom';
+import { RootState } from '../../services/types';
 
 function Ingredient() {
 
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { data, isLoading, hasError } = useSelector((store) => store.data);
+  const { data, isLoading, hasError } = useSelector((store: RootState) => store.data);
 
   const isFound = data.find((item) => item._id === id);
 

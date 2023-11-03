@@ -9,13 +9,16 @@ import { DndProvider } from 'react-dnd';
 // Components
 import BurgerConstructor from "../../components/burger-constructor/burger-constructor";
 import BurgerIngredients from "../../components/burger-ingredients/burger-ingredients";
+import { RootState } from '../../services/types';
 
 function Home() {
 
   const dispatch = useDispatch();
-  const { data, isLoading, hasError } = useSelector((store) => store.data);
+  const { data, isLoading, hasError } = useSelector((store: RootState) => store.data);
 
-  React.useEffect(() => dispatch(loadData()), [dispatch]);
+  React.useEffect(() => {
+    dispatch(loadData());
+  }, [dispatch]);
 
   return (
     <main className={styles.main}>

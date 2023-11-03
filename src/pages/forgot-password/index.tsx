@@ -5,15 +5,16 @@ import styles from './forgot-password.module.css';
 import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { resetPassword } from "../../services/actions/userInfo";
 import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../services/types";
 
 function ForgotPassword() {
 
   const dispatch = useDispatch();
 
-  const [email, setEmail] = React.useState('');
+  const [email, setEmail] = React.useState<string>('');
   const navigate = useNavigate();
 
-  const hasAccessToResetPassword = useSelector((store) => store.userInfo.email !== null);
+  const hasAccessToResetPassword = useSelector((store: RootState) => store.userInfo.email !== null);
 
   React.useEffect(() => {
     hasAccessToResetPassword && navigate('/reset-password', {
@@ -23,7 +24,7 @@ function ForgotPassword() {
   }, [hasAccessToResetPassword, navigate]);
 
 
-  function onSubmit(e) {
+  function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     email && dispatch(resetPassword(email));
   }
@@ -38,6 +39,7 @@ function ForgotPassword() {
           value={email}
           name={'email'}
           isIcon={false}
+          // @ts-ignore
           errorText={'Исправьте ошибку в написании e-mail'}
         />
         <Button

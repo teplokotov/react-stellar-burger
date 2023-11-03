@@ -10,7 +10,7 @@ import { orderStatuses } from '../../utils/constants';
 import { RootState, TIngredient } from '../../services/types';
 
 interface OrderInfoDetailsProps {
-  isModal: boolean;
+  isModal?: boolean;
 }
 
 function OrderInfoDetails({ isModal }: OrderInfoDetailsProps) {
