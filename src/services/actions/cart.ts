@@ -6,7 +6,7 @@ export const MOVE_INGREDIENT_INSIDE_CART: 'MOVE_INGREDIENT_INSIDE_CART' = "MOVE_
 
 export interface IAddIngredientToCartAction {
   uuid: string;
-  id: number;
+  id: string;
   readonly type: typeof ADD_INGREDIENT_TO_CART;
 }
 
@@ -17,7 +17,7 @@ export interface IRemoveIngredientFromCartAction {
 
 export interface IAddBunToCartAction {
   uuid: string;
-  id: number;
+  id: string;
   readonly type: typeof ADD_BUN_TO_CART;
 }
 

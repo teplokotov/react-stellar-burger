@@ -1,35 +1,35 @@
 import React from 'react';
 import { useDispatch } from "react-redux";
-import { useDrag, useDrop } from 'react-dnd'
+import { XYCoord, useDrag, useDrop } from 'react-dnd'
 import elementFillingStyles from './element-filling.module.css';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getProp } from '../../../utils/utils'
-import { ingredientPropType } from '../../../utils/prop-types';
 import { REMOVE_INGREDIENT_FROM_CART } from '../../../services/actions/cart';
-import PropTypes from "prop-types";
+import { TIngredient } from '../../../services/types';
 
-ElementFilling.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropType).isRequired,
-  id: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
-};
+interface IElementFillingProps {
+  ingredients: TIngredient[];
+  id: number;
+  index: number;
+  moveFilling: (dragIndex: number, hoverIndex: number) => void;
+}
 
-function ElementFilling({ ingredients, id, index, moveFilling }) {
+function ElementFilling({ ingredients, id, index, moveFilling }: IElementFillingProps) {
 
   const dispatch = useDispatch();
 
-  function removeFromCart(index) {
+  function removeFromCart(index: number) {
     dispatch({
       type: REMOVE_INGREDIENT_FROM_CART,
       index: index,
     });
   }
 
-  const ref = React.useRef(null);
+  const ref = React.useRef<HTMLLIElement>(null);
 
   const [, dropRef] = useDrop({
     accept: 'item',
-    hover(item, monitor) {
+    hover(item: { index: number}, monitor) {
       if (!ref.current) {
         return
       }
@@ -47,7 +47,7 @@ function ElementFilling({ ingredients, id, index, moveFilling }) {
       // Determine mouse position
       const clientOffset = monitor.getClientOffset();
       // Get pixels to the top
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
       // Dragging downwards
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return

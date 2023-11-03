@@ -4,22 +4,22 @@ import { createPortal } from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import modalStyles from './modal.module.css';
 import ModalOverlay from '../modal-overlay/modal-overlay'
-import PropTypes from "prop-types";
 import { CLOSE_MODAL } from '../../services/actions/modal';
 import { useNavigate, useParams } from 'react-router-dom';
+import { RootState } from '../../services/types';
 
-Modal.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+interface IModalProps {
+  children: React.ReactNode;
+}
 
-function Modal({ children }) {
+function Modal({ children }: IModalProps) {
 
   const { id } = useParams();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isHidden } = useSelector((store) => store.modal);
-  const { typeOfModal } = useSelector((store) => store.modal);
+  const { isHidden } = useSelector((store: RootState) => store.modal);
+  const { typeOfModal } = useSelector((store: RootState) => store.modal);
 
   function handleOnClose() {
     dispatch({ type: CLOSE_MODAL });
@@ -31,7 +31,7 @@ function Modal({ children }) {
   // Closing Modal window by pressing ESC
   React.useEffect(() => {
     if (isHidden) return; // When the popup is closed, it stops the effect (so as not to add a handler)
-    function pressEsc(e) {
+    function pressEsc(e: KeyboardEvent) {
       if(e.key === 'Escape') {
         dispatch({ type: CLOSE_MODAL });
         (typeOfModal === 'ingredient' || typeOfModal === 'orderInfo') && navigate(-1);
@@ -60,7 +60,7 @@ function Modal({ children }) {
         {children}
       </div>
     </>,
-    document.getElementById("modals")
+    document.getElementById("modals") as Element
   );
 };
 

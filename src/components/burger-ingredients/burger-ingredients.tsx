@@ -4,19 +4,20 @@ import burgerIngredientsStyles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsGroup from './ingredients-group/ingredients-group';
 import { ingredientsTypes } from '../../utils/constants';
+import { RootState } from '../../services/types';
 
 function BurgerIngredients() {
 
-  const { data: ingredients } = useSelector((store) => store.data);
+  const { data: ingredients } = useSelector((store: RootState) => store.data);
 
   // Initial state of tabs (Set first tab as active)
   const [current, setCurrent] = React.useState(Object.values(ingredientsTypes)[0]);
 
-  const [ingredientsGroups, setIngredientsGroups] = React.useState();
-  const [ingredientsArea, setIngredientsArea] = React.useState();
+  const [ingredientsGroups, setIngredientsGroups] = React.useState<NodeListOf<Element>>();
+  const [ingredientsArea, setIngredientsArea] = React.useState<Element | null>();
 
-  function scrollToHeading(id) {
-    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+  function scrollToHeading(id: string) {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   React.useEffect(() => {
@@ -26,13 +27,15 @@ function BurgerIngredients() {
     setIngredientsArea(ingredientsArea);
   },[]);
 
-  function changeActiveTab(sections) {
+  function changeActiveTab(sections: NodeListOf<Element>) {
     let currentSectionId = '';
     sections.forEach((section) => {
-      const ingredientsAreaOffsetTop = Math.ceil(ingredientsArea.getBoundingClientRect().top);
-      if (ingredientsArea.scrollTop >= section.offsetTop - ingredientsAreaOffsetTop) currentSectionId = section.id;
+      if(ingredientsArea) {
+        const ingredientsAreaOffsetTop = Math.ceil(ingredientsArea.getBoundingClientRect().top);
+        if (ingredientsArea.scrollTop >= (section as HTMLElement).offsetTop - ingredientsAreaOffsetTop) currentSectionId = section.id;
+      }
     });
-    setCurrent(ingredientsTypes[currentSectionId]);
+    setCurrent(ingredientsTypes[currentSectionId as keyof typeof ingredientsTypes]);
   }
 
   return (
@@ -43,7 +46,7 @@ function BurgerIngredients() {
       <div className={`${burgerIngredientsStyles.tabs} pt-5 pb-10`}>
         {
           Object.keys(ingredientsTypes).map((key, index) => {
-            const ingredientsType = ingredientsTypes[key];
+            const ingredientsType = ingredientsTypes[key as keyof typeof ingredientsTypes];
             return (
               <Tab key = {index}
                    value = {ingredientsType}
@@ -57,10 +60,10 @@ function BurgerIngredients() {
 
       {/* Ingredients area */}
       <section className={`${burgerIngredientsStyles.area} ingredientsArea custom-scroll`}
-               onScroll={() => changeActiveTab(ingredientsGroups)}>
+               onScroll={() => changeActiveTab(ingredientsGroups as NodeListOf<Element>)}>
         {
           Object.keys(ingredientsTypes).map((key, index) => {
-            const ingredientsType = ingredientsTypes[key];
+            const ingredientsType = ingredientsTypes[key as keyof typeof ingredientsTypes];
             const group = ingredients.filter((item) => item.type === key);
             return (
               <IngredientsGroup key = {index}

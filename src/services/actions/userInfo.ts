@@ -47,8 +47,8 @@ export interface IGetUserInfoRequest {
 }
 
 export interface IGetUserInfoSuccess {
-  firstname: string | null;
-  email: string | null;
+  firstname: string;
+  email: string;
   readonly type: typeof GET_USER_INFO_SUCCESS;
 }
 
@@ -82,8 +82,8 @@ export interface IPostLoginUserRequest {
 }
 
 export interface IPostLoginUserSuccess {
-  firstname: string | null;
-  email: string | null;
+  firstname: string;
+  email: string;
   readonly type: typeof POST_LOGIN_USER_SUCCESS;
 }
 
@@ -120,7 +120,7 @@ export interface IPostResetPasswordRequest {
 }
 
 export interface IPostResetPasswordSuccess {
-  email: string | null;
+  email: string;
   readonly type: typeof POST_RESET_PASSWORD_SUCCESS;
 }
 
@@ -189,7 +189,7 @@ export function getUserInfo(): AppThunk {
   };
 }
 
-export function sendUserInfo(email: string, password: string, name: string): AppThunk {
+export function sendUserInfo(email: string, password: string, name?: string): AppThunk {
   const accessToken = localStorage.getItem("accessToken");
   return function(dispatch: AppDispatch) {
     dispatch({ type: PATCH_USER_INFO_REQUEST });

@@ -1,6 +1,6 @@
 import { APIconfig } from "../../utils/constants";
 import { getIngredientsFromServer } from "../../utils/api";
-import { AppDispatch, AppThunk } from "../types";
+import { AppDispatch, AppThunk, TIngredient } from "../types";
 
 // Actions
 
@@ -13,7 +13,7 @@ export interface IGetItemsRequest {
 }
 
 export interface IGetItemsSuccess {
-  data: string[];
+  data: TIngredient[];
   readonly type: typeof GET_ITEMS_SUCCESS;
 }
 

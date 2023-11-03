@@ -6,27 +6,27 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { getProp } from '../../utils/utils';
 import { SET_CURRENT_ORDER_ID, getOrderInfo } from '../../services/actions/exchangingOrderDetails';
 import { orderStatuses } from '../../utils/constants';
-import PropTypes from "prop-types";
+import { RootState, TOrder } from '../../services/types';
 
-OrderBadge.propTypes = {
-  orderData: PropTypes.object.isRequired,
-};
+interface OrderBadgeProps {
+  orderData: TOrder;
+}
 
-function OrderBadge({ orderData }) {
+function OrderBadge({ orderData }: OrderBadgeProps) {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { data: ingredients } = useSelector((store) => store.data);
+  const { data: ingredients } = useSelector((store: RootState) => store.data);
 
-  const totalPrice = React.useMemo(() => {
+  const totalPrice = React.useMemo<number>(() => {
     return orderData.ingredients.reduce((acc, id) => {
       return orderData.ingredients.length > 0 ? acc + getProp(ingredients, id, 'price') : 0;
     }, 0);
   }, [ingredients, orderData.ingredients]);
 
-  function getUniqueIngredients(arr) {
+  function getUniqueIngredients(arr: string[]) {
     return Array.from(new Set(arr));
   };
 
@@ -52,8 +52,8 @@ function OrderBadge({ orderData }) {
         {
           location.pathname.includes('profile') &&
           <p className="text text_type_main-default pt-2"
-           style={{color: orderStatuses[orderData.status]['color']}}
-          >{orderStatuses[orderData.status]['text']}</p>
+           style={{color: orderStatuses[orderData.status as keyof typeof orderStatuses]['color']}}
+          >{orderStatuses[orderData.status as keyof typeof orderStatuses]['text']}</p>
         }
       </div>
       <div className={`${styles.orderDetailsFooter}`}>

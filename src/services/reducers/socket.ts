@@ -6,11 +6,12 @@ import {
   ORDERS_WS_MESSAGE,
   TSocketActions,
 } from '../actions/socket'
+import { TOrder } from '../types';
 
 type TInitialState = {
   status: string;
   connectingError: string;
-  orders: string[];
+  orders: TOrder[];
   total: number;
   totalToday: number;
 }

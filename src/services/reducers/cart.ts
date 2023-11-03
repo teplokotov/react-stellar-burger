@@ -9,8 +9,14 @@ import {
 
 type TInitialState = {
   cart: {
-    bun: {} | null;
-    fillings: object[];
+    bun: null | {
+      id: string,
+      uuid: string
+    };
+    fillings: {
+      id: string,
+      uuid: string
+    }[];
   }
 };
 

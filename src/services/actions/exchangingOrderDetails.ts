@@ -2,7 +2,7 @@ import { APIconfig } from "../../utils/constants";
 import { sendOrderToServer, getOrderInfoRequest } from "../../utils/api";
 import { OPEN_MODAL } from "./modal";
 import { CLEAR_CART } from "./cart";
-import { AppDispatch, AppThunk } from "../types";
+import { AppDispatch, AppThunk, TOrder } from "../types";
 
 // Actions
 
@@ -37,7 +37,7 @@ export interface IGetOrderInfoRequest {
 }
 
 export interface IGetOrderInfoSuccess {
-  orderInfo: string[];
+  orderInfo: TOrder[];
   isLoading: boolean;
   readonly type: typeof GET_ORDER_INFO_SUCCESS;
 }
@@ -48,7 +48,7 @@ export interface IGetOrderInfoFailed {
 }
 
 export interface ISetCurrentOrderId {
-  currentOrderID: number | "";
+  currentOrderID: string | "";
   readonly type: typeof SET_CURRENT_ORDER_ID;
 }
 

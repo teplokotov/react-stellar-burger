@@ -3,22 +3,22 @@ import { useDrop } from "react-dnd";
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import elementBunStyles from './element-bun.module.css';
 import { getProp } from '../../../utils/utils'
-import { ingredientPropType } from '../../../utils/prop-types';
-import PropTypes from "prop-types";
 import { ADD_BUN_TO_CART } from "../../../services/actions/cart";
+import { TIngredient } from "../../../services/types";
 
-ElementBun.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropType).isRequired,
-  position: PropTypes.string.isRequired,
-};
+interface IElementBunProps {
+  ingredients: TIngredient[];
+  id: string | null;
+  position: 'top' | 'bottom';
+}
 
-function ElementBun({ ingredients, id, position }) {
+function ElementBun({ ingredients, id, position }: IElementBunProps) {
 
   const dispatch = useDispatch();
 
   const [{ canDrop }, dropTarget] = useDrop({
     accept: 'bun',
-    drop(item) {
+    drop(item: { id: string }) {
       dispatch({
         type: ADD_BUN_TO_CART,
         id: item.id,

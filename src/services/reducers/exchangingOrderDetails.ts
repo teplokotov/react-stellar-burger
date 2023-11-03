@@ -8,13 +8,14 @@ import {
   SET_CURRENT_ORDER_ID,
   TExchangingOrderDetailsActions
 } from "../actions/exchangingOrderDetails";
+import { TOrder } from "../types";
 
 type TInitialState = {
   numOfOrder: null | number;
   isLoading: boolean;
-  orderInfo: string[];
+  orderInfo: TOrder[];
   hasError: boolean;
-  currentOrderID: '' | number;
+  currentOrderID: '' | string;
 };
 
 const initialState: TInitialState = {

@@ -2,11 +2,12 @@ import ingredientDetailsStyles from './ingredient-details.module.css';
 import { useSelector } from "react-redux";
 import { getIngredient } from '../../utils/utils';
 import { useParams } from 'react-router-dom';
+import { RootState } from '../../services/types';
 
 function IngredientDetails() {
 
-  const { data } = useSelector((store) => store.data);
-  const { currentId } = useSelector((store) => store.currentId);
+  const { data } = useSelector((store: RootState) => store.data);
+  const { currentId } = useSelector((store: RootState) => store.currentId);
   const { id } = useParams();
 
   const ingredientId = currentId ? currentId : id;

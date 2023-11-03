@@ -29,3 +29,30 @@ export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unk
 // https://sylhare.github.io/2022/08/03/React-and-redux.html
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+
+export type TIngredient = {
+  "_id": string;
+  "name": string;
+  "type": string;
+  "proteins": number;
+  "fat": number;
+  "carbohydrates": number;
+  "calories": number;
+  "price": number;
+  "image": string;
+  "image_mobile": string;
+  "image_large": string;
+  "__v": number;
+}
+
+export type TOrder = {
+  "createdAt": string;
+  "updatedAt": string;
+  "status": string;
+  "owner": string;
+  "name": string;
+  "number": number;
+  "ingredients": string[];
+  "_id": string;
+  "__v": number;
+}

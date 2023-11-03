@@ -4,13 +4,14 @@ import styles from './feed.module.css';
 import { connect, disconnect } from '../../services/actions/socket';
 import OrderBadge from '../../components/order-badge/order-badge';
 import { loadData } from '../../services/actions';
+import { RootState } from '../../services/types';
 
 function Feed() {
 
   const dispatch = useDispatch();
 
-  const { orders, total, totalToday } = useSelector((store) => store.socket);
-  const { data: ingredients } = useSelector((store) => store.data);
+  const { orders, total, totalToday } = useSelector((store: RootState) => store.socket);
+  const { data: ingredients } = useSelector((store: RootState) => store.data);
 
   React.useEffect(() => {
     dispatch(connect());

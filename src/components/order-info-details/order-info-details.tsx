@@ -7,28 +7,39 @@ import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burge
 import { getProp } from '../../utils/utils';
 import { loadData } from '../../services/actions';
 import { orderStatuses } from '../../utils/constants';
-import PropTypes from "prop-types";
+import { RootState, TIngredient } from '../../services/types';
 
-OrderInfoDetails.propTypes = {
-  isModal: PropTypes.bool.isRequired,
-};
+interface OrderInfoDetailsProps {
+  isModal: boolean;
+}
 
-function OrderInfoDetails({isModal}) {
+function OrderInfoDetails({ isModal }: OrderInfoDetailsProps) {
 
   const dispatch = useDispatch();
 
   const { id: orderId } = useParams();
-  const { data: ingredients, isLoading, hasError } = useSelector((store) => store.data);
-  const { orderInfo, isLoadingOrder } = useSelector((store) => store.order);
+  const { data: ingredients, isLoading, hasError } = useSelector((store: RootState) => store.data);
+  const { orderInfo, isLoading: isLoadingOrder } = useSelector((store: RootState) => store.order);
 
-  const id = orderInfo.currentOrderID ? orderInfo.currentOrderID : orderId;
+  // const id = orderInfo.currentOrderID ? orderInfo.currentOrderID : orderId;
+  const id = orderId;
 
-  function getOrderIngredients(ingredients) {
+  function getOrderIngredients(ingredients: TIngredient[]) {
     const uniqueIds = Array.from(new Set(orderInfo[0].ingredients));
-    const result = { ids: [], total: 0 };
+
+    const result: {
+      ids: {
+        'image': string;
+        'name': string;
+        'count': number;
+        'price': string;
+      }[];
+      total: number;
+    } = { ids: [], total: 0 };
+
     if(ingredients) {
       uniqueIds.forEach((id) => {
-        result['ids'][id] = {
+        result['ids'][Number(id)] = {
           'image': getProp(ingredients, id, 'image'),
           'name': getProp(ingredients, id, 'name'),
           'count': orderInfo[0].ingredients.reduce((acc, item) => acc += item === id ? 1 : 0, 0),
@@ -41,7 +52,7 @@ function OrderInfoDetails({isModal}) {
   };
 
   React.useEffect(() => {
-    !orderInfo[0] && !isLoadingOrder && dispatch(getOrderInfo(id));
+    !orderInfo[0] && !isLoadingOrder && dispatch(getOrderInfo(Number(id)));
     !orderInfo[0] && dispatch(loadData());
   },[dispatch, id, isLoadingOrder, orderInfo]);
 
@@ -50,8 +61,8 @@ function OrderInfoDetails({isModal}) {
       {!isModal && <p className={`${styles.orderNumber} text text_type_digits-default pb-5`}>#{orderInfo[0].number}</p>}
       <h1 className="text text_type_main-medium pt-5">{orderInfo[0].name}</h1>
       <p className="text text_type_main-default pt-3"
-          style={{color: orderStatuses[orderInfo[0].status]['color']}}
-      >{orderStatuses[orderInfo[0].status]['text']}</p>
+          style={{color: orderStatuses[orderInfo[0].status as keyof typeof orderStatuses]['color']}}
+      >{orderStatuses[orderInfo[0].status as keyof typeof orderStatuses]['text']}</p>
       <h2 className="text text_type_main-medium pt-15">Состав:</h2>
       <section className={`${styles.ingredientsArea} custom-scroll mt-6 pr-6`}>
         <ul className={`${styles.ingredientsList}`}>
@@ -59,7 +70,7 @@ function OrderInfoDetails({isModal}) {
           {
             !isLoading && !hasError && ingredients.length > 0 &&
             Object.keys(getOrderIngredients(ingredients).ids).map((key, index) => {
-              const item = getOrderIngredients(ingredients).ids[key];
+              const item = getOrderIngredients(ingredients).ids[Number(key)];
               return (
                 <li key={index}>
                   <div className={`${styles.ingredient}`}>

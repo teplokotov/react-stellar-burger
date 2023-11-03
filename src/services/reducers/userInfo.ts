@@ -26,16 +26,16 @@ import {
 } from "../actions/userInfo";
 
 type TInitialState = {
-  email: null | string;
-  firstname: null | string;
-  password: null | string;
+  email: string;
+  firstname: string;
+  password: string;
   isAuthChecked: boolean;
 }
 
 const initialState: TInitialState = {
-  email: null,
-  firstname: null,
-  password: null,
+  email: '',
+  firstname: '',
+  password: '',
   isAuthChecked: false,
 };
 
@@ -82,9 +82,9 @@ export function exchangingUserInfoReducer(state = initialState, action: TUserInf
     case RESET_USER_INFO: {
       return {
         ...state,
-        email: null,
-        firstname: null,
-        password: null,
+        email: '',
+        firstname: '',
+        password: '',
       };
     }
     case POST_LOGIN_USER_REQUEST: {

@@ -3,16 +3,20 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import appHeaderStyles from './app-header.module.css';
 import { Logo, Button, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
+type TIconTypes = 'secondary' | 'primary' | 'error' | 'success';
+type getStyleOfIconCallback = (url: string) => TIconTypes;
+type getStyleOfCallback = (url: string) => string;
+
 function AppHeader() {
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  const getStyleOfIcon = React.useCallback((url) => {
+  const getStyleOfIcon = React.useCallback<getStyleOfIconCallback>((url) => {
     return location.pathname === url ? 'primary' : 'secondary';
   }, [location]);
 
-  const getStyleOfText = React.useCallback((url) => {
+  const getStyleOfText = React.useCallback<getStyleOfCallback>((url) => {
     return location.pathname === url ? 'text_color_primary' : 'text_color_inactive';
   }, [location]);
 

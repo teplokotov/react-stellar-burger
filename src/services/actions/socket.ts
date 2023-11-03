@@ -1,7 +1,7 @@
 import { Middleware } from "redux";
 import { getUserInfoRequest } from "../../utils/api";
 import { APIconfig, wsURL } from "../../utils/constants";
-import { AppDispatch, AppThunk, RootState } from "../types";
+import { AppDispatch, AppThunk, RootState, TOrder } from "../types";
 
 // Actions
 
@@ -64,7 +64,7 @@ export interface IOrdersWSError {
 export interface IOrdersWSMessage {
   readonly type: typeof ORDERS_WS_MESSAGE;
   payload: {
-    orders: string[];
+    orders: TOrder[];
     total: number;
     totalToday: number;
   };

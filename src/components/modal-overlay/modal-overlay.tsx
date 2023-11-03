@@ -1,19 +1,19 @@
 import React from 'react';
 import modalOverlayStyles from './modal-overlay.module.css';
-import PropTypes from "prop-types";
 
-ModalOverlay.propTypes = {
-  isHidden: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-};
+interface ModalOverlayProps {
+  isHidden: boolean,
+  onClose: () => void,
+}
 
-function ModalOverlay({ isHidden, onClose }) {
+function ModalOverlay({ isHidden, onClose }: ModalOverlayProps) {
 
   // Closing Modal window by clicking on the overlay
   React.useEffect(() => {
     if (isHidden) return;
-    function clickOverlay(e) {
-      if(e.target.classList.contains(modalOverlayStyles.overlay)) onClose();
+    function clickOverlay(e: MouseEvent | TouchEvent) {
+      const el = e.target as Element;
+      if(el.classList.contains(modalOverlayStyles.overlay)) onClose();
     };
     document.addEventListener('click', clickOverlay);
     return () => {

@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './app.module.css';
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
+import { RootState } from '../../services/types';
 
 import { OPEN_MODAL } from '../../services/actions/modal';
 import { checkUserAuth } from '../../services/actions/userInfo';
@@ -35,8 +36,8 @@ function App() {
   const location = useLocation();
   const background = location.state && location.state.background;
 
-  const typeOfModal = useSelector((store) => store.modal.typeOfModal);
-  const isLoadingOrder = useSelector((store) => store.order.isLoading);
+  const typeOfModal = useSelector((store: RootState) => store.modal.typeOfModal);
+  const isLoadingOrder = useSelector((store: RootState) => store.order.isLoading);
 
   React.useEffect(() => {
     dispatch(checkUserAuth());

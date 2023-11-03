@@ -4,9 +4,10 @@ import {
   GET_ITEMS_FAILED,
   TItemsActions,
 } from "../actions";
+import { TIngredient } from "../types";
 
 type TInitialState = {
-  data: string[];
+  data: TIngredient[];
   isLoading: boolean;
   hasError: boolean;
 }
