@@ -67,7 +67,7 @@ export function postOrder(cart: string[]): AppThunk {
   const accessToken = localStorage.getItem("accessToken");
   return function(dispatch: AppDispatch) {
     dispatch({ type: POST_ORDER_REQUEST, isLoading: true });
-    sendOrderToServer(APIconfig, cart, accessToken)
+    accessToken && sendOrderToServer(APIconfig, cart, accessToken)
       .then(data => {
         if(data.success) {
           dispatch({ type: POST_ORDER_SUCCESS,

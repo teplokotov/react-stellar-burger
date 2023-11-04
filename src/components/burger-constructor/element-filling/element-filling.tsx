@@ -79,9 +79,9 @@ function ElementFilling({ ingredients, id, index, moveFilling }: IElementFilling
         style={{ opacity }}
     >
       <ConstructorElement
-        text={getProp(ingredients, id, 'name')}
-        price={getProp(ingredients, id, 'price')}
-        thumbnail={getProp(ingredients, id, 'image')}
+        text={String(getProp(ingredients, String(id), 'name'))}
+        price={Number(getProp(ingredients, String(id), 'price'))}
+        thumbnail={String(getProp(ingredients, String(id), 'image'))}
         handleClose={() => removeFromCart(index)}
       />
     </li>

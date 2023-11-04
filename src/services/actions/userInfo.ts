@@ -171,7 +171,7 @@ export function getUserInfo(): AppThunk {
   const accessToken = localStorage.getItem("accessToken");
   return function(dispatch: AppDispatch) {
     dispatch({ type: GET_USER_INFO_REQUEST });
-    return getUserInfoRequest(APIconfig, accessToken)
+    return accessToken && getUserInfoRequest(APIconfig, accessToken)
       .then(data => {
         if(data.success) {
           dispatch({
@@ -193,7 +193,7 @@ export function sendUserInfo(email: string, password: string, name?: string): Ap
   const accessToken = localStorage.getItem("accessToken");
   return function(dispatch: AppDispatch) {
     dispatch({ type: PATCH_USER_INFO_REQUEST });
-    return sendUserInfoRequest(APIconfig, accessToken, email, password, name)
+    return accessToken && sendUserInfoRequest(APIconfig, accessToken, email, password, name)
       .then(data => {
         if(data.success) {
           dispatch({ type: PATCH_USER_INFO_SUCCESS });
@@ -260,7 +260,7 @@ export function logoutUser(): AppThunk {
   const refreshToken = localStorage.getItem("refreshToken");
   return function(dispatch: AppDispatch) {
     dispatch({ type: POST_LOGOUT_USER_REQUEST });
-    getAccessToLogout(APIconfig, refreshToken)
+    refreshToken && getAccessToLogout(APIconfig, refreshToken)
       .then(data => {
         if(data.success) {
           dispatch({ type: POST_LOGOUT_USER_SUCCESS });

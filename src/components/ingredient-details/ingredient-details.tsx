@@ -11,10 +11,11 @@ function IngredientDetails() {
   const { id } = useParams();
 
   const ingredientId = currentId ? currentId : id;
-  const ingredient = getIngredient(data, ingredientId);
+  const ingredient = getIngredient(data, String(ingredientId));
 
-  return ingredient && (
-    <section className={`${ingredientDetailsStyles.section}`} aria-label='Пищевая ценность'>
+  return (
+    typeof ingredient !== 'undefined' ?
+      <section className={`${ingredientDetailsStyles.section}`} aria-label='Пищевая ценность'>
       <img className={ingredientDetailsStyles.image} src={ingredient.image_large} alt={ingredient.name} />
       <p className={`${ingredientDetailsStyles.name} text text_type_main-medium pt-4`}>{ingredient.name}</p>
       <ul className={`${ingredientDetailsStyles.foodValues} pt-8`}>
@@ -35,7 +36,7 @@ function IngredientDetails() {
           <p className="text text_type_digits-default text_color_inactive">{ingredient.carbohydrates}</p>
         </li>
       </ul>
-    </section>
+    </section> : <>Ингредиент не найден</>
   );
 }
 

@@ -93,7 +93,7 @@ export function connect(): AppThunk {
 export function connectPrivate(): AppThunk {
   const accessToken = localStorage.getItem("accessToken");
   return function(dispatch: AppDispatch) {
-    getUserInfoRequest(APIconfig, accessToken)
+    accessToken && getUserInfoRequest(APIconfig, accessToken)
       .then(data => {
         if(data.success && accessToken !== null) {
           dispatch({

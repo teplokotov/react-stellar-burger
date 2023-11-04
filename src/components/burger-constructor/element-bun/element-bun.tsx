@@ -37,8 +37,8 @@ function ElementBun({ ingredients, id, position }: IElementBunProps) {
               type={position}
               isLocked={true}
               text={`${getProp(ingredients, id, 'name')} ${position === 'top' ? '(верх)' : '(низ)'}`}
-              price={getProp(ingredients, id, 'price')}
-              thumbnail={getProp(ingredients, id, 'image')}
+              price={Number(getProp(ingredients, id, 'price'))}
+              thumbnail={String(getProp(ingredients, id, 'image'))}
             />
          </section> :
          <p ref={dropTarget}

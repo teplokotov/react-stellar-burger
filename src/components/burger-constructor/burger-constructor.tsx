@@ -31,7 +31,7 @@ function BurgerConstructor() {
 
   const totalPrice = React.useMemo(() => {
     return getFlatCart().reduce((acc, id) => {
-      return bun || fillings.length > 0 ? acc + getProp(ingredients, id, 'price') : 0;
+      return bun || fillings.length > 0 ? acc + Number(getProp(ingredients, id, 'price')) : 0;
     }, 0);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart]);

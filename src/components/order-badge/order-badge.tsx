@@ -22,7 +22,7 @@ function OrderBadge({ orderData }: OrderBadgeProps) {
 
   const totalPrice = React.useMemo<number>(() => {
     return orderData.ingredients.reduce((acc, id) => {
-      return orderData.ingredients.length > 0 ? acc + getProp(ingredients, id, 'price') : 0;
+      return orderData.ingredients.length > 0 ? acc + Number(getProp(ingredients, id, 'price')) : 0;
     }, 0);
   }, [ingredients, orderData.ingredients]);
 
@@ -68,8 +68,8 @@ function OrderBadge({ orderData }: OrderBadgeProps) {
                 >
                   <img
                     className={`${styles.orderIngredientImage}`}
-                    src={getProp(ingredients, ingredientId, 'image')}
-                    alt={getProp(ingredients, ingredientId, 'name')} />
+                    src={String(getProp(ingredients, ingredientId, 'image'))}
+                    alt={String(getProp(ingredients, ingredientId, 'name'))} />
                   {
                     index === 5 &&
                       <p className={`text text_type_main-default ${styles.orderIngredientCounter}`}>

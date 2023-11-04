@@ -40,13 +40,13 @@ function OrderInfoDetails({ isModal }: OrderInfoDetailsProps) {
     if(ingredients) {
       uniqueIds.forEach((id) => {
         result['ids'][Number(id)] = {
-          'image': getProp(ingredients, id, 'image'),
-          'name': getProp(ingredients, id, 'name'),
-          'count': orderInfo[0].ingredients.reduce((acc, item) => acc += item === id ? 1 : 0, 0),
-          'price': getProp(ingredients, id, 'price'),
+          'image': String(getProp(ingredients, id, 'image')),
+          'name': String(getProp(ingredients, id, 'name')),
+          'count': Number(orderInfo[0].ingredients.reduce((acc, item) => acc += item === id ? 1 : 0, 0)),
+          'price': String(getProp(ingredients, id, 'price')),
         };
       });
-      result['total'] = orderInfo[0].ingredients.reduce((acc, item) => acc += getProp(ingredients, item, 'price'), 0);
+      result['total'] = orderInfo[0].ingredients.reduce((acc, item) => acc += Number(getProp(ingredients, item, 'price')), 0);
     }
     return result;
   };
