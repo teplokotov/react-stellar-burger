@@ -29,17 +29,18 @@ function OrderInfoDetails({ isModal }: OrderInfoDetailsProps) {
 
     const result: {
       ids: {
+        [key: string] : {
         'image': string;
         'name': string;
         'count': number;
         'price': string;
-      }[];
+      }};
       total: number;
-    } = { ids: [], total: 0 };
+    } = { ids: {}, total: 0 };
 
     if(ingredients) {
       uniqueIds.forEach((id) => {
-        result['ids'][Number(id)] = {
+        result['ids'][id] = {
           'image': String(getProp(ingredients, id, 'image')),
           'name': String(getProp(ingredients, id, 'name')),
           'count': Number(orderInfo[0].ingredients.reduce((acc, item) => acc += item === id ? 1 : 0, 0)),
@@ -48,6 +49,7 @@ function OrderInfoDetails({ isModal }: OrderInfoDetailsProps) {
       });
       result['total'] = orderInfo[0].ingredients.reduce((acc, item) => acc += Number(getProp(ingredients, item, 'price')), 0);
     }
+    console.log(result);
     return result;
   };
 
@@ -70,7 +72,7 @@ function OrderInfoDetails({ isModal }: OrderInfoDetailsProps) {
           {
             !isLoading && !hasError && ingredients.length > 0 &&
             Object.keys(getOrderIngredients(ingredients).ids).map((key, index) => {
-              const item = getOrderIngredients(ingredients).ids[Number(key)];
+              const item = getOrderIngredients(ingredients).ids[key];
               return (
                 <li key={index}>
                   <div className={`${styles.ingredient}`}>

@@ -4,7 +4,7 @@ import styles from './feed.module.css';
 import { connect, disconnect } from '../../services/actions/socket';
 import OrderBadge from '../../components/order-badge/order-badge';
 import { loadData } from '../../services/actions';
-import { RootState } from '../../services/types';
+import { RootState, TOrder } from '../../services/types';
 
 function Feed() {
 
@@ -25,10 +25,12 @@ function Feed() {
   },[dispatch, ingredients]);
 
   const ordersReady = React.useCallback(() => {
+    // @ts-ignore
     return orders.filter((order) => order.status === 'done').toSpliced(30, 20);
   }, [orders]);
 
   const ordersCooking = React.useCallback(() => {
+    // @ts-ignore
     return orders.filter((order) => order.status === 'pending').toSpliced(30, 20);
   }, [orders]);
 
@@ -58,7 +60,7 @@ function Feed() {
             <h2 className="text text_type_main-medium pb-6">Готовы:</h2>
             <ul className={`${styles.list} ${styles.list_colored}`}>
               {
-                ordersReady().map((order, index) => {
+                ordersReady().map((order: TOrder, index: number) => {
                   return (
                     <li key={index}>
                       <p className="text text_type_digits-default">{order.number}</p>
@@ -72,7 +74,7 @@ function Feed() {
             <h2 className="text text_type_main-medium pb-6">В работе:</h2>
             <ul className={`${styles.list}`}>
               {
-                ordersCooking().map((order, index) => {
+                ordersCooking().map((order: TOrder, index: number) => {
                   return (
                     <li key={index}>
                       <p className="text text_type_digits-default">{order.number}</p>
