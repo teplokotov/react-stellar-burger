@@ -11,13 +11,13 @@ function UserForm() {
 
   const userInfo = useSelector((store: RootState) => store.userInfo);
 
-  const [isNameDisabled, setIsNameDisabled] = React.useState(true);
-  const [isEmailDisabled, setIsEmailDisabled] = React.useState(true);
-  const [isPasswordDisabled, setIsPasswordDisabled] = React.useState(true);
-  const [firstname, setFirstname] = React.useState(userInfo.firstname);
-  const [email, setEmail] = React.useState(userInfo.email);
-  const [password, setPassword] = React.useState('******');
-  const [isShowButtons, setIsShowButtons] = React.useState(false);
+  const [isNameDisabled, setIsNameDisabled] = React.useState<boolean>(true);
+  const [isEmailDisabled, setIsEmailDisabled] = React.useState<boolean>(true);
+  const [isPasswordDisabled, setIsPasswordDisabled] = React.useState<boolean>(true);
+  const [firstname, setFirstname] = React.useState<string>(userInfo.firstname);
+  const [email, setEmail] = React.useState<string>(userInfo.email);
+  const [password, setPassword] = React.useState<string>('******');
+  const [isShowButtons, setIsShowButtons] = React.useState<boolean>(false);
 
   const nameRef = React.useRef<HTMLInputElement>(null);
   const emailRef = React.useRef<HTMLInputElement>(null);
@@ -28,6 +28,8 @@ function UserForm() {
     password !== '******' ?
       dispatch(sendUserInfo(email, firstname, password)) :
       dispatch(sendUserInfo(email, firstname));
+      setIsShowButtons(false);
+      setPassword('******');
   }
 
   function onClickResetBtn() {

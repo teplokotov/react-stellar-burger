@@ -14,7 +14,7 @@ function ForgotPassword() {
   const [email, setEmail] = React.useState<string>('');
   const navigate = useNavigate();
 
-  const hasAccessToResetPassword = useSelector((store: RootState) => store.userInfo.email !== null);
+  const hasAccessToResetPassword = useSelector((store: RootState) => store.userInfo.email !== '');
 
   React.useEffect(() => {
     hasAccessToResetPassword && navigate('/reset-password', {

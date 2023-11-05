@@ -189,14 +189,19 @@ export function getUserInfo(): AppThunk {
   };
 }
 
-export function sendUserInfo(email: string, password: string, name?: string): AppThunk {
+export function sendUserInfo(email: string, name: string, password?: string): AppThunk {
   const accessToken = localStorage.getItem("accessToken");
   return function(dispatch: AppDispatch) {
     dispatch({ type: PATCH_USER_INFO_REQUEST });
-    return accessToken && sendUserInfoRequest(APIconfig, accessToken, email, password, name)
+    return accessToken && sendUserInfoRequest(APIconfig, accessToken, email, name, password)
       .then(data => {
         if(data.success) {
           dispatch({ type: PATCH_USER_INFO_SUCCESS });
+          dispatch({
+            type: GET_USER_INFO_SUCCESS,
+            email: data.user.email,
+            firstname: data.user.name
+          });
         }
         return data;
       })
@@ -285,6 +290,11 @@ export function registerUser(email: string, password: string, name: string): App
           dispatch({ type: POST_REGISTER_USER_SUCCESS });
           localStorage.setItem("refreshToken", data.refreshToken);
           localStorage.setItem("accessToken", data.accessToken);
+          dispatch({
+            type: POST_LOGIN_USER_SUCCESS,
+            email: data.user.email,
+            firstname: data.user.name
+          });
         }
       })
       .catch(err => {

@@ -49,7 +49,6 @@ function OrderInfoDetails({ isModal }: OrderInfoDetailsProps) {
       });
       result['total'] = orderInfo[0].ingredients.reduce((acc, item) => acc += Number(getProp(ingredients, item, 'price')), 0);
     }
-    console.log(result);
     return result;
   };
 

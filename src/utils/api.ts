@@ -47,6 +47,10 @@ interface IGetAccessToLogin {
 
 interface ISendRegistrationData {
   success: boolean;
+  user: {
+    email: string;
+    name: string;
+  };
   accessToken: string;
   refreshToken: string;
 }
@@ -176,7 +180,7 @@ export function getUserInfoRequest(config: TConfig, accessToken: string) {
   config);
 }
 
-export function sendUserInfoRequest(config: TConfig, accessToken: string, email: string, password: string, name?: string) {
+export function sendUserInfoRequest(config: TConfig, accessToken: string, email: string, name: string, password?: string) {
   return fetchWithRefresh(`${config.baseUrl}/auth/user`, {
     method: 'PATCH',
     headers: {

@@ -71,7 +71,7 @@ function OrderBadge({ orderData }: OrderBadgeProps) {
                     src={String(getProp(ingredients, ingredientId, 'image'))}
                     alt={String(getProp(ingredients, ingredientId, 'name'))} />
                   {
-                    index === 5 &&
+                    index === 5 && arr.length > 6 &&
                       <p className={`text text_type_main-default ${styles.orderIngredientCounter}`}>
                         +{arr.length - 6}
                       </p>
