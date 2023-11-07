@@ -34,14 +34,12 @@ function Register() {
           value={email}
           name={'email'}
           isIcon={false}
-          // @ts-ignore
           errorText={'Исправьте ошибку в написании e-mail'}
         />
         <PasswordInput
           onChange={(e) => setPassword(e.target.value)}
           value={password}
           name={'password'}
-          // @ts-ignore
           errorText={'Минимальная длина пароля — 6 символов'}
         />
         <Button

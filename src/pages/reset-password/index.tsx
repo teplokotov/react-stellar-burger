@@ -43,7 +43,6 @@ function ResetPassword() {
                 placeholder="Введите новый пароль"
                 value={password}
                 name={'password'}
-                // @ts-ignore
                 errorText={'Минимальная длина пароля — 6 символов'}
               />
               <Input

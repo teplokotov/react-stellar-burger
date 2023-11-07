@@ -25,13 +25,13 @@ function Feed() {
   },[dispatch, ingredients]);
 
   const ordersReady = React.useCallback(() => {
-    // @ts-ignore
-    return orders.filter((order) => order.status === 'done').toSpliced(30, 20);
+    const filtered = orders.filter((order) => order.status === 'done');
+    return filtered.splice(30, 20);
   }, [orders]);
 
   const ordersCooking = React.useCallback(() => {
-    // @ts-ignore
-    return orders.filter((order) => order.status === 'pending').toSpliced(30, 20);
+    const filtered = orders.filter((order) => order.status === 'pending');
+    return filtered.splice(30, 20);
   }, [orders]);
 
   return (

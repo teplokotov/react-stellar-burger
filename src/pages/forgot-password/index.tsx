@@ -39,7 +39,6 @@ function ForgotPassword() {
           value={email}
           name={'email'}
           isIcon={false}
-          // @ts-ignore
           errorText={'Исправьте ошибку в написании e-mail'}
         />
         <Button
