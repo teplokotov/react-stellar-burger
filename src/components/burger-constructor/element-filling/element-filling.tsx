@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from '../../../services/types';
 import { XYCoord, useDrag, useDrop } from 'react-dnd'
 import elementFillingStyles from './element-filling.module.css';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -16,7 +16,7 @@ interface IElementFillingProps {
 
 function ElementFilling({ ingredients, id, index, moveFilling }: IElementFillingProps) {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   function removeFromCart(index: number) {
     dispatch({

@@ -1,10 +1,11 @@
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../services/types";
 import { useDrop } from "react-dnd";
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import elementBunStyles from './element-bun.module.css';
 import { getProp } from '../../../utils/utils'
 import { ADD_BUN_TO_CART } from "../../../services/actions/cart";
 import { TIngredient } from "../../../services/types";
+import { v4 as uuidv4 } from 'uuid';
 
 interface IElementBunProps {
   ingredients: TIngredient[];
@@ -14,7 +15,7 @@ interface IElementBunProps {
 
 function ElementBun({ ingredients, id, position }: IElementBunProps) {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [{ canDrop }, dropTarget] = useDrop({
     accept: 'bun',
@@ -22,6 +23,7 @@ function ElementBun({ ingredients, id, position }: IElementBunProps) {
       dispatch({
         type: ADD_BUN_TO_CART,
         id: item.id,
+        uuid: uuidv4(),
       });
     },
     collect: monitor => ({

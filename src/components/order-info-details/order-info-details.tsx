@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../services/types';
 import styles from './order-info-details.module.css';
 import { useParams } from 'react-router-dom';
 import { getOrderInfo } from '../../services/actions/exchangingOrderDetails';
@@ -7,7 +7,7 @@ import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burge
 import { getProp } from '../../utils/utils';
 import { loadData } from '../../services/actions';
 import { orderStatuses } from '../../utils/constants';
-import { RootState, TIngredient } from '../../services/types';
+import { TIngredient } from '../../services/types';
 
 interface OrderInfoDetailsProps {
   isModal?: boolean;
@@ -15,13 +15,12 @@ interface OrderInfoDetailsProps {
 
 function OrderInfoDetails({ isModal }: OrderInfoDetailsProps) {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const { id: orderId } = useParams();
-  const { data: ingredients, isLoading, hasError } = useSelector((store: RootState) => store.data);
-  const { orderInfo, isLoading: isLoadingOrder } = useSelector((store: RootState) => store.order);
+  const { data: ingredients, isLoading, hasError } = useAppSelector((store) => store.data);
+  const { orderInfo, isLoading: isLoadingOrder } = useAppSelector((store) => store.order);
 
-  // const id = orderInfo.currentOrderID ? orderInfo.currentOrderID : orderId;
   const id = orderId;
 
   function getOrderIngredients(ingredients: TIngredient[]) {

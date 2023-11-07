@@ -3,7 +3,7 @@ import {
 } from '../actions/currentId';
 
 type TInitialState = {
-  currentId: '' | number;
+  currentId: '' | string;
 }
 
 const initialState: TInitialState = {

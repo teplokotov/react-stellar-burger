@@ -1,15 +1,14 @@
 import React from "react";
 import styles from './user-form.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../services/types";
 import { sendUserInfo } from "../../services/actions/userInfo";
-import { RootState } from "../../services/types";
 
 function UserForm() {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const userInfo = useSelector((store: RootState) => store.userInfo);
+  const userInfo = useAppSelector((store) => store.userInfo);
 
   const [isNameDisabled, setIsNameDisabled] = React.useState<boolean>(true);
   const [isEmailDisabled, setIsEmailDisabled] = React.useState<boolean>(true);

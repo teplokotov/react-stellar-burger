@@ -1,8 +1,7 @@
 import React from 'react';
 import styles from './app.module.css';
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from '../../services/types';
 import { Route, Routes, useLocation } from "react-router-dom";
-import { RootState } from '../../services/types';
 
 import { OPEN_MODAL } from '../../services/actions/modal';
 import { checkUserAuth } from '../../services/actions/userInfo';
@@ -32,12 +31,12 @@ import OrderInfo from '../../pages/orderInfo';
 
 function App() {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const background = location.state && location.state.background;
 
-  const typeOfModal = useSelector((store: RootState) => store.modal.typeOfModal);
-  const isLoadingOrder = useSelector((store: RootState) => store.order.isLoading);
+  const typeOfModal = useAppSelector((store) => store.modal.typeOfModal);
+  const isLoadingOrder = useAppSelector((store) => store.order.isLoading);
 
   React.useEffect(() => {
     dispatch(checkUserAuth());

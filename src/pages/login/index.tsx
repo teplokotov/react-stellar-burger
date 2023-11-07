@@ -1,16 +1,15 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../services/types";
 import { Link } from 'react-router-dom';
 import styles from './login.module.css';
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { loginUser } from "../../services/actions/userInfo";
-import { RootState } from "../../services/types";
 
 function Login() {
 
-  const emailAfterReset = useSelector((store: RootState) => store.userInfo.email);
+  const emailAfterReset = useAppSelector((store) => store.userInfo.email);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [email, setEmail] = React.useState<string>('');
   const [password, setPassword] = React.useState<string>('');

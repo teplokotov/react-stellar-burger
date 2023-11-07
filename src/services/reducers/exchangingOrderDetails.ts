@@ -15,7 +15,7 @@ type TInitialState = {
   isLoading: boolean;
   orderInfo: TOrder[];
   hasError: boolean;
-  currentOrderID: '' | string;
+  currentOrderID: null | number;
 };
 
 const initialState: TInitialState = {
@@ -23,7 +23,7 @@ const initialState: TInitialState = {
   isLoading: false,
   orderInfo: [],
   hasError: false,
-  currentOrderID: ''
+  currentOrderID: null
 };
 
 export function exchangingOrderDetailsReducer(state = initialState, action: TExchangingOrderDetailsActions): TInitialState {

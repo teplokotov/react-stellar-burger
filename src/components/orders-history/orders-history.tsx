@@ -1,17 +1,16 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../services/types';
 import styles from './orders-history.module.css';
 import { connectPrivate, disconnect } from '../../services/actions/socket';
 import OrderBadge from '../order-badge/order-badge';
 import { loadData } from '../../services/actions';
-import { RootState } from '../../services/types';
 
 function OrdersHistory() {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { orders } = useSelector((store: RootState) => store.socket);
-  const { data: ingredients } = useSelector((store: RootState) => store.data);
+  const { orders } = useAppSelector((store) => store.socket);
+  const { data: ingredients } = useAppSelector((store) => store.data);
 
   React.useEffect(() => {
     dispatch(connectPrivate());

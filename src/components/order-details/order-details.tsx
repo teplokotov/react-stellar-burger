@@ -1,11 +1,10 @@
-import { useSelector } from "react-redux";
+import { useAppSelector } from '../../services/types';
 import orderDetailsStyles from './order-details.module.css';
 import imgDone from '../../images/done.svg';
-import { RootState } from "../../services/types";
 
 function OrderDetails() {
 
-  const { numOfOrder } = useSelector((store: RootState) => store.order);
+  const { numOfOrder } = useAppSelector((store) => store.order);
 
   return (
     <section className={`${orderDetailsStyles.section} pt-4 pb-15`} aria-label='Информация о заказе'>

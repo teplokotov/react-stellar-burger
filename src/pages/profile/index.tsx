@@ -1,11 +1,11 @@
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../services/types";
 import { logoutUser } from "../../services/actions/userInfo";
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import styles from './profile.module.css';
 
 function Profile() {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
 
   function logOut() {

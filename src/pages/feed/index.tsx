@@ -1,17 +1,16 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../services/types';
 import styles from './feed.module.css';
 import { connect, disconnect } from '../../services/actions/socket';
 import OrderBadge from '../../components/order-badge/order-badge';
 import { loadData } from '../../services/actions';
-import { RootState, TOrder } from '../../services/types';
 
 function Feed() {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { orders, total, totalToday } = useSelector((store: RootState) => store.socket);
-  const { data: ingredients } = useSelector((store: RootState) => store.data);
+  const { orders, total, totalToday } = useAppSelector((store) => store.socket);
+  const { data: ingredients } = useAppSelector((store) => store.data);
 
   React.useEffect(() => {
     dispatch(connect());
@@ -60,7 +59,7 @@ function Feed() {
             <h2 className="text text_type_main-medium pb-6">Готовы:</h2>
             <ul className={`${styles.list} ${styles.list_colored}`}>
               {
-                ordersReady().map((order: TOrder, index: number) => {
+                ordersReady().map((order, index) => {
                   return (
                     <li key={index}>
                       <p className="text text_type_digits-default">{order.number}</p>
@@ -74,7 +73,7 @@ function Feed() {
             <h2 className="text text_type_main-medium pb-6">В работе:</h2>
             <ul className={`${styles.list}`}>
               {
-                ordersCooking().map((order: TOrder, index: number) => {
+                ordersCooking().map((order, index) => {
                   return (
                     <li key={index}>
                       <p className="text text_type_digits-default">{order.number}</p>

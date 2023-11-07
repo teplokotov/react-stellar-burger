@@ -4,17 +4,16 @@ import { Link } from 'react-router-dom';
 import styles from './forgot-password.module.css';
 import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { resetPassword } from "../../services/actions/userInfo";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../services/types";
+import { useAppDispatch, useAppSelector } from "../../services/types";
 
 function ForgotPassword() {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [email, setEmail] = React.useState<string>('');
   const navigate = useNavigate();
 
-  const hasAccessToResetPassword = useSelector((store: RootState) => store.userInfo.email !== '');
+  const hasAccessToResetPassword = useAppSelector((store) => store.userInfo.email !== '');
 
   React.useEffect(() => {
     hasAccessToResetPassword && navigate('/reset-password', {

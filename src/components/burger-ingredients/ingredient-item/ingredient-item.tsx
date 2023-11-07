@@ -1,11 +1,11 @@
 import React from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from '../../../services/types';
 import { useDrag } from "react-dnd";
 import ingredientItemStyles from './ingredient-item.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { SET_CURRENT_ID } from '../../../services/actions/currentId';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { RootState, TIngredient } from '../../../services/types';
+import { TIngredient } from '../../../services/types';
 
 interface IIngredientItemProps {
   ingredient: TIngredient;
@@ -15,8 +15,8 @@ function IngredientItem({ ingredient }: IIngredientItemProps) {
 
   const location = useLocation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { cart } = useSelector((store: RootState) => store.cart);
+  const dispatch = useAppDispatch();
+  const { cart } = useAppSelector((store) => store.cart);
 
   const [, dragRef] = useDrag({
       type: ingredient.type,

@@ -1,12 +1,12 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../services/types';
 import styles from './order-badge.module.css';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getProp } from '../../utils/utils';
 import { SET_CURRENT_ORDER_ID, getOrderInfo } from '../../services/actions/exchangingOrderDetails';
 import { orderStatuses } from '../../utils/constants';
-import { RootState, TOrder } from '../../services/types';
+import { TOrder } from '../../services/types';
 
 interface OrderBadgeProps {
   orderData: TOrder;
@@ -14,11 +14,11 @@ interface OrderBadgeProps {
 
 function OrderBadge({ orderData }: OrderBadgeProps) {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { data: ingredients } = useSelector((store: RootState) => store.data);
+  const { data: ingredients } = useAppSelector((store) => store.data);
 
   const totalPrice = React.useMemo<number>(() => {
     return orderData.ingredients.reduce((acc, id) => {

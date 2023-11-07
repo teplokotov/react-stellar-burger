@@ -1,12 +1,11 @@
 import React from 'react';
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from '../../services/types';
 import { createPortal } from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import modalStyles from './modal.module.css';
 import ModalOverlay from '../modal-overlay/modal-overlay'
 import { CLOSE_MODAL } from '../../services/actions/modal';
 import { useNavigate, useParams } from 'react-router-dom';
-import { RootState } from '../../services/types';
 
 interface IModalProps {
   children: React.ReactNode;
@@ -17,9 +16,9 @@ function Modal({ children }: IModalProps) {
   const { id } = useParams();
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { isHidden } = useSelector((store: RootState) => store.modal);
-  const { typeOfModal } = useSelector((store: RootState) => store.modal);
+  const dispatch = useAppDispatch();
+  const { isHidden } = useAppSelector((store) => store.modal);
+  const { typeOfModal } = useAppSelector((store) => store.modal);
 
   function handleOnClose() {
     dispatch({ type: CLOSE_MODAL });

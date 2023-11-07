@@ -1,23 +1,22 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../services/types';
 import { loadData } from '../../services/actions';
 import { SET_CURRENT_ID } from '../../services/actions/currentId';
 import IngredientDetails from '../../components/ingredient-details/ingredient-details';
 import styles from './ingredient.module.css';
 import { useParams } from 'react-router-dom';
-import { RootState } from '../../services/types';
 
 function Ingredient() {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { id } = useParams();
-  const { data, isLoading, hasError } = useSelector((store: RootState) => store.data);
+  const { data, isLoading, hasError } = useAppSelector((store) => store.data);
 
   const isFound = data.find((item) => item._id === id);
 
   React.useEffect(() => {
     dispatch(loadData());
-    dispatch({
+    id && dispatch({
       type: SET_CURRENT_ID,
       payload: id,
     });

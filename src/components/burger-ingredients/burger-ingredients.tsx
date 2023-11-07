@@ -1,14 +1,13 @@
 import React from 'react';
-import { useSelector } from "react-redux";
+import { useAppSelector } from '../../services/types';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsGroup from './ingredients-group/ingredients-group';
 import { ingredientsTypes } from '../../utils/constants';
-import { RootState } from '../../services/types';
 
 function BurgerIngredients() {
 
-  const { data: ingredients } = useSelector((store: RootState) => store.data);
+  const { data: ingredients } = useAppSelector((store) => store.data);
 
   // Initial state of tabs (Set first tab as active)
   const [current, setCurrent] = React.useState(Object.values(ingredientsTypes)[0]);

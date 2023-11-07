@@ -3,14 +3,14 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import styles from './reset-password.module.css';
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../services/types";
 import { saveNewPassword } from "../../services/actions/userInfo";
 
 function ResetPassword() {
 
   const location = useLocation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [password, setPassword] = React.useState<string>('');
   const [code, setCode] = React.useState<string>('');
@@ -22,7 +22,10 @@ function ResetPassword() {
 
   function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    code && password && dispatch(saveNewPassword(password, code)) && navigate('/login');
+    if(code && password) {
+      dispatch(saveNewPassword(password, code));
+      navigate('/login');
+    }
   }
 
   return (

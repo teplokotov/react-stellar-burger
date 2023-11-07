@@ -214,7 +214,7 @@ export function sendUserInfo(email: string, name: string, password?: string): Ap
 
 export function checkUserAuth(): AppThunk {
   const accessToken = localStorage.getItem("accessToken");
-  return function(dispatch: AppDispatch) {
+  return function(dispatch) {
     dispatch({ type: GET_USER_INFO_REQUEST });
     if (accessToken) {
       getUserInfoRequest(APIconfig, accessToken)

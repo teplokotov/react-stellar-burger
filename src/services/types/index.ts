@@ -3,6 +3,9 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { store } from "../store";
 import { rootReducer } from "../reducers";
 
+// 🤯 https://github.com/reduxjs/redux-thunk/issues/333#issuecomment-1109308664
+import type {} from "redux-thunk/extend-redux";
+
 import { TItemsActions } from '../actions/index';
 import { TCartActions } from '../actions/cart';
 import { TCurrentIdActions } from '../actions/currentId';

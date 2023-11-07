@@ -2,7 +2,7 @@ import { APIconfig } from "../../utils/constants";
 import { sendOrderToServer, getOrderInfoRequest } from "../../utils/api";
 import { OPEN_MODAL } from "./modal";
 import { CLEAR_CART } from "./cart";
-import { AppDispatch, AppThunk, TOrder } from "../types";
+import { AppThunk, TOrder } from "../types";
 
 // Actions
 
@@ -48,7 +48,7 @@ export interface IGetOrderInfoFailed {
 }
 
 export interface ISetCurrentOrderId {
-  currentOrderID: string | "";
+  currentOrderID: number | null;
   readonly type: typeof SET_CURRENT_ORDER_ID;
 }
 
@@ -65,7 +65,7 @@ export type TExchangingOrderDetailsActions =
 
 export function postOrder(cart: string[]): AppThunk {
   const accessToken = localStorage.getItem("accessToken");
-  return function(dispatch: AppDispatch) {
+  return function(dispatch) {
     dispatch({ type: POST_ORDER_REQUEST, isLoading: true });
     accessToken && sendOrderToServer(APIconfig, cart, accessToken)
       .then(data => {
@@ -86,7 +86,7 @@ export function postOrder(cart: string[]): AppThunk {
 }
 
 export function getOrderInfo(numOfOrder: number): AppThunk {
-  return function(dispatch: AppDispatch) {
+  return function(dispatch) {
     dispatch({ type: GET_ORDER_INFO_REQUEST, isLoading: true });
     getOrderInfoRequest(APIconfig, numOfOrder)
       .then(data => {

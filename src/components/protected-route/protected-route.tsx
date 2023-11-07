@@ -1,6 +1,5 @@
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../services/types";
 import { Navigate, useLocation } from "react-router-dom";
-import { RootState } from "../../services/types";
 
 interface IProtectedProps {
   onlyUnAuth?: boolean;
@@ -15,8 +14,8 @@ const Protected = ({ onlyUnAuth = false, component }: IProtectedProps) => {
   // isAuthChecked это флаг, показывающий что проверка токена произведена
   // при этом результат этой проверки не имеет значения, важно только,
   // что сам факт проверки имел место.
-  const isAuthChecked = useSelector((store: RootState) => store.userInfo.isAuthChecked);
-  const user = useSelector((store: RootState) => store.userInfo.firstname);
+  const isAuthChecked = useAppSelector((store) => store.userInfo.isAuthChecked);
+  const user = useAppSelector((store) => store.userInfo.firstname);
   const location = useLocation();
 
   if (!isAuthChecked) {

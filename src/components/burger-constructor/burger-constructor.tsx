@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from '../../services/types';
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from 'uuid';
 import burgerConstructorStyles from './burger-constructor.module.css';
@@ -11,16 +11,15 @@ import { getProp } from '../../utils/utils';
 import { ADD_INGREDIENT_TO_CART } from '../../services/actions/cart';
 import { MOVE_INGREDIENT_INSIDE_CART } from '../../services/actions/cart';
 import { useNavigate } from 'react-router-dom';
-import { RootState } from '../../services/types';
 
 function BurgerConstructor() {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { data: ingredients } = useSelector((store: RootState) => store.data);
-  const firstname = useSelector((store: RootState) => store.userInfo.firstname);
-  const { cart } = useSelector((store: RootState) => store.cart);
+  const { data: ingredients } = useAppSelector((store) => store.data);
+  const firstname = useAppSelector((store) => store.userInfo.firstname);
+  const { cart } = useAppSelector((store) => store.cart);
 
   const fillings = cart.fillings.map((item) => item.id);
   const bun = cart.bun ? cart.bun.id : null;
@@ -46,7 +45,7 @@ function BurgerConstructor() {
 
   const [{ canDrop }, dropTarget] = useDrop({
     accept: ['sauce', 'main'],
-    drop(item: { id: number }) {
+    drop(item: { id: string }) {
       dispatch({
         type: ADD_INGREDIENT_TO_CART,
         id: item.id,
