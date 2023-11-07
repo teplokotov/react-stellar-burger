@@ -43,7 +43,7 @@ function AppHeader() {
             </Button>
           </li>
         </ul>
-        <div className={appHeaderStyles.logo}>
+        <div className={appHeaderStyles.logo} onClick={() => navigate('/')}>
           <Logo />
         </div>
         <Button htmlType="button"
