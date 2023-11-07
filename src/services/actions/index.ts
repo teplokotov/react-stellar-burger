@@ -1,6 +1,6 @@
 import { APIconfig } from "../../utils/constants";
 import { getIngredientsFromServer } from "../../utils/api";
-import { AppDispatch, AppThunk, TIngredient } from "../types";
+import { AppThunk, TIngredient } from "../types";
 
 // Actions
 
@@ -29,7 +29,7 @@ export type TItemsActions =
 // Middlewares (thunks)
 
 export function loadData(): AppThunk {
-  return function(dispatch: AppDispatch) {
+  return function(dispatch) {
     dispatch({ type: GET_ITEMS_REQUEST });
     getIngredientsFromServer(APIconfig)
       .then(data => dispatch({ type: GET_ITEMS_SUCCESS, data: data.data }))

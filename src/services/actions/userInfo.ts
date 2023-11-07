@@ -169,7 +169,7 @@ export type TUserInfoActions =
 
 export function getUserInfo(): AppThunk {
   const accessToken = localStorage.getItem("accessToken");
-  return function(dispatch: AppDispatch) {
+  return function(dispatch) {
     dispatch({ type: GET_USER_INFO_REQUEST });
     return accessToken && getUserInfoRequest(APIconfig, accessToken)
       .then(data => {
@@ -191,7 +191,7 @@ export function getUserInfo(): AppThunk {
 
 export function sendUserInfo(email: string, name: string, password?: string): AppThunk {
   const accessToken = localStorage.getItem("accessToken");
-  return function(dispatch: AppDispatch) {
+  return function(dispatch) {
     dispatch({ type: PATCH_USER_INFO_REQUEST });
     return accessToken && sendUserInfoRequest(APIconfig, accessToken, email, name, password)
       .then(data => {
@@ -240,7 +240,7 @@ export function checkUserAuth(): AppThunk {
 };
 
 export function loginUser(email: string, password: string): AppThunk {
-  return function(dispatch: AppDispatch) {
+  return function(dispatch) {
     dispatch({ type: POST_LOGIN_USER_REQUEST });
     getAccessToLogin(APIconfig, email, password)
       .then(data => {
@@ -263,7 +263,7 @@ export function loginUser(email: string, password: string): AppThunk {
 
 export function logoutUser(): AppThunk {
   const refreshToken = localStorage.getItem("refreshToken");
-  return function(dispatch: AppDispatch) {
+  return function(dispatch) {
     dispatch({ type: POST_LOGOUT_USER_REQUEST });
     refreshToken && getAccessToLogout(APIconfig, refreshToken)
       .then(data => {
@@ -282,7 +282,7 @@ export function logoutUser(): AppThunk {
 }
 
 export function registerUser(email: string, password: string, name: string): AppThunk {
-  return function(dispatch: AppDispatch) {
+  return function(dispatch) {
     dispatch({ type: POST_REGISTER_USER_REQUEST });
     sendRegistrationData(APIconfig, email, password, name)
       .then(data => {
@@ -305,7 +305,7 @@ export function registerUser(email: string, password: string, name: string): App
 }
 
 export function resetPassword(email: string): AppThunk {
-  return function(dispatch: AppDispatch) {
+  return function(dispatch) {
     dispatch({ type: POST_RESET_PASSWORD_REQUEST });
     getAccessToResetPassword(APIconfig, email)
       .then(data => {
@@ -321,7 +321,7 @@ export function resetPassword(email: string): AppThunk {
 }
 
 export function saveNewPassword(password: string, token: string): AppThunk {
-  return function(dispatch: AppDispatch) {
+  return function(dispatch) {
     dispatch({ type: POST_SAVE_NEW_PASSWORD_REQUEST });
     return sendNewPassword(APIconfig, password, token)
       .then(data => {

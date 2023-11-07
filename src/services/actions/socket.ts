@@ -82,7 +82,7 @@ export type TSocketActions =
 // Thunks
 
 export function connect(): AppThunk {
-  return function(dispatch: AppDispatch) {
+  return function(dispatch) {
     dispatch({
       type: ORDERS_WS_CONNECT,
       payload: `${wsURL}/orders/all`
@@ -92,7 +92,7 @@ export function connect(): AppThunk {
 
 export function connectPrivate(): AppThunk {
   const accessToken = localStorage.getItem("accessToken");
-  return function(dispatch: AppDispatch) {
+  return function(dispatch) {
     accessToken && getUserInfoRequest(APIconfig, accessToken)
       .then(data => {
         if(data.success && accessToken !== null) {
@@ -109,7 +109,7 @@ export function connectPrivate(): AppThunk {
 };
 
 export function disconnect(): AppThunk {
-  return function(dispatch: AppDispatch) {
+  return function(dispatch) {
     dispatch({
       type: ORDERS_WS_DISCONNECT,
     })
