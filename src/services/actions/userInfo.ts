@@ -7,7 +7,7 @@ import { getUserInfoRequest,
          getAccessToResetPassword,
          sendNewPassword
 } from "../../utils/api";
-import { AppDispatch, AppThunk } from "../types";
+import { AppThunk } from "../types";
 
 // Actions
 

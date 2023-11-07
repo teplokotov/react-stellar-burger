@@ -28,6 +28,7 @@ import NotFound404 from '../../pages/not-found-404';
 import Ingredient from '../../pages/ingredient/ingredient';
 import Feed from '../../pages/feed';
 import OrderInfo from '../../pages/orderInfo';
+import { loadData } from '../../services/actions';
 
 function App() {
 
@@ -37,6 +38,10 @@ function App() {
 
   const typeOfModal = useAppSelector((store) => store.modal.typeOfModal);
   const isLoadingOrder = useAppSelector((store) => store.order.isLoading);
+
+  React.useEffect(() => {
+    dispatch(loadData());
+  },[dispatch]);
 
   React.useEffect(() => {
     dispatch(checkUserAuth());

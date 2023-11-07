@@ -1,7 +1,7 @@
 import { Middleware } from "redux";
 import { getUserInfoRequest } from "../../utils/api";
 import { APIconfig, wsURL } from "../../utils/constants";
-import { AppDispatch, AppThunk, RootState, TOrder } from "../types";
+import { AppThunk, RootState, TOrder } from "../types";
 
 // Actions
 

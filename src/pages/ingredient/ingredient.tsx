@@ -1,6 +1,5 @@
 import React from 'react'
 import { useAppDispatch, useAppSelector } from '../../services/types';
-import { loadData } from '../../services/actions';
 import { SET_CURRENT_ID } from '../../services/actions/currentId';
 import IngredientDetails from '../../components/ingredient-details/ingredient-details';
 import styles from './ingredient.module.css';
@@ -15,7 +14,6 @@ function Ingredient() {
   const isFound = data.find((item) => item._id === id);
 
   React.useEffect(() => {
-    dispatch(loadData());
     id && dispatch({
       type: SET_CURRENT_ID,
       payload: id,

@@ -1,8 +1,7 @@
 import React from 'react';
 import styles from './home.module.css';
 // Redux
-import { useAppDispatch, useAppSelector } from '../../services/types';
-import { loadData } from '../../services/actions';
+import { useAppSelector } from '../../services/types';
 // Drag & Drop
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
@@ -12,12 +11,7 @@ import BurgerIngredients from "../../components/burger-ingredients/burger-ingred
 
 function Home() {
 
-  const dispatch = useAppDispatch();
   const { data, isLoading, hasError } = useAppSelector((store) => store.data);
-
-  React.useEffect(() => {
-    dispatch(loadData());
-  }, [dispatch]);
 
   return (
     <main className={styles.main}>

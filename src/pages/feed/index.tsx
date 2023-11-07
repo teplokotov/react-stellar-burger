@@ -3,14 +3,12 @@ import { useAppDispatch, useAppSelector } from '../../services/types';
 import styles from './feed.module.css';
 import { connect, disconnect } from '../../services/actions/socket';
 import OrderBadge from '../../components/order-badge/order-badge';
-import { loadData } from '../../services/actions';
 
 function Feed() {
 
   const dispatch = useAppDispatch();
 
   const { orders, total, totalToday } = useAppSelector((store) => store.socket);
-  const { data: ingredients } = useAppSelector((store) => store.data);
 
   React.useEffect(() => {
     dispatch(connect());
@@ -18,10 +16,6 @@ function Feed() {
       dispatch(disconnect());
     }
   },[dispatch]);
-
-  React.useEffect(() => {
-    ingredients.length === 0 && dispatch(loadData());
-  },[dispatch, ingredients]);
 
   const ordersReady = React.useCallback(() => {
     const filtered = orders.filter((order) => order.status === 'done');

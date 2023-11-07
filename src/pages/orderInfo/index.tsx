@@ -4,7 +4,6 @@ import styles from './orderInfo.module.css';
 import { useParams } from 'react-router-dom';
 import OrderInfoDetails from '../../components/order-info-details/order-info-details';
 import { SET_CURRENT_ORDER_ID, getOrderInfo } from '../../services/actions/exchangingOrderDetails';
-import { loadData } from '../../services/actions';
 
 function OrderInfo() {
 
@@ -16,7 +15,6 @@ function OrderInfo() {
 
   React.useEffect(() => {
     dispatch(getOrderInfo(Number(id)));
-    dispatch(loadData());
     dispatch({
       type: SET_CURRENT_ORDER_ID,
       currentOrderID: Number(id),

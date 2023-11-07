@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom';
 import { getOrderInfo } from '../../services/actions/exchangingOrderDetails';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getProp } from '../../utils/utils';
-import { loadData } from '../../services/actions';
 import { orderStatuses } from '../../utils/constants';
 import { TIngredient } from '../../services/types';
 
@@ -53,7 +52,6 @@ function OrderInfoDetails({ isModal }: OrderInfoDetailsProps) {
 
   React.useEffect(() => {
     !orderInfo[0] && !isLoadingOrder && dispatch(getOrderInfo(Number(id)));
-    !orderInfo[0] && dispatch(loadData());
   },[dispatch, id, isLoadingOrder, orderInfo]);
 
   return orderInfo[0] && (
