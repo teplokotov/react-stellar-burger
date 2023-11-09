@@ -22,7 +22,7 @@ function Modal({ children }: IModalProps) {
 
   function handleOnClose() {
     dispatch({ type: CLOSE_MODAL });
-    (typeOfModal === 'ingredient' || typeOfModal === 'orderInfo') && navigate(-1);
+    navigate(-1);
   }
 
   const heading = typeOfModal === 'ingredient' ? 'Детали ингредиента' : '';
@@ -33,7 +33,7 @@ function Modal({ children }: IModalProps) {
     function pressEsc(e: KeyboardEvent) {
       if(e.key === 'Escape') {
         dispatch({ type: CLOSE_MODAL });
-        (typeOfModal === 'ingredient' || typeOfModal === 'orderInfo') && navigate(-1);
+        navigate(-1);
       };
     };
     document.addEventListener('keydown', pressEsc);
